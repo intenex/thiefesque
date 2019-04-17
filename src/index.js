@@ -1,0 +1,1 @@
+const Game = require('./game.js'); // amazing your webpack setup is working so great
