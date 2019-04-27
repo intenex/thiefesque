@@ -11,22 +11,35 @@ class Game {
 
     init() {
         document.body.appendChild(this.display.getContainer());
+        this._generateMap();
     }
 
     _generateMap() {
         const digger = new ROT.Map.Digger();
+        const freeCells = [];
 
         function digCallback(x, y, value) {
             if (value) { return; } // do not store walls
 
             const key = x + "," + y;
-            this.map[key] = "."; // ah if this is in strict mode this will be undefined gotcha if not strict mode it'll be on global or window or something right look into this more
+            freeCells.push(key);
+            this.map[key] = "."; // ahhh interesting this is basically saying map a dot to every square that isn't a wall interesting // ah if this is in strict mode this will be undefined gotcha if not strict mode it'll be on global or window or something right look into this more
         }
         digger.create(digCallback.bind(this)); // this should just generate the whole map amazing and store as keys strings of the location on the map "x,y" // damn the rot.js tutorial is great in explaining some basics of JS as it goes so cool
+        this._generateBoxes(freeCells);
+        this._drawWholeMap();
+    }
+
+    _generateBoxes(freeCells) {
+        for (let i=0; i < 10; i++) { // amazing right ten boxes so incredible man can't wait to do this thing holy cow
+            const index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
+            const key = freeCells.splice(index, 1)[0]; // ah yeah freeCells is an array storing all the keys, the random index gets you a number to be the starting index to look for in freeCells dope. THis is ten or fewer boxes since duplicates are possible here
+            this.map[key] = "*";
+        }
     }
 
     _drawWholeMap() {
-        for (const key in this.map) {
+        for (const key in this.map) { // iterates over every single key in the object this.map amazing
             const parts = key.split(","); // right keys are just x and y coordinates in a string joined with a ','
             const x = parseInt(parts[0]); // getting the actual x and y dope there should be an object deconstruction way of doing this I think pretty sure ah well
             const y = parseInt(parts[1]);
