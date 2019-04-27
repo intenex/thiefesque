@@ -1,9 +1,14 @@
-var Game = {
-    display: null,
-    init: function() {
-        this.display = new DeviceRotationRate.Display();
+import { Display } from 'rot-js';
+
+class Game {
+    constructor() {
+        this.display = null;
+    }
+
+    init() {
+        this.display = new Display(); // holy shit this works reading the source is always a winning strategy wow
         document.body.appendChild(this.display.getContainer());
     }
-};
+}
 
-module.exports = Game;
+export default Game;
