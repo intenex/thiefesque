@@ -6,7 +6,7 @@ import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that 
 class Game {
     constructor() {
         this.display = new ROT.Display(); // holy shit this works reading the source is always a winning strategy wow
-        this.map = {};
+        this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
     }
 
     init() {
@@ -22,7 +22,16 @@ class Game {
             const key = x + "," + y;
             this.map[key] = "."; // ah if this is in strict mode this will be undefined gotcha if not strict mode it'll be on global or window or something right look into this more
         }
-        digger.create(digCallback.bind(this));
+        digger.create(digCallback.bind(this)); // this should just generate the whole map amazing and store as keys strings of the location on the map "x,y" // damn the rot.js tutorial is great in explaining some basics of JS as it goes so cool
+    }
+
+    _drawWholeMap() {
+        for (const key in this.map) {
+            const parts = key.split(","); // right keys are just x and y coordinates in a string joined with a ','
+            const x = parseInt(parts[0]); // getting the actual x and y dope there should be an object deconstruction way of doing this I think pretty sure ah well
+            const y = parseInt(parts[1]);
+            this.display.draw(x, y, this.map[key]); // ah amazing the draw function takes in an x and y coordinate integer and the visual representation of each map tile is stored as the value to each key in the this.map POJO love it so lucky to be able to read all this and understand it can't wait to keep pushing with this holy shit it's awesome
+        }
     }
 }
 
