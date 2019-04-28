@@ -34,8 +34,8 @@ class Game {
         }
         digger.create(digCallback.bind(this)); // this should just generate the whole map amazing and store as keys strings of the location on the map "x,y" // damn the rot.js tutorial is great in explaining some basics of JS as it goes so cool
         this._generateBoxes(freeCells);
-        this._createPlayer(freeCells);
         this._drawWholeMap();
+        this._createPlayer(freeCells); // need to call this after the map is already drawn since this thing's initialization function is what draws it on the first rendition so fucking amazing
     }
 
     _generateBoxes(freeCells) {
