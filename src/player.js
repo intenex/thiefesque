@@ -35,6 +35,11 @@ class Player {
 
     const code = e.keyCode;
 
+    if (code === 13 || code === 32) { // enter or spacebar triggers checking a box to see if there's an anana --> oh brilliant so smart you can end the game with just Game.engine.lock(); man cannot WAIT to build this thing
+      this._checkBox();
+      return;
+    }
+
     if (!(code in keyMap)) { return; } // if the code key is not in the object keyMap then just return it invalid input
 
     const diff = ROT.DIRS[8][keyMap[code]]; // keying into the 8 key option of offsets love it this returns an array of two position offsets x and y
@@ -53,6 +58,8 @@ class Player {
     window.removeEventListener("keydown", this);
     this.game.engine.unlock();
   }
+
+
 }
 
 export default Player;

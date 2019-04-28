@@ -10,6 +10,7 @@ class Game {
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
         this.player = null; // fairly certain this is unnecessary but confirm later
         this.engine = null;
+        this.ananas = null;
     }
 
     init() {
@@ -42,7 +43,8 @@ class Game {
         for (let i=0; i < 10; i++) { // amazing right ten boxes so incredible man can't wait to do this thing holy cow
             const index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
             const key = freeCells.splice(index, 1)[0]; // ah yeah freeCells is an array storing all the keys, the random index gets you a number to be the starting index to look for in freeCells dope. THis is ten or fewer boxes since duplicates are possible here
-            this.map[key] = "*";
+            this.map[key] = "*"; // god damn the JS linter is so fucking good
+            if (!i) { this.ananas = key; } // right because 0 is falsey in JS amazing
         }
     }
 
