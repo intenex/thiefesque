@@ -1,4 +1,4 @@
-import * as ROT from 'rot-js';
+import { DIRS } from 'rot-js';
 
 class Player {
   constructor(x, y, game) {
@@ -6,6 +6,14 @@ class Player {
     this._y = y;
     this.game = game;
     this._draw();
+  }
+
+  getX() { // public reader methods needed for Pedro to know where the player is fantastic
+    return this._x;
+  }
+
+  getY() {
+    return this._y;
   }
 
   _draw() {
@@ -42,7 +50,7 @@ class Player {
 
     if (!(code in keyMap)) { return; } // if the code key is not in the object keyMap then just return it invalid input
 
-    const diff = ROT.DIRS[8][keyMap[code]]; // keying into the 8 key option of offsets love it this returns an array of two position offsets x and y
+    const diff = DIRS[8][keyMap[code]]; // keying into the 8 key option of offsets love it this returns an array of two position offsets x and y
     const newX = this._x + diff[0];
     const newY = this._y + diff[1];
 

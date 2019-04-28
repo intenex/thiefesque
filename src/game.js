@@ -3,6 +3,7 @@
 // const ROT = require('rot-js'); // old deprecated syntax love it
 import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that is necessary if things aren't named and there are multiple exports you have to name it yourself as an alias lucky to be able to just figure all this out as you go though for sure keep pushing at all of this for sure let's do this thing
 import Player from './player'; // holy jesus fuck it just automatically fucking imported this
+import Pedro from './pedro';
 
 class Game {
     constructor() {
@@ -18,6 +19,7 @@ class Game {
         this._generateMap();
         const scheduler = new ROT.Scheduler.Simple();
         scheduler.add(this.player, true);
+        scheduler.add(this.pedro, true); // amazing the engine will now go in turn of all the creatures in the scheduler totally incredible
         this.engine = new ROT.Engine(scheduler);
         this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
     }
@@ -36,7 +38,8 @@ class Game {
         digger.create(digCallback.bind(this)); // this should just generate the whole map amazing and store as keys strings of the location on the map "x,y" // damn the rot.js tutorial is great in explaining some basics of JS as it goes so cool
         this._generateBoxes(freeCells);
         this._drawWholeMap();
-        this._createPlayer(freeCells); // need to call this after the map is already drawn since this thing's initialization function is what draws it on the first rendition so fucking amazing
+        this.player = this._createBeing(Player, freeCells); // need to call this after the map is already drawn since this thing's initialization function is what draws it on the first rendition so fucking amazing
+        this.pedro = this._createBeing(Pedro, freeCells);
     }
 
     _generateBoxes(freeCells) {
@@ -48,13 +51,13 @@ class Game {
         }
     }
 
-    _createPlayer(freeCells) {
+    _createBeing(being, freeCells) {
         const index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
         const key = freeCells.splice(index, 1)[0];
         const parts = key.split(",");
         const x = parseInt(parts[0]);
         const y = parseInt(parts[1]);
-        this.player = new Player(x, y, this); // passing itself in as the game object right
+        return new being(x, y, this); // what the fuck can't believe you can literally just fucking reference the constructor function like this jesus so many cool things to learn // passing itself in as the game object right
     }
 
     _drawWholeMap() {
