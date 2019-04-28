@@ -8,12 +8,17 @@ class Game {
     constructor() {
         this.display = new ROT.Display(); // holy shit this works reading the source is always a winning strategy wow
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
-        this.player = null;
+        this.player = null; // fairly certain this is unnecessary but confirm later
+        this.engine = null;
     }
 
     init() {
         document.body.appendChild(this.display.getContainer());
         this._generateMap();
+        const scheduler = new ROT.Scheduler.Simple();
+        scheduler.add(this.player, true);
+        this.engine = new ROT.Engine(scheduler);
+        this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
     }
 
     _generateMap() {
