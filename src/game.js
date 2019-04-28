@@ -2,11 +2,13 @@
 // import { Display } from 'rot-js'; // object destructuring love it def keep getting way more into all of this for sure. Weird that you couldn't import an entire object like this though though this worked for specific imports
 // const ROT = require('rot-js'); // old deprecated syntax love it
 import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that is necessary if things aren't named and there are multiple exports you have to name it yourself as an alias lucky to be able to just figure all this out as you go though for sure keep pushing at all of this for sure let's do this thing
+import Player from './player'; // holy jesus fuck it just automatically fucking imported this
 
 class Game {
     constructor() {
         this.display = new ROT.Display(); // holy shit this works reading the source is always a winning strategy wow
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
+        this.player = null;
     }
 
     init() {
@@ -27,6 +29,7 @@ class Game {
         }
         digger.create(digCallback.bind(this)); // this should just generate the whole map amazing and store as keys strings of the location on the map "x,y" // damn the rot.js tutorial is great in explaining some basics of JS as it goes so cool
         this._generateBoxes(freeCells);
+        this._createPlayer(freeCells);
         this._drawWholeMap();
     }
 
@@ -36,6 +39,15 @@ class Game {
             const key = freeCells.splice(index, 1)[0]; // ah yeah freeCells is an array storing all the keys, the random index gets you a number to be the starting index to look for in freeCells dope. THis is ten or fewer boxes since duplicates are possible here
             this.map[key] = "*";
         }
+    }
+
+    _createPlayer(freeCells) {
+        const index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
+        const key = freeCells.splice(index, 1)[0];
+        const parts = key.split(",");
+        const x = parseInt(parts[0]);
+        const y = parseInt(parts[1]);
+        this.player = new Player(x, y, this); // passing itself in as the game object right
     }
 
     _drawWholeMap() {
