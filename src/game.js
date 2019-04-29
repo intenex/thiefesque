@@ -7,7 +7,7 @@ import Pedro from './pedro';
 
 class Game {
     constructor() {
-        this.display = new ROT.Display(); // holy shit this works reading the source is always a winning strategy wow
+        this.display = new ROT.Display({width: 80, height: 40}); // holy shit this works reading the source is always a winning strategy wow
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
         this.player = null; // fairly certain this is unnecessary but confirm later
         this.engine = null;
