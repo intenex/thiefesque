@@ -37,10 +37,14 @@ class Game {
         this.getDisplay().clear(); // because methods are private you only want to use the .getDisplay() hmm okay let's believe it for now and refactor
         // Update our current screen, notify it we entered and then render it
         this.currentScreen = screen;
-        if (this.currentScreen) { // right you can set it to null I suppose so check that it's not
+        if (this.currentScreen) { // wait why the fuck would screens be null check this later lol // right you can set it to null I suppose so check that it's not
             this.currentScreen.enter();
             this.currentScreen.render(this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
         }
+    }
+
+    bindEventToScreen(event) { // so lucky to really understand 'this' better now and scoping and all that in JS so lucky to really get JS and be writing it now man such a great language tbh lol can't fucking wait to do this all so lucky that Mai wants to learn how to code so fucking great
+        window.addEventListener(event, this.currentScreen); // short hand refactoring you can pass in an object and screens are objects with handleInput methods and it's passed the event yeah wow this is really poorly written lmao
     }
 
     _drawText() {
