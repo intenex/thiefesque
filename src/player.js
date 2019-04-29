@@ -17,7 +17,7 @@ class Player {
   }
 
   _draw() {
-    this.game.display.draw(this._x, this._y, "@", "#ff0"); // pretty amazing that you can draw colors like this so there's color support fantastic
+    this.game.getDisplay().draw(this._x, this._y, "@", "#ff0"); // pretty amazing that you can draw colors like this so there's color support fantastic
   }
 
   act() {
@@ -59,7 +59,7 @@ class Player {
 
     // the actual move consists of redrawing the old position and redrawing the new position love it
 
-    this.game.display.draw(this._x, this._y, this.game.map[this._x + "," + this._y]); // this redraws the tile the player is moving from (which hasn't been changed yet to the new X and Y coordinates) with the actual map tile from the stored map (currently either a . or a * for a box)
+    this.game.getDisplay().draw(this._x, this._y, this.game.map[this._x + "," + this._y]); // this redraws the tile the player is moving from (which hasn't been changed yet to the new X and Y coordinates) with the actual map tile from the stored map (currently either a . or a * for a box)
     this._x = newX;
     this._y = newY;
     this._draw();

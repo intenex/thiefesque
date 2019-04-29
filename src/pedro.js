@@ -9,7 +9,7 @@ class Pedro {
   }
 
   _draw() {
-    this.game.display.draw(this._x, this._y, "P", "red");
+    this.game.getDisplay().draw(this._x, this._y, "P", "red");
   }
 
   act() {
@@ -31,7 +31,7 @@ class Pedro {
       this.game.engine.lock();
       alert("Game over: you were captured by Pedro!");
     } else {
-      this.game.display.draw(this._x, this._y, this.game.map[this._x + "," + this._y]);
+      this.game.getDisplay().draw(this._x, this._y, this.game.map[this._x + "," + this._y]);
       this._x = path[0][0];
       this._y = path[0][1];
       this._draw();
