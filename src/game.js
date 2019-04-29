@@ -46,7 +46,7 @@ class Game {
                                                 255 - (i*10)]);
             const background = ROT.Color.toRGB([i*10, i*20, i*30]);
             const colors = `%c{${foreground}}%b{${background}}`;
-            this.display.drawText(30, 25+i, colors + "Hello, world!");
+            this.getDisplay().drawText(30, 25+i, colors + "Hello, world!");
         }
     }
 
@@ -91,7 +91,7 @@ class Game {
             const parts = key.split(","); // right keys are just x and y coordinates in a string joined with a ','
             const x = parseInt(parts[0]); // getting the actual x and y dope there should be an object deconstruction way of doing this I think pretty sure ah well
             const y = parseInt(parts[1]);
-            this.display.draw(x, y, this.map[key]); // ah amazing the draw function takes in an x and y coordinate integer and the visual representation of each map tile is stored as the value to each key in the this.map POJO love it so lucky to be able to read all this and understand it can't wait to keep pushing with this holy shit it's awesome
+            this.getDisplay().draw(x, y, this.map[key]); // ah amazing the draw function takes in an x and y coordinate integer and the visual representation of each map tile is stored as the value to each key in the this.map POJO love it so lucky to be able to read all this and understand it can't wait to keep pushing with this holy shit it's awesome
         }
     }
 }
