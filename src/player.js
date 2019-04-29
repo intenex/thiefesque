@@ -43,10 +43,11 @@ class Player {
 
     const code = e.keyCode;
 
-    if (code === 13 || code === 32) { // enter or spacebar triggers checking a box to see if there's an anana --> oh brilliant so smart you can end the game with just Game.engine.lock(); man cannot WAIT to build this thing
-      this._checkBox();
-      return;
-    }
+    // removing this functionality
+    // if (code === 13 || code === 32) { // enter or spacebar triggers checking a box to see if there's an anana --> oh brilliant so smart you can end the game with just Game.engine.lock(); man cannot WAIT to build this thing
+    //   this._checkBox();
+    //   return;
+    // }
 
     if (!(code in keyMap)) { return; } // if the code key is not in the object keyMap then just return it invalid input
 

@@ -17,13 +17,13 @@ class Game {
 
         document.body.appendChild(this.display.getContainer());
 
-        this.screens = { SCREENS.startScreen,
-                         SCREENS.playScreen,
-                         SCREENS.winScreen,
-                         SCREENS.loseScreen };
+        this.screens = { startScreen: SCREENS.startScreen, // interesting the shorthand doesn't work when importing from a namespaced constant but this does
+                         playScreen: SCREENS.playScreen,
+                         winScreen: SCREENS.winScreen,
+                         loseScreen: SCREENS.loseScreen };
 
-        this.screens.startScreen.handleInput = this.screens.startScreen.handleInput.bind(this);
-        this.screens.playScreen.handleInput = this.screens.startScreen.handleInput.bind(this);
+        this.screens.startScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this); // damn why doesn't this work hmmm
+        this.screens.playScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this);
 
         this.switchScreen(this.screens.startScreen);
 
