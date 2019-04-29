@@ -4,6 +4,7 @@
 import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that is necessary if things aren't named and there are multiple exports you have to name it yourself as an alias lucky to be able to just figure all this out as you go though for sure keep pushing at all of this for sure let's do this thing
 import Player from './player'; // holy jesus fuck it just automatically fucking imported this
 import Pedro from './pedro';
+import * as SCREENS from './screens';
 
 class Game {
     constructor() {
@@ -15,6 +16,17 @@ class Game {
         // this.ananas = null;
 
         document.body.appendChild(this.display.getContainer());
+
+        this.screens = { SCREENS.startScreen,
+                         SCREENS.playScreen,
+                         SCREENS.winScreen,
+                         SCREENS.loseScreen };
+
+        this.screens.startScreen.handleInput = this.screens.startScreen.handleInput.bind(this);
+        this.screens.playScreen.handleInput = this.screens.startScreen.handleInput.bind(this);
+
+        this.switchScreen(this.screens.startScreen);
+
         this._drawText();
         this._generateMap();
         const scheduler = new ROT.Scheduler.Simple();
