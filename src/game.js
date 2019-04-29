@@ -27,13 +27,13 @@ class Game {
 
         this.switchScreen(this.screens.startScreen);
 
-        this._drawText();
-        this._generateMap();
-        const scheduler = new ROT.Scheduler.Simple();
-        scheduler.add(this.player, true);
-        scheduler.add(this.pedro, true); // amazing the engine will now go in turn of all the creatures in the scheduler totally incredible
-        this.engine = new ROT.Engine(scheduler);
-        this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
+        // this._drawText();
+        // this._generateMap();
+        // const scheduler = new ROT.Scheduler.Simple();
+        // scheduler.add(this.player, true);
+        // scheduler.add(this.pedro, true); // amazing the engine will now go in turn of all the creatures in the scheduler totally incredible
+        // this.engine = new ROT.Engine(scheduler);
+        // this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
     }
 
     getDisplay() { // damn copy/paste keeps all the background color and all that totally amazing
