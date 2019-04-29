@@ -16,12 +16,26 @@ class Game {
 
     init() {
         document.body.appendChild(this.display.getContainer());
+        this._drawText();
         this._generateMap();
         const scheduler = new ROT.Scheduler.Simple();
         scheduler.add(this.player, true);
         scheduler.add(this.pedro, true); // amazing the engine will now go in turn of all the creatures in the scheduler totally incredible
         this.engine = new ROT.Engine(scheduler);
         this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
+    }
+
+    _drawText() {
+        for (let i = 0; i < 15; i++) {
+            // Calculate foreground color, getting progressively darker
+            // and the backgroudn color, getting progressively lighter so great
+            const foreground = ROT.Color.toRGB([255 - (i*20), // bc block scoped you can declare them all each time instead of having to do it once before the function love it if function scoped it wouldn't fly
+                                                255 - (i*20),
+                                                255 - (i*20)]);
+            const background = ROT.Color.toRGB([i*20, i*20, i*20]);
+            const colors = `%c{${foreground}}%b{${background}}`;
+            this.display.drawText(30, 25+i, colors + "Hello, world!");
+        }
     }
 
     _generateMap() {
