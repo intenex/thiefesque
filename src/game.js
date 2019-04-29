@@ -13,7 +13,7 @@ class Game {
         // this.player = null; // fairly certain this is unnecessary but confirm later
         // this.engine = null;
         // this.ananas = null;
-        
+
         document.body.appendChild(this.display.getContainer());
         this._drawText();
         this._generateMap();
@@ -26,6 +26,15 @@ class Game {
 
     getDisplay() {
         return this.display;
+    }
+
+    switchScreen(screen) {
+        // if there was a screen already present, call its exit function
+        if (this.currentScreen) { // shouldn't need to check if it's null because null is false a lot to improve here in this code but love it
+            this.currentScreen.exit();
+        }
+        // Clear the display
+        this.getDisplay().clear(); // because methods are private you only want to use the .getDisplay() hmm
     }
 
     _drawText() {
