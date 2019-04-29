@@ -34,7 +34,13 @@ class Game {
             this.currentScreen.exit();
         }
         // Clear the display
-        this.getDisplay().clear(); // because methods are private you only want to use the .getDisplay() hmm
+        this.getDisplay().clear(); // because methods are private you only want to use the .getDisplay() hmm okay let's believe it for now and refactor
+        // Update our current screen, notify it we entered and then render it
+        this.currentScreen = screen;
+        if (this.currentScreen) { // right you can set it to null I suppose so check that it's not
+            this.currentScreen.enter();
+            this.currentScreen.render(this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
+        }
     }
 
     _drawText() {
