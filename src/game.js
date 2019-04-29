@@ -5,6 +5,7 @@ import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that 
 import Player from './player'; // holy jesus fuck it just automatically fucking imported this
 import Pedro from './pedro';
 import * as SCREENS from './screens';
+import Glyph from './glyph';
 
 class Game {
     constructor() {
