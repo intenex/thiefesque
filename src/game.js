@@ -29,10 +29,10 @@ class Game {
         for (let i = 0; i < 15; i++) {
             // Calculate foreground color, getting progressively darker
             // and the backgroudn color, getting progressively lighter so great
-            const foreground = ROT.Color.toRGB([255 - (i*20), // bc block scoped you can declare them all each time instead of having to do it once before the function love it if function scoped it wouldn't fly
+            const foreground = ROT.Color.toRGB([255 - (i*0), // bc block scoped you can declare them all each time instead of having to do it once before the function love it if function scoped it wouldn't fly
                                                 255 - (i*20),
-                                                255 - (i*20)]);
-            const background = ROT.Color.toRGB([i*20, i*20, i*20]);
+                                                255 - (i*10)]);
+            const background = ROT.Color.toRGB([i*10, i*20, i*30]);
             const colors = `%c{${foreground}}%b{${background}}`;
             this.display.drawText(30, 25+i, colors + "Hello, world!");
         }
