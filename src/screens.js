@@ -27,7 +27,8 @@ startScreen.render = display => {
 
 // ah hmm bind this later to the actual game object try it lol that might just work
 // damn the problem is the binding isn't working here still hmm. but man everything else works incredible lol
-startScreen.handleEvent = e => { // okay triggering is working fine great
+// right fucking arrow functions have no scope and can't be bound god damn it lol
+startScreen.handleEvent = function(e) { // okay triggering is working fine great
   if (e.keyCode === 13 || e.keyCode === 32) {
     this.switchScreen(this.screens.playScreen);
   }
@@ -40,7 +41,7 @@ playScreen.render = display => {
   display.drawText(4, 6, "Press [Enter] to win, or [Esc] to lose!");
 };
 
-playScreen.handleEvent = e => {
+playScreen.handleEvent = function(e) {
   if (e.keyCode === 13 || e.keyCode === 32) { // this doesn't exist lol hmm look into this more
     this.switchScreen(this.screens.winScreen);
   } else if (e.keyCode === 27) { // ah that's nice shorthand for keycodes brilliant from ROT actually they don't work lol hilarious deprecated makes sense
