@@ -34,10 +34,6 @@ class Game {
         scheduler.add(this.pedro, true); // amazing the engine will now go in turn of all the creatures in the scheduler totally incredible
         this.engine = new ROT.Engine(scheduler);
         this.engine.start(); // oh wow this engine is fantastic basically rot's engine is turn based as is every roguelike it just appears that everyone acts all at the same time but really every character has a move on every turn and everything else is locked while a certain actor moves amazing. Any JS object with an 'act' method is an actor amazing
-        
-        window.addEventListener('keydown', this.currentScreen);
-        window.addEventListener('keyup', this.currentScreen);
-        window.addEventListener('keypress', this.currentScreen);
     }
 
     getDisplay() { // damn copy/paste keeps all the background color and all that totally amazing
@@ -47,6 +43,7 @@ class Game {
     switchScreen(screen) {
         // if there was a screen already present, call its exit function
         if (this.currentScreen) { // shouldn't need to check if it's null because null is false a lot to improve here in this code but love it
+            window.removeEventListener('keydown', this.currentScreen); // god damn it got it working correctly had to use your own logic lol thank god you get what's going on so you can do it so well
             this.currentScreen.exit();
         }
         // Clear the display
@@ -57,6 +54,7 @@ class Game {
             this.currentScreen.enter();
             this.currentScreen.render(this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
         }
+        window.addEventListener('keydown', this.currentScreen);
     }
 
     // must bind this to the right this in the constructor function (.bind(this)); so great to understand everything that's key for sure
