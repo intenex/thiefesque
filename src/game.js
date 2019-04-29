@@ -14,6 +14,10 @@ class Game {
         this.ananas = null;
     }
 
+    getDisplay() {
+        return this.display;
+    }
+
     init() {
         document.body.appendChild(this.display.getContainer());
         this._drawText();
