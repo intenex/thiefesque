@@ -97,7 +97,7 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
   }
 };
 
-playScreen.handleEvent = function(e) {
+playScreen.handleEvent = function(game, e) {
   switch(e.keyCode) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ROT.KEYS.VK_SPACE:
     case ROT.KEYS.VK_RETURN:
@@ -106,7 +106,17 @@ playScreen.handleEvent = function(e) {
     case ROT.KEYS.VK_ESCAPE:
       this.switchScreen(this.screens.loseScreen);
       break;
-    
+    case ROT.KEYS.VK_O:
+      this.screens.playScreen.move() // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
+
+      // keyMap[79] = 0; // the O key, the 8 keys are OP;/.,KI in that order
+      // keyMap[80] = 1; // P
+      // keyMap[186] = 2; // ;
+      // keyMap[191] = 3; // /
+      // keyMap[190] = 4; // .
+      // keyMap[188] = 5; // ,
+      // keyMap[75] = 6; // K
+      // keyMap[73] = 7; // I
   }
 };
 

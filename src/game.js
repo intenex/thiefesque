@@ -18,8 +18,8 @@ class Game {
                          winScreen: SCREENS.winScreen,
                          loseScreen: SCREENS.loseScreen };
 
-        this.screens.startScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this); // oh god damn it I think it's because they're fucking arrow functions lol // damn why doesn't this work hmmm
-        this.screens.playScreen.handleEvent = this.screens.playScreen.handleEvent.bind(this); // omfg yeah it was because of arrow functions now this is working just fine as you expected and binding like this is an actual design pattern fuck yeah
+        this.screens.startScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this.screens.startScreen, this); // fucking love it right pass in this as a first curried argument to the game object fucking love it and keep the this to the object itself this is better design // oh god damn it I think it's because they're fucking arrow functions lol // damn why doesn't this work hmmm
+        this.screens.playScreen.handleEvent = this.screens.playScreen.handleEvent.bind(this.screens.playScreen, this); // omfg yeah it was because of arrow functions now this is working just fine as you expected and binding like this is an actual design pattern fuck yeah
 
         this.switchScreen(this.screens.startScreen);
     }
