@@ -55,7 +55,7 @@ playScreen.enter = function() {
     }
   }
   // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
-  const generator = new ROT.Map.Digger(80, 24);
+  const generator = new ROT.Map.Digger(80, 80);
   const generatorCB = (x, y, v) => { // making this an arrow function so you don't have to bind the scope here it automatically should have access to the scope here love it
     if (v) { // if v is true, meaning 1, then this is a wall tile. The Map generators return 1 and 0 generally to distinguish these two characteristics
       map[x][y] = TILES.wallTile;
