@@ -51,8 +51,8 @@ playScreen.centerY = 0;
 playScreen.enter = function() {
   const map = [];
   // Create a map based on these size parameters fuck yeah
-  const mapWidth = 500;
-  const mapHeight = 500;
+  const mapWidth = 80;
+  const mapHeight = 40;
   for (let x = 0; x < mapWidth; x++) {
     // Create nested array for the y values
     map.push([]);
@@ -77,7 +77,9 @@ playScreen.enter = function() {
 playScreen.move = function(dX, dY) {
   // Positive dX is movement right
   // negative is movement left
-  this.
+  this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));  // returns the larger of either 0 or the current position --> ensures you can't go out of bounds basically
+
+
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
