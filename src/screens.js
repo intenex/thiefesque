@@ -98,10 +98,15 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
 };
 
 playScreen.handleEvent = function(e) {
-  if (e.keyCode === ROT.KEYS.VK_SPACE || e.keyCode === ROT.KEYS.VK_RETURN) { // this doesn't exist lol hmm look into this more
-    this.switchScreen(this.screens.winScreen);
-  } else if (e.keyCode === ROT.KEYS.VK_ESCAPE) { // ah that's nice shorthand for keycodes brilliant from ROT actually they don't work lol hilarious deprecated makes sense
-    this.switchScreen(this.screens.loseScreen);
+  switch(e.keyCode) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
+    case ROT.KEYS.VK_SPACE:
+    case ROT.KEYS.VK_RETURN:
+      this.switchScreen(this.screens.winScreen);
+      break;
+    case ROT.KEYS.VK_ESCAPE:
+      this.switchScreen(this.screens.loseScreen);
+      break;
+    
   }
 };
 
