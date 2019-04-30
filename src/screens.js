@@ -58,19 +58,29 @@ playScreen.enter = function() {
   const generator = new ROT.Map.Digger(80, 24);
   const freeCells = [];
   const generatorCB = (x, y, v) => { // making this an arrow function so you don't have to bind the scope here it automatically should have access to the scope here love it
-    if (v) { // if v is true, meaning 1, then this is a floor tile. The Map generators return 1 and 0 generally to distinguish these two characteristics
-      map[x][y] = TILES.floorTile;
-    } else { // if v is false, meaning 0 (since 0 equals false in JS lol), then this is a wall tile
+    if (v) { // if v is true, meaning 1, then this is a wall tile. The Map generators return 1 and 0 generally to distinguish these two characteristics
       map[x][y] = TILES.wallTile;
+    } else { // if v is false, meaning 0 (since 0 equals false in JS lol), then this is a floor tile
+      map[x][y] = TILES.floorTile;
     }
   };
   generator.create(generatorCB);
   this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
 };
 
-playScreen.render = display => {
-  display.drawText(3, 5, "%c{red}%b{white}This game is so much fun!");
-  display.drawText(4, 6, "Press [Enter] to win, or [Esc] to lose!");
+playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+  // Iterate through all map cells
+  for (let x = 0; x < this.map.getWidth(); x++) {
+    for (let y = 0; y < this.map.getHeight(); y++) {
+      // Fetch the glyph for the tile and render it to the screen so fucking great
+      const glyph = this.map.getTile(x, y).getGlyph(); // right this gets a Tile object and each of those has a getGlyph method amazing
+      display.draw(x, y, // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it
+          glyph.getChar(), // love semicolons letting you do things correctly on multiple lines passing in 5 arguments here to draw interesting can do it multiple ways it appears with the %c and %b and as just straight up arguments here hmm
+          glyph.getForeground(),
+          glyph.getBackground()
+      );
+    }
+  }
 };
 
 playScreen.handleEvent = function(e) {
