@@ -29,12 +29,14 @@ startScreen.render = display => {
 // damn the problem is the binding isn't working here still hmm. but man everything else works incredible lol
 // right fucking arrow functions have no scope and can't be bound god damn it lol
 startScreen.handleEvent = function(e) { // okay triggering is working fine great
-  if (e.keyCode === 13 || e.keyCode === 32) {
+  if (e.keyCode === ROT.KEYS.VK_SPACE || e.keyCode === ROT.KEYS.VK_RETURN) {
     this.switchScreen(this.screens.playScreen);
   }
 };
 
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
+
+// playScreen.map = null; // pretty sure unnecessary man JS is great
 
 playScreen.render = display => {
   display.drawText(3, 5, "%c{red}%b{white}This game is so much fun!");
@@ -42,9 +44,9 @@ playScreen.render = display => {
 };
 
 playScreen.handleEvent = function(e) {
-  if (e.keyCode === 13 || e.keyCode === 32) { // this doesn't exist lol hmm look into this more
+  if (e.keyCode === ROT.KEYS.VK_SPACE || e.keyCode === ROT.KEYS.VK_RETURN) { // this doesn't exist lol hmm look into this more
     this.switchScreen(this.screens.winScreen);
-  } else if (e.keyCode === 27) { // ah that's nice shorthand for keycodes brilliant from ROT actually they don't work lol hilarious deprecated makes sense
+  } else if (e.keyCode === ROT.KEYS.VK_ESCAPE) { // ah that's nice shorthand for keycodes brilliant from ROT actually they don't work lol hilarious deprecated makes sense
     this.switchScreen(this.screens.loseScreen);
   }
 };
