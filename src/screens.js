@@ -77,9 +77,9 @@ playScreen.enter = function() {
 playScreen.move = function(dX, dY) {
   // Positive dX is movement right
   // negative is movement left
-  this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));  // returns the larger of either 0 or the current position --> ensures you can't go out of bounds basically
-
-
+  this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));  // returns the larger of either 0 or the current position displaced by the offset of the move --> ensures you can't go out of bounds basically with any move
+  // Positive dY is movement down, negative is movement up since the top of the screen is 0
+  this.centerY = Math.max(0, Math.min(this.map.getHeight() -1, this.centerY + dY));
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
