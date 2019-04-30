@@ -28,6 +28,14 @@ class Game {
         return this.display;
     }
 
+    getScreenWidth() {
+        return this.screenWidth;
+    }
+
+    getScreenHeight() {
+        return this.screenHeight;
+    }
+
     switchScreen(screen) {
         // if there was a screen already present, call its exit function
         if (this.currentScreen) { // shouldn't need to check if it's null because null is false a lot to improve here in this code but love it
@@ -40,7 +48,7 @@ class Game {
         this.currentScreen = screen;
         if (this.currentScreen) { // wait why the fuck would screens be null check this later lol // right you can set it to null I suppose so check that it's not
             this.currentScreen.enter();
-            this.currentScreen.render(this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
+            this.currentScreen.render(this, this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
         }
         window.addEventListener('keydown', this.currentScreen);
     }

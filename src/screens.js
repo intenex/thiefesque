@@ -24,7 +24,7 @@ export class Screen {
 
 export const startScreen = new Screen("start");
 
-startScreen.render = display => {
+startScreen.render = function(game, display) {
   // Render prompt to the screen
   display.drawText(1, 1, "%c{yellow}Javascript Roguelike"); // must be some regex for them to read strings like this interesting
   display.drawText(1, 2, "Press [Enter] to start!");
@@ -82,7 +82,16 @@ playScreen.move = function(dX, dY) {
   this.centerY = Math.max(0, Math.min(this.map.getHeight() -1, this.centerY + dY));
 };
 
-playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+playScreen.render = function(game, display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+  const screenWidth = game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
+  const screenHeight = game.getScreenHeight();
+  // make sure the x-axis doesn't go out of bounds
+  let topLeftX = Math.max(0, this.centerX - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
+  // make sure you can still fit the entire game screen
+  topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // right stop scrolling left once you can't fit a whole screen, if somehow the width of the map minus the game's screen width is less than the current top left position then set it to that, this doesn't make sense to you yet though think about it more later and see how it works in practice
+  let topLeftY = Math.max(0, this.centerY - Math.floor(screenHeight/2));
+  topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
+
   // Iterate through all map cells
   for (let x = 0; x < this.map.getWidth(); x++) {
     for (let y = 0; y < this.map.getHeight(); y++) {
@@ -147,7 +156,7 @@ playScreen.handleEvent = function(game, e) {
 
 export const winScreen = new Screen("win");
 
-winScreen.render = display => {
+winScreen.render = function(game, display) {
   // Render prompt to the screen
   for (let i = 0; i < 22; i ++) {
     const r = Math.round(Math.random() * 255); // hah love it exactly what you wanted to make earlier
@@ -160,7 +169,7 @@ winScreen.render = display => {
 
 export const loseScreen = new Screen("lose");
 
-loseScreen.render = display => {
+loseScreen.render = function(game, display) {
   for (let i = 0; i < 22; i++) {
     display.drawText(2, i + 1, "%b{red}You lose! :(");
   }
