@@ -108,6 +108,14 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
           glyph.getBackground()
       );
     }
+    // Render the cursor
+    display.draw(
+        this.centerX - topLeftX,
+        this.centerY - topLeftY,
+        '@',
+        'white',
+        'black'
+    );
   }
 };
 
