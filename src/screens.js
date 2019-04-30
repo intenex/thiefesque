@@ -6,7 +6,7 @@ import Map from './map';
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
 
 export class Screen {
-  constructor(screen_type, game) {
+  constructor(screen_type) {
     this.screen_type = screen_type;
   }
 
@@ -74,12 +74,15 @@ playScreen.enter = function() {
   this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
 };
 
-playScreen.move = function(dX, dY) {
+playScreen.move = function(dX, dY, game) {
   // Positive dX is movement right
   // negative is movement left
   this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));  // returns the larger of either 0 or the current position displaced by the offset of the move --> ensures you can't go out of bounds basically with any move
   // Positive dY is movement down, negative is movement up since the top of the screen is 0
   this.centerY = Math.max(0, Math.min(this.map.getHeight() -1, this.centerY + dY));
+  game.getDisplay().clear();
+  this.render(game, game.getDisplay());
+  console.log("Move completed.");
 };
 
 playScreen.render = function(game, display) { // amazing that most 'variables' are in fact constants and not variable at all lol
@@ -120,38 +123,38 @@ playScreen.handleEvent = function(game, e) {
     case ROT.KEYS.VK_O: // man fall through mapping is totally the best
     case ROT.KEYS.VK_W:
     case ROT.KEYS.VK_UP:
-      this.move(0, -1); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
+      this.move(0, -1, game); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
       break;
     case ROT.KEYS.VK_P:
     case ROT.KEYS.VK_E:
-      this.move(1, -1);
+      this.move(1, -1, game);
       break; // now you understand why break statements are important too so great man adding so much functionality here fucking love it
     case 186: // the semicolon ';', sadly no VK mapping for it it seems but it does expose the underpinnings of the magic of it anyway to do it this way so this is nice
     case ROT.KEYS.VK_D:
     case ROT.KEYS.VK_RIGHT: // damn so fucking smart
-      this.move(1, 0);
+      this.move(1, 0, game);
       break;
     case ROT.KEYS.VK_SLASH:
     case ROT.KEYS.VK_C:
-      this.move(1, 1);
+      this.move(1, 1, game);
       break;
     case ROT.KEYS.VK_PERIOD:
     case ROT.KEYS.VK_X:
     case ROT.KEYS.VK_DOWN:
-      this.move(0, 1);
+      this.move(0, 1, game);
       break;
     case ROT.KEYS.VK_COMMA:
     case ROT.KEYS.VK_Z:
-      this.move(-1, 1);
+      this.move(-1, 1, game);
       break;
     case ROT.KEYS.VK_K:
     case ROT.KEYS.VK_A:
     case ROT.KEYS.VK_LEFT:
-      this.move(-1, 0);
+      this.move(-1, 0, game);
       break;
     case ROT.KEYS.VK_I:
     case ROT.KEYS.VK_Q:
-      this.move(-1, -1);
+      this.move(-1, -1, game);
       break;
   }
 };
