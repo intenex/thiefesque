@@ -16,5 +16,7 @@ export class Tile {
 }
 
 export const nullTile = new Tile(new Glyph());
-export const floorTile = new Tile(new Glyph('.'));
-export const wallTile = new Tile(new Glyph('#', 'goldenrod'));
+export const floorTile = new Tile(new Glyph({character: '.'}));
+export const wallTile = new Tile(new Glyph({character: '#',
+                                            foreground: 'goldenrod',
+                                            isDiggable: true}));
