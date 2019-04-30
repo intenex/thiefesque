@@ -1,8 +1,8 @@
 class Glyph {
-  constructor(chr = ' ', foreground = 'white', background = 'black') {
-    this.char = chr;
-    this.foreground = foreground;
-    this.background = background;
+  constructor(properties = {character: ' ', foreground: 'white', background: 'black'}) {
+    this.char = properties.character; // interesting the linter tells you to use dot notation over bracket hmm
+    this.foreground = properties.foreground;
+    this.background = properties.blackground;
   }
 
   getChar() {
