@@ -82,7 +82,6 @@ playScreen.move = function(dX, dY, game) {
   this.centerY = Math.max(0, Math.min(this.map.getHeight() -1, this.centerY + dY));
   game.getDisplay().clear();
   this.render(game, game.getDisplay());
-  console.log("Move completed.");
 };
 
 playScreen.render = function(game, display) { // amazing that most 'variables' are in fact constants and not variable at all lol
@@ -91,7 +90,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   // make sure the x-axis doesn't go out of bounds
   let topLeftX = Math.max(0, this.centerX - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
   // make sure you can still fit the entire game screen
-  topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // right stop scrolling left once you can't fit a whole screen, if somehow the width of the map minus the game's screen width is less than the current top left position then set it to that, this doesn't make sense to you yet though think about it more later and see how it works in practice
+  topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
   let topLeftY = Math.max(0, this.centerY - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
 
