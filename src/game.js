@@ -82,7 +82,7 @@ class Game {
         function digCallback(x, y, value) {
             if (value) { return; } // do not store walls
 
-            const key = x + "," + y;
+            const key = x + "," + y; // yeah the 2D array method is way better than this lol
             freeCells.push(key);
             this.map[key] = "."; // ahhh interesting this is basically saying map a dot to every square that isn't a wall interesting // ah if this is in strict mode this will be undefined gotcha if not strict mode it'll be on global or window or something right look into this more
         }
