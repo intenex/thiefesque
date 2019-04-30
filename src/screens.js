@@ -8,6 +8,7 @@ export class Screen {
     this.screen_type = screen_type;
   }
 
+  // placeholder events to be overwritten
   enter() {
     console.log(`Entered ${this.screen_type} screen.`);
   }
@@ -15,6 +16,8 @@ export class Screen {
   exit() {
     console.log(`Exited ${this.screen_type} screen.`);
   }
+
+  handleEvent(e) {}
 }
 
 export const startScreen = new Screen("start");
@@ -64,8 +67,6 @@ winScreen.render = display => {
   }
 };
 
-winScreen.handleEvent = e => {};
-
 export const loseScreen = new Screen("lose");
 
 loseScreen.render = display => {
@@ -73,5 +74,3 @@ loseScreen.render = display => {
     display.drawText(2, i + 1, "%b{red}You lose! :(");
   }
 };
-
-loseScreen.handleEvent = e => {};
