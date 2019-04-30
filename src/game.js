@@ -6,10 +6,10 @@ import * as SCREENS from './screens';
 
 class Game {
     constructor() {
-        this.display = new ROT.Display({width: 80, height: 80}); // holy shit this works reading the source is always a winning strategy wow
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
         this.screenWidth = 80;
         this.screenHeight = 40;
+        this.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight }); // holy shit this works reading the source is always a winning strategy wow
 
         document.body.appendChild(this.display.getContainer());
 
