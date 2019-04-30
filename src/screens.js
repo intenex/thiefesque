@@ -51,8 +51,8 @@ playScreen.centerY = 0;
 playScreen.enter = function() {
   const map = [];
   // Create a map based on these size parameters fuck yeah
-  const mapWidth = 80;
-  const mapHeight = 40;
+  const mapWidth = 100;
+  const mapHeight = 100;
   for (let x = 0; x < mapWidth; x++) {
     // Create nested array for the y values
     map.push([]);
