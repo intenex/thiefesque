@@ -1,8 +1,8 @@
 class Glyph {
-  constructor(properties = {character: ' ', foreground: 'white', background: 'black'}) {
-    this.char = properties.character || ' '; // interesting the linter tells you to use dot notation over bracket hmm
-    this.foreground = properties.foreground || 'white'; // need these defaults now since the entire object won't exist and will be replaced if anything in it is replaced
-    this.background = properties.blackground || 'black';
+  constructor(properties) {
+    this.char = properties.character; // interesting the linter tells you to use dot notation over bracket hmm
+    this.foreground = properties.foreground;
+    this.background = properties.blackground;
   }
 
   getChar() {

@@ -6,14 +6,27 @@ import Glyph from './glyph';
 // So lucky to have ES6 now can't wait to keep building with it
 
 export class Tile extends Glyph {
-  constructor(glyph) {
-    this.glyph = glyph;
+  constructor(properties = { character: ' ', foreground: 'white', background: 'black' }) {
+    properties.character = properties.character || ' '; // have to set these as defaults so that every object has at least these attributes if it's passed in without them
+    properties.foreground = properties.foreground || 'white';
+    properties.background = properties.background || 'black';
+    super(properties); // call Glyph super with this love it
+    this.isWalkable = properties.isWalkable || false;
+    this.isDiggable = properties.isDiggable || false;
   }
 
+  isWalkable() {
+    return this.isWalkable;
+  }
+
+  isDiggable() {
+    return this.isDiggable;
+  }
 }
 
 export const nullTile = new Tile(new Glyph());
-export const floorTile = new Tile(new Glyph({character: '.'}));
+export const floorTile = new Tile(new Glyph({character: '.',
+                                             isWalkable: true}));
 export const wallTile = new Tile(new Glyph({character: '#',
                                             foreground: 'goldenrod',
                                             isDiggable: true}));
