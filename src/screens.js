@@ -41,21 +41,28 @@ startScreen.handleEvent = function(e) { // okay triggering is working fine great
 
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
 
+// keeping track of current position on the screen
+playScreen.centerX = 0;
+playScreen.centerY = 0;
+
 // playScreen.map = null; // pretty sure unnecessary man JS is great
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
 playScreen.enter = function() {
   const map = [];
-  for (let x = 0; x < 80; x++) {
+  // Create a map based on these size parameters fuck yeah
+  const mapWidth = 500;
+  const mapHeight = 500;
+  for (let x = 0; x < mapWidth; x++) {
     // Create nested array for the y values
     map.push([]);
     // Add all the tiles
-    for (let y = 0; y < 24; y++) {
+    for (let y = 0; y < mapHeight; y++) {
       map[x].push(TILES.nullTile); // start out with null tiles for each tile hmmm
     }
   }
   // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
-  const generator = new ROT.Map.Digger(80, 40);
+  const generator = new ROT.Map.Digger(mapWidth, mapHeight);
   const generatorCB = (x, y, v) => { // making this an arrow function so you don't have to bind the scope here it automatically should have access to the scope here love it
     if (v) { // if v is true, meaning 1, then this is a wall tile. The Map generators return 1 and 0 generally to distinguish these two characteristics
       map[x][y] = TILES.wallTile;
@@ -65,6 +72,12 @@ playScreen.enter = function() {
   };
   generator.create(generatorCB);
   this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
+};
+
+playScreen.move = function(dX, dY) {
+  // Positive dX is movement right
+  // negative is movement left
+  this.
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
