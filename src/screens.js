@@ -93,11 +93,13 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
 
   // Iterate through all map cells
-  for (let x = 0; x < this.map.getWidth(); x++) {
-    for (let y = 0; y < this.map.getHeight(); y++) {
+  for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
+    for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
       // Fetch the glyph for the tile and render it to the screen so fucking great
       const glyph = this.map.getTile(x, y).getGlyph(); // right this gets a Tile object and each of those has a getGlyph method amazing
-      display.draw(x, y, // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it
+      display.draw( // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it --> but anyway you could solve this by passing arguments into .bind at call time which you did do above love it
+          x - topLeftX, // right because you want these to always be constant to the screen position love it
+          y - topLeftY,
           glyph.getChar(), // love semicolons letting you do things correctly on multiple lines passing in 5 arguments here to draw interesting can do it multiple ways it appears with the %c and %b and as just straight up arguments here hmm
           glyph.getForeground(),
           glyph.getBackground()
