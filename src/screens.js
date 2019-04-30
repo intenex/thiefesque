@@ -33,9 +33,9 @@ startScreen.render = display => {
 // ah hmm bind this later to the actual game object try it lol that might just work
 // damn the problem is the binding isn't working here still hmm. but man everything else works incredible lol
 // right fucking arrow functions have no scope and can't be bound god damn it lol
-startScreen.handleEvent = function(e) { // okay triggering is working fine great
+startScreen.handleEvent = function(game, e) { // okay triggering is working fine great
   if (e.keyCode === ROT.KEYS.VK_SPACE || e.keyCode === ROT.KEYS.VK_RETURN) {
-    this.switchScreen(this.screens.playScreen);
+    game.switchScreen(game.screens.playScreen);
   }
 };
 
@@ -101,22 +101,35 @@ playScreen.handleEvent = function(game, e) {
   switch(e.keyCode) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ROT.KEYS.VK_SPACE:
     case ROT.KEYS.VK_RETURN:
-      this.switchScreen(this.screens.winScreen);
+      game.switchScreen(game.screens.winScreen);
       break;
     case ROT.KEYS.VK_ESCAPE:
-      this.switchScreen(this.screens.loseScreen);
+      game.switchScreen(game.screens.loseScreen);
       break;
     case ROT.KEYS.VK_O:
-      this.screens.playScreen.move() // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
-
-      // keyMap[79] = 0; // the O key, the 8 keys are OP;/.,KI in that order
-      // keyMap[80] = 1; // P
-      // keyMap[186] = 2; // ;
-      // keyMap[191] = 3; // /
-      // keyMap[190] = 4; // .
-      // keyMap[188] = 5; // ,
-      // keyMap[75] = 6; // K
-      // keyMap[73] = 7; // I
+      this.move(0, -1); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
+      break;
+    case ROT.KEYS.VK_P:
+      this.move(1, -1);
+      break; // now you understand why break statements are important too so great man adding so much functionality here fucking love it
+    case 186: // the semicolon ';', sadly no VK mapping for it it seems but it does expose the underpinnings of the magic of it anyway to do it this way so this is nice
+      this.move(1, 0);
+      break;
+    case ROT.KEYS.VK_SLASH:
+      this.move(1, 1);
+      break;
+    case ROT.KEYS.VK_PERIOD:
+      this.move(0, 1);
+      break;
+    case ROT.KEYS.VK_COMMA:
+      this.move(-1, 1);
+      break;
+    case ROT.KEYS.VK_K:
+      this.move(-1, 0);
+      break;
+    case ROT.KEYS.VK_I:
+      this.move(-1, -1);
+      break;
   }
 };
 
