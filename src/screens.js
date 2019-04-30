@@ -1,4 +1,5 @@
 import * as ROT from 'rot-js';
+import * as TILES from './tile';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -40,6 +41,21 @@ startScreen.handleEvent = function(e) { // okay triggering is working fine great
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
 
 // playScreen.map = null; // pretty sure unnecessary man JS is great
+
+// insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
+playScreen.enter = () => {
+  const map = [];
+  for (let x = 0; x < 80; x++) {
+    // Create nested array for the y values
+    map.push([]);
+    // Add all the tiles
+    for (let y = 0; y < 24; y++) {
+      map[x].push(TILES.nullTile); // start out with null tiles for each tile hmmm
+    }
+  }
+  // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
+  const generator = new ROT.Map.Digger(80, 24);
+};
 
 playScreen.render = display => {
   display.drawText(3, 5, "%c{red}%b{white}This game is so much fun!");

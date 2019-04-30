@@ -76,7 +76,7 @@ class Game {
     }
 
     _generateMap() {
-        const digger = new ROT.Map.Digger();
+        const digger = new ROT.Map.Digger(80, 40); // right you can leave this empty and it'll default presumably to 80 and 24 love it
         const freeCells = [];
 
         function digCallback(x, y, value) {
