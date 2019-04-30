@@ -5,14 +5,11 @@ import Glyph from './glyph';
 // which is interesting and possibly the best JS could do in the past. Totally nuts though
 // So lucky to have ES6 now can't wait to keep building with it
 
-export class Tile {
+export class Tile extends Glyph {
   constructor(glyph) {
     this.glyph = glyph;
   }
 
-  getGlyph() {
-    return this.glyph;
-  }
 }
 
 export const nullTile = new Tile(new Glyph());
