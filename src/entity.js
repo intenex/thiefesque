@@ -63,6 +63,7 @@ export const Moveable = {
   name: 'Moveable',
   tryMove(x, y, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const tile = map.getTile(x, y);
+    console.log(tile);
     // Check if you can walk onto the tile and if so walk onto it
     if (tile.isWalkable()) {
       // update entity positoin

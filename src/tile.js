@@ -8,22 +8,22 @@ import Glyph from './glyph';
 export class Tile extends Glyph {
   constructor(properties = {}) {
     super(properties);
-    this.isWalkable = properties.isWalkable || false;
-    this.isDiggable = properties.isDiggable || false;
+    this.walkable = properties.isWalkable || false;
+    this.diggable = properties.isDiggable || false;
   }
 
   isWalkable() {
-    return this.isWalkable;
+    return this.walkable;
   }
 
   isDiggable() {
-    return this.isDiggable;
+    return this.diggable;
   }
 }
 
 export const nullTile = new Tile();
 export const floorTile = new Tile({character: '.',
-                                   isWalkable: true});
+                                   walkable: true});
 export const wallTile = new Tile({character: '#',
                                   foreground: 'goldenrod',
-                                  isDiggable: true});
+                                  diggable: true});
