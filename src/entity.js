@@ -3,7 +3,7 @@
 
 class Entity extends Glyph {
   constructor(properties) {
-    
+    super(properties); 
   }
 
 }

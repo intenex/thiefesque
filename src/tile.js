@@ -6,11 +6,8 @@ import Glyph from './glyph';
 // So lucky to have ES6 now can't wait to keep building with it
 
 export class Tile extends Glyph {
-  constructor(properties = { character: ' ', foreground: 'white', background: 'black' }) {
-    properties.character = properties.character || ' '; // have to set these as defaults so that every object has at least these attributes if it's passed in without them
-    properties.foreground = properties.foreground || 'white';
-    properties.background = properties.background || 'black';
-    super(properties); // call Glyph super with this love it
+  constructor(properties) {
+    super(properties);
     this.isWalkable = properties.isWalkable || false;
     this.isDiggable = properties.isDiggable || false;
   }
