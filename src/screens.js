@@ -1,7 +1,7 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
 import Map from './map';
-import Entity from './entity';
+import { Entity } from './entity';
 import { PlayerTemplate } from './entities';
 
 /* amazing screen management so great
