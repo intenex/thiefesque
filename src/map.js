@@ -28,6 +28,24 @@ class Map {
       return this.tiles[x][y] || TILES.nullTile; // if you're to do this why have a bounds check at all it'll just be undefined anyway sigh
     }
   }
+
+  dig(x, y) {
+    // If the tile is diggable, update it to a floor
+    if (this.getTile(x, y).isDiggable()) {
+      this.tiles[x][y] = TILES.floorTile;
+    }
+  }
+
+  // to get the random starting position for the player so great heh
+  getRandomFloorPosition() {
+    // Randomly identify a tile that's a floor tile lol definitely a better way to do this but whatever
+    let x, y;
+    do {
+      x = Math.floor(Math.random() * this.width);
+      y = Math.floor(Math.random() * this.width);
+    } while(this.getTile(x, y) != TILES.floorTile);
+    return {x, y}; // JS is magic and will literally just translate this to {x: x, y: y}
+  }
 }
 
 export default Map;
