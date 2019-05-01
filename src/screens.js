@@ -41,10 +41,6 @@ startScreen.handleEvent = function(game, e) { // okay triggering is working fine
 
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
 
-// keeping track of current position on the screen
-playScreen.centerX = 0;
-playScreen.centerY = 0;
-
 // playScreen.map = null; // pretty sure unnecessary man JS is great
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
