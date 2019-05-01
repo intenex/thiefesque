@@ -6,7 +6,7 @@ import Glyph from './glyph';
 // So lucky to have ES6 now can't wait to keep building with it
 
 export class Tile extends Glyph {
-  constructor(properties) {
+  constructor(properties = {}) {
     super(properties);
     this.isWalkable = properties.isWalkable || false;
     this.isDiggable = properties.isDiggable || false;

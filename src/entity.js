@@ -2,7 +2,7 @@
 // consists of a glyph and a position and a name, the basic building blocks for representation
 
 class Entity extends Glyph {
-  constructor(properties) {
+  constructor(properties = {}) {
     super(properties); 
   }
 
