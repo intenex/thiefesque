@@ -34,3 +34,5 @@ class Entity extends Glyph {
     return this.y;
   }
 }
+
+export default Entity;
