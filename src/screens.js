@@ -1,6 +1,8 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
 import Map from './map';
+import Entity from './entity';
+import { PlayerTemplate } from './entities';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -68,14 +70,18 @@ playScreen.enter = function() {
   };
   generator.create(generatorCB);
   this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
+  // create the player woohoo
+  this.player = new Entity(PlayerTemplate);
+  const position = this.map.getRandomFloorPosition();
+  this.player.setX(position.x);
+  this.player.setY(position.y);
 };
 
 playScreen.move = function(dX, dY, game) {
-  // Positive dX is movement right
-  // negative is movement left
-  this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));  // returns the larger of either 0 or the current position displaced by the offset of the move --> ensures you can't go out of bounds basically with any move
-  // Positive dY is movement down, negative is movement up since the top of the screen is 0
-  this.centerY = Math.max(0, Math.min(this.map.getHeight() -1, this.centerY + dY));
+  const newX = this.player.getX() + dX;
+  const newY = this.player.getY() + dY;
+  // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
+  this.player.tryMove(newX, newY, this.map);
   game.getDisplay().clear();
   this.render(game, game.getDisplay());
 };
@@ -84,10 +90,10 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   const screenWidth = game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
   const screenHeight = game.getScreenHeight();
   // make sure the x-axis doesn't go out of bounds
-  let topLeftX = Math.max(0, this.centerX - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
+  let topLeftX = Math.max(0, this.player.getX() - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
   // make sure you can still fit the entire game screen
   topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
-  let topLeftY = Math.max(0, this.centerY - Math.floor(screenHeight/2));
+  let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
 
   // Iterate through all map cells
@@ -105,8 +111,8 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
     }
     // Render the cursor
     display.draw(
-        this.centerX - topLeftX,
-        this.centerY - topLeftY,
+        this.player.getX() - topLeftX,
+        this.player.getY() - topLeftY,
         '@',
         'white',
         'black'
