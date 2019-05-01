@@ -4,7 +4,7 @@ import defaults from 'lodash/defaults'; // crazy syntax wow look into this more
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
 
-class Entity extends Glyph {
+export class Entity extends Glyph {
   constructor(properties = {}) {
     super(properties);
     this.name = properties.name || '';
@@ -58,4 +58,22 @@ class Entity extends Glyph {
   }
 }
 
-export default Entity;
+// entity mixin
+export const Moveable = {
+  name: 'Moveable',
+  tryMove(x, y, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
+    const tile = map.getTile(x, y);
+    // Check if you can walk onto the tile and if so walk onto it
+    if (tile.isWalkable()) {
+      // update entity positoin
+      this.x = x;
+      this.y = y;
+      return true;
+      // check if the tile is diggable and if so, try to dig it
+    } else if (tile.isDiggable()) {
+      map.dig(x, y);
+      return true;
+    }
+    return false;
+  }
+};
