@@ -8,8 +8,8 @@ import Glyph from './glyph';
 export class Tile extends Glyph {
   constructor(properties = {}) {
     super(properties);
-    this.walkable = properties.isWalkable || false;
-    this.diggable = properties.isDiggable || false;
+    this.walkable = properties.walkable || false;
+    this.diggable = properties.diggable || false;
   }
 
   isWalkable() {
