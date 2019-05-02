@@ -78,6 +78,10 @@ Mixins.Moveable = {
   name: 'Moveable',
   tryMove(x, y, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const tile = map.getTile(x, y);
+    const target = map.getEntityAt(x, y);
+    if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
+      return false;
+    }
     // Check if you can walk onto the tile and if so walk onto it
     if (tile.isWalkable()) {
       // update entity positoin
