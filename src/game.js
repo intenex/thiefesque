@@ -57,7 +57,7 @@ class Game {
         // clear the screen
         this.display.clear();
         // render the screen
-        this.currentScreen.render(this.display);
+        this.currentScreen.render(this, this.display);
     }
 }
 
