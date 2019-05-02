@@ -115,6 +115,11 @@ class Map {
       this.scheduler.remove(entity);
     }
   }
+
+  isEmptyFloor(x, y) {
+    // Check if the tile is an empty floor tile aka one with no entity
+    return this.getTile(x, y) === TILES.floorTile && !this.getEntityAt(x, y);
+  }
 }
 
 export default Map;
