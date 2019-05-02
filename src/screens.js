@@ -26,6 +26,7 @@ export class Screen {
 
 export const startScreen = new Screen("start");
 
+// refactor methods like this to have the optional arguments come second not first so you can actually just omit them and take advantage of Javascript's flexible argument functionality
 startScreen.render = function(game, display) {
   // Render prompt to the screen
   display.drawText(1, 1, "%c{yellow}Welcome to Thiefesque. Feel free to dig around."); // must be some regex for them to read strings like this interesting
