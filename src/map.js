@@ -68,6 +68,22 @@ class Map {
     } while(this.getTile(x, y) != TILES.floorTile);
     return {x, y}; // JS is magic and will literally just translate this to {x: x, y: y}
   }
+
+  addEntity(entity) {
+    // Make sure the entity's position is within bounds
+    if (entity.getX() < 0 || entity.getX() >= this.width ||
+        entity.getY() < 0 || entity.getY() >= this.height) {
+          throw new Error('Adding entity out of bounds.');
+    }
+    // set the entity's map
+    entity.setMap(this);
+    // Add the entity to this map's list of entities
+    this.entities.push(entity);
+    // check if this entity is an actor, and if so add them to the scheduler
+    if (entity.hasMixin('Actor')) {
+      this.scheduler.add(entity, true); // true I believe readds them again after they act or something like that look into it again so they're not just one time
+    }
+  }
 }
 
 export default Map;
