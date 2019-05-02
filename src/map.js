@@ -75,7 +75,7 @@ class Map {
     do {
       x = Math.floor(Math.random() * this.width);
       y = Math.floor(Math.random() * this.width);
-    } while(this.getTile(x, y) != TILES.floorTile || this.getEntityAt(x, y)); // if either of these conditions returns true keep checking --> the second will return true if any entity is found, which means it's not a valid starting position
+    } while(!this.isEmptyFloor(x, y)); // if either of these conditions returns true keep checking --> the second will return true if any entity is found, which means it's not a valid starting position
     return {x, y}; // JS is magic and will literally just translate this to {x: x, y: y}
   }
 
