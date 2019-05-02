@@ -184,7 +184,6 @@ Mixins.FungusActor = {
               this.getMap().addEntity(entity);
               this.growthsRemaining--;
             }
-
         }
       }
     }
