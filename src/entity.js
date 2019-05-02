@@ -70,8 +70,10 @@ export class Entity extends Glyph {
   }
 }
 
+export const Mixins = {};
+
 // entity mixin
-export const Moveable = {
+Mixins.Moveable = {
   name: 'Moveable',
   tryMove(x, y, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const tile = map.getTile(x, y);
@@ -88,4 +90,8 @@ export const Moveable = {
     }
     return false;
   }
+};
+
+Mixins.PlayerActor = {
+  
 };

@@ -1,8 +1,8 @@
-import { Moveable } from './entity';
+import { Mixins } from './entity';
 
 export const PlayerTemplate = {
   character: '@',
   foreground: 'white',
   background: 'black',
-  mixins: [Moveable]
+  mixins: [Mixins.Moveable]
 };
