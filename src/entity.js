@@ -85,7 +85,19 @@ Mixins.Moveable = {
     const tile = map.getTile(x, y);
     const target = map.getEntityAt(x, y);
     if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
-      return false;
+      // if this entity is an attacker, try to attack the target
+      // basically this is because entities can be anything and there are presumably
+      // some entities that don't attack, not just the player character but all the
+      // other entities that act on their turns. have monsters attack each other in your game
+      // for sure, would be amazing to have all out brawls that happen between different
+      // races that patrol the dungeons and things like that
+      if (this.hasMixin('Attacker')) {
+        this.attack(target);
+        return true;
+      } else {
+        // If not an attacker do nothing, but denote with a false that the entity could not move to the tile
+        return false;
+      }
     }
     // Check if you can walk onto the tile and if so walk onto it
     if (tile.isWalkable()) {
