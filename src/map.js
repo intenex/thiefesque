@@ -1,3 +1,4 @@
+import * as ROT from 'rot-js';
 import * as TILES from './tile';
 
 // yeah okay this is actually pretty good design love it
@@ -9,6 +10,8 @@ class Map {
     // on the length of the dimensions of the tiles array
     this.width = tiles.length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0].length; // a single column of all the rows
+    this.scheduler = new ROT.Scheduler.Simple();
+    this.engine = new ROT.Engine(this.scheduler);
   }
 
   getWidth() {
