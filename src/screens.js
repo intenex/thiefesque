@@ -1,8 +1,7 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
 import Map from './map';
-import { Entity } from './entity';
-import Entities from './entities';
+import { Entity, Entities } from './entity';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */

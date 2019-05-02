@@ -1,6 +1,5 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
 import Glyph from './glyph';
-import Entities from './entities';
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -179,7 +178,7 @@ Mixins.FungusActor = {
         if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
           // make sure this location is actually a floor and if so all good
           if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset)) {
-              const entity = new Entity(Entities.FungusTemplate); // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
+              const entity = new Entity(Entities.FungusTemplate); // rough can't have a circular require makes sense lol hmm // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
               entity.setX(this.getX() + xOffset);
               entity.setY(this.getY() + yOffset);
               this.getMap().addEntity(entity);
@@ -189,4 +188,20 @@ Mixins.FungusActor = {
       }
     }
   }
+};
+
+export const Entities = {};
+
+Entities.PlayerTemplate = {
+  character: '@',
+  foreground: 'white',
+  background: 'black',
+  mixins: [Mixins.Moveable, Mixins.PlayerActor,
+  Mixins.SimpleAttacker, Mixins.Destructible]
+};
+
+Entities.FungusTemplate = {
+  character: 'F',
+  foreground: 'green',
+  mixins: [Mixins.FungusActor, Mixins.Destructible],
 };

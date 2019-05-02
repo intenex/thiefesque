@@ -1,7 +1,6 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
-import { Entity } from './entity';
-import Entities from './entities';
+import { Entity, Entities } from './entity';
 
 // yeah okay this is actually pretty good design love it
 
