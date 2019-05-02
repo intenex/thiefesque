@@ -23,6 +23,14 @@ export class Entity extends Glyph {
     }.bind(this)); // bind this anonymous function to the object at hand so you have access to its scope in assigning the mixins
   }
 
+  setMap(map) {
+    this.map = map;
+  }
+
+  getMap() {
+    return this.map;
+  }
+
   // setter for name dope
   setName(name) {
     this.name = name;
