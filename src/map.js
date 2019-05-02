@@ -16,7 +16,7 @@ class Map {
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
     this.addEntityAtRandomPosition(player);
-    // add random fungi
+    // add 50 random fungi lol
     for (let i = 0; i < 50; i++) {
       this.addEntityAtRandomPosition(new Entity(Entities.FungusTemplate));
     }
