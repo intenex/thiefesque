@@ -71,6 +71,11 @@ export class Entity extends Glyph {
   }
 }
 
+// love duck typing here with these Mixins and making literally
+// all characters indistinguishable in implementation - makes it incredibly
+// easy later on to have different races and character types for a character and
+// for them to even polymorph over time. Roguelikes are such excellent tools in good
+// complex system design in their total insane degree of conventional complexity and nuance
 export const Mixins = {};
 
 // entity mixin
@@ -125,6 +130,17 @@ Mixins.Destructible = {
     // if 0 or less HP, remove from map
     if (this.hp <= 0) {
       this.getMap().removeEntity(this);
+    }
+  }
+};
+
+Mixins.SimpleAttacker = {
+  name: 'SimpleAttacker',
+  groupName: 'Attacker',
+  attack(target) {
+    // only attack the entity if they are destructible
+    if (target.hasMixin('Destructible')) {
+      target.takeDamage(this, 1);
     }
   }
 };
