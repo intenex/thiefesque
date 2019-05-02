@@ -48,7 +48,7 @@ class Game {
         this.currentScreen = screen;
         if (this.currentScreen) { // wait why the fuck would screens be null check this later lol // right you can set it to null I suppose so check that it's not
             this.currentScreen.enter();
-            this.currentScreen.render(this, this.getDisplay()); // the varied use of this.display vs this.getDisplay() they do is really very confusing crazy how poorly written a lot of code is even shit like this
+            this.refresh();
         }
         window.addEventListener('keydown', this.currentScreen);
     }
