@@ -117,7 +117,7 @@ Mixins.Moveable = {
 Mixins.PlayerActor = {
   name: 'PlayerActor',
   groupName: 'Actor',
-  act: function() {
+  act() {
     // Re-render the screen
     this.game.refresh();
     // Lock the engine and wait asynchronously
@@ -129,12 +129,12 @@ Mixins.PlayerActor = {
 Mixins.FungusActor = {
   name: 'FungusActor',
   groupName: 'Actor',
-  act: function() { } // fungus don't do anything yet lol
+  act() { } // fungus don't do anything yet lol
 };
 
 Mixins.Destructible = {
   name: 'Destructible',
-  init: function() {
+  init() {
     this.hp = 1;
   },
   takeDamage(attacker, damage) {
@@ -157,3 +157,12 @@ Mixins.SimpleAttacker = {
   }
 };
 
+Mixins.FungusActor = {
+  name: 'FungusActor',
+  groupName: 'Actor',
+  init() {
+    this.growthsRemaining = 5;
+  },
+  act() {
+  }
+};
