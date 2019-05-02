@@ -10,8 +10,27 @@ class Map {
     // on the length of the dimensions of the tiles array
     this.width = tiles.length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0].length; // a single column of all the rows
+    this.entities = []; // keep track of all entities on a given map in a list
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
+  }
+
+  getEngine() {
+    return this.engine;
+  }
+
+  getEntities() {
+    return this.entities;
+  }
+
+  getEntityAt(x, y) {
+    // Iterate through all entities searching for one with the matching position hmmmm should be stored in some hash format for better searching then
+    for (let i = 0; i < this.entities.length; i++) {
+      if (this.entities[i].getX() === x && this.entities[i].getY() === y) {
+        return this.entities[i];
+      }
+    }
+    return false;
   }
 
   getWidth() {
