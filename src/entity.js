@@ -104,3 +104,9 @@ Mixins.PlayerActor = {
     this.getMap().getEngine().lock();
   }
 };
+
+Mixins.FungusActor = {
+  name: 'FungusActor',
+  groupName: 'Actor',
+  act: function() { }
+};
