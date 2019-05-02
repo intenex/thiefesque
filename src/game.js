@@ -52,6 +52,13 @@ class Game {
         }
         window.addEventListener('keydown', this.currentScreen);
     }
+
+    refresh() {
+        // clear the screen
+        this.display.clear();
+        // render the screen
+        this.currentScreen.render(this.display);
+    }
 }
 
 export default Game;

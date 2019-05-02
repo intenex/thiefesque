@@ -82,8 +82,7 @@ playScreen.move = function(dX, dY, game) {
   const newY = this.player.getY() + dY;
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
   this.player.tryMove(newX, newY, this.map);
-  game.getDisplay().clear();
-  this.render(game, game.getDisplay());
+  game.refresh();
 };
 
 playScreen.render = function(game, display) { // amazing that most 'variables' are in fact constants and not variable at all lol
