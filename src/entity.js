@@ -1,5 +1,6 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
 import Glyph from './glyph';
+import Entities from './entities';
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -178,7 +179,7 @@ Mixins.FungusActor = {
         if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
           // make sure this location is actually a floor and if so all good
           if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset)) {
-              const entity = new Entity(FungusTemplate); // 50% sure you don't have to specify FungusTemplate here but you do have to require Entity in entities.js since this will be executed over there I'm pretty sure when the Mixin is run but we'll see
+              const entity = new Entity(Entities.FungusTemplate); // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
               entity.setX(this.getX() + xOffset);
               entity.setY(this.getY() + yOffset);
               this.getMap().addEntity(entity);
