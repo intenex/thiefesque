@@ -84,6 +84,13 @@ class Map {
       this.scheduler.add(entity, true); // true I believe readds them again after they act or something like that look into it again so they're not just one time
     }
   }
+
+  addEntityAtRandomPosition(entity) {
+    const position = this.getRandomFloorPosition();
+    entity.setX(position.x);
+    entity.setY(position.y);
+    this.addEntity(entity);
+  }
 }
 
 export default Map;
