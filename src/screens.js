@@ -46,7 +46,7 @@ export const playScreen = new Screen("play"); // at least you know this export s
 // playScreen.map = null; // pretty sure unnecessary man JS is great
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
-playScreen.enter = function() {
+playScreen.enter = function(game) {
   const map = [];
   // Create a map based on these size parameters fuck yeah
   const mapWidth = 100;
@@ -71,7 +71,7 @@ playScreen.enter = function() {
   generator.create(generatorCB);
   this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
   // create the player woohoo
-  this.player = new Entity(PlayerTemplate);
+  this.player = new Entity(PlayerTemplate, game);
   const position = this.map.getRandomFloorPosition();
   this.player.setX(position.x);
   this.player.setY(position.y);

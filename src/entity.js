@@ -5,8 +5,9 @@ import Glyph from './glyph';
 // consists of a glyph and a position and a name, the basic building blocks for representation
 
 export class Entity extends Glyph {
-  constructor(properties = {}) {
+  constructor(properties = {}, game) {
     super(properties);
+    this.game = game;
     this.name = properties.name || '';
     this.x = properties.x || 0;
     this.y = properties.y || 0;
@@ -97,7 +98,7 @@ Mixins.PlayerActor = {
   groupName: 'Actor',
   act: function() {
     // Re-render the screen
-    game.refresh();
+    this.game.refresh();
     // Lock the engine and wait asynchronously
     // for the player to press a key
     this.getMap().getEngine().lock();

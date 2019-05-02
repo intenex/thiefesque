@@ -47,7 +47,7 @@ class Game {
         // Update our current screen, notify it we entered and then render it
         this.currentScreen = screen;
         if (this.currentScreen) { // wait why the fuck would screens be null check this later lol // right you can set it to null I suppose so check that it's not
-            this.currentScreen.enter();
+            this.currentScreen.enter(game); // only used for instantiating entities with game objects right now real weak system should def be a better way figure it out later for sure
             this.refresh();
         }
         window.addEventListener('keydown', this.currentScreen);
