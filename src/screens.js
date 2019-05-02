@@ -69,12 +69,9 @@ playScreen.enter = function(game) {
     }
   };
   generator.create(generatorCB);
-  this.map = new Map(map); // this still refers to the playScreen object at this point in time since it'll be called method style
-  // create the player woohoo
   this.player = new Entity(Entities.PlayerTemplate, game);
-  const position = this.map.getRandomFloorPosition();
-  this.player.setX(position.x);
-  this.player.setY(position.y);
+  this.map = new Map(map, this.player); // this still refers to the playScreen object at this point in time since it'll be called method style
+  this.map.getEngine().start();
 };
 
 playScreen.move = function(dX, dY, game) {
