@@ -65,7 +65,7 @@ export class Entity extends Glyph {
     if (typeof obj === 'object') {
       return this.attachedMixins[obj.name]; // this is a bool that returns either true or undefined (aka false)
     } else {
-      return this.attachedMixins[name]; // if typeof obj === 'string' since string is a primitive so dope
+      return this.attachedMixins[obj] || this.attachedMixinGroups[obj]; // check if either the specific mixin or the group mixin exists, this function can be passed either a GroupMixin name or a specific Mixin name and it'll worse for both // if typeof obj === 'string' since string is a primitive so dope
     }
   }
 }
