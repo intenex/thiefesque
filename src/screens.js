@@ -107,6 +107,21 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
     }
   }
   // Render all entities
+  const entities = this.map.getEntities();
+  entities.forEach(entity => {
+    // only render the entity if they would show up on the screen
+    if (entity.getX() >= topLeftX && entity.getY() >= topLeftY &&
+        entity.getX() < topLeftX + screenWidth &&
+        entity.getY() < topLeftY + screenHeight) {
+        display.draw( // draw that motherfucker
+            entity.getX() - topLeftX,
+            entity.getY() - topLeftY,
+            entity.getChar(),
+            entity.getForeground(),
+            entity.getBackground()
+        );
+    }
+  });
 };
 
 playScreen.handleEvent = function(game, e) {

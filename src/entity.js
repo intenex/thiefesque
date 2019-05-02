@@ -112,5 +112,5 @@ Mixins.PlayerActor = {
 Mixins.FungusActor = {
   name: 'FungusActor',
   groupName: 'Actor',
-  act: function() { }
+  act: function() { } // fungus don't do anything yet lol
 };
