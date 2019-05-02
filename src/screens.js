@@ -92,7 +92,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
 
-  // Iterate through all map cells
+  // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
     for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
       // Fetch the glyph for the tile and render it to the screen so fucking great
@@ -105,15 +105,8 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
           tile.getBackground()
       );
     }
-    // Render the cursor
-    display.draw(
-        this.player.getX() - topLeftX,
-        this.player.getY() - topLeftY,
-        '@',
-        'white',
-        'black'
-    );
   }
+  // Render all entities
 };
 
 playScreen.handleEvent = function(game, e) {
