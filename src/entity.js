@@ -12,7 +12,7 @@ export class Entity extends Glyph {
     this.y = properties.y || 0;
 
     // allow for some mixin functionality
-    this.attachedMixins = {};
+    this.attachedMixins = {}; // right these object attributes are actually stored as just strings or symbols and can be associated with p much any type of value
     this.attachedMixinGroups = {}; // specifies having some general class of functionality like movement of some sort, regardless of the specific type of movement implemented
     const mixins = properties.mixins || []; // get all the mixins if any
     mixins.forEach(function(mixin) {
