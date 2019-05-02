@@ -11,6 +11,7 @@ export class Entity extends Glyph {
     this.name = properties.name || '';
     this.x = properties.x || 0;
     this.y = properties.y || 0;
+    this.map = null; // just putting this here so you know what properties are going to be available here, just for our own benefit in reading this later, not actually necessary, do this elsewhere too for the same reason
 
     // allow for some mixin functionality
     this.attachedMixins = {}; // right these object attributes are actually stored as just strings or symbols and can be associated with p much any type of value
@@ -164,5 +165,28 @@ Mixins.FungusActor = {
     this.growthsRemaining = 5;
   },
   act() {
+    // see if fungus should randomly grow this turn or not
+    if (this.growthsRemaining > 0) {
+      if (Math.random() <= 0.03) {
+        // Generate the coordinates of a random adjacent square
+        // by generating an offset of either -1, 0, or 1 for both the x and y coordinates
+        // To do that, generate a number from 0 to 2 and subtract one, smart lol.
+        // Note that Math.random() is not inclusive of 1 so you can safely do * 3 and be assured it will never actaully equal 1 * 3 and will always round down to 2 at the highest end of things, Math.floor is great, this is a smart method for sure wow
+        const xOffset = Math.floor(Math.random() * 3) - 1;
+        const yOffset = Math.floor(Math.random() * 3) - 1;
+        // Make sure you're not trying to spawn on the same tile as the current spawning fungus lol
+        if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
+          // make sure this location is actually a floor and if so all good
+          if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset)) {
+              const entity = new Entity(FungusTemplate); // 50% sure you don't have to specify FungusTemplate here but you do have to require Entity in entities.js since this will be executed over there I'm pretty sure when the Mixin is run but we'll see
+              entity.setX(this.getX() + xOffset);
+              entity.setY(this.getY() + yOffset);
+              this.getMap().addEntity(entity);
+              this.growthsRemaining--;
+            }
+
+        }
+      }
+    }
   }
 };

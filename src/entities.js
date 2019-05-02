@@ -1,4 +1,4 @@
-import { Mixins } from './entity';
+import { Entity, Mixins  } from './entity';
 
 const Entities = {};
 
