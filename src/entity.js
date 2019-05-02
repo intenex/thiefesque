@@ -114,3 +114,18 @@ Mixins.FungusActor = {
   groupName: 'Actor',
   act: function() { } // fungus don't do anything yet lol
 };
+
+Mixins.Destructible = {
+  name: 'Destructible',
+  init: function() {
+    this.hp = 1;
+  },
+  takeDamage(attacker, damage) {
+    this.hp -= damage;
+    // if 0 or less HP, remove from map
+    if (this.hp <= 0) {
+      this.getMap().removeEntity(this);
+    }
+  }
+};
+
