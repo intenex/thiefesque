@@ -32,6 +32,9 @@ class Map {
 
   getEntityAt(x, y) {
     // Iterate through all entities searching for one with the matching position hmmmm should be stored in some hash format for better searching then
+    // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
+    // would be ideal for that, ah but the problem is the coordinates change with time hmm maybe updating some hash map object with the new position of every entity on every move
+    // would still function well but also there aren't that many entities ever that this is such an issue deal with it later
     for (let i = 0; i < this.entities.length; i++) {
       if (this.entities[i].getX() === x && this.entities[i].getY() === y) {
         return this.entities[i];
@@ -97,6 +100,20 @@ class Map {
     entity.setX(position.x);
     entity.setY(position.y);
     this.addEntity(entity);
+  }
+
+  removeEntity(entity) {
+    // Find entity in rhe list of entities if present
+    for (let i = 0; i < this.entities.length; i++) {
+      if (this.entities[i] === entity) {
+        this.entities.splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
+        break; // end the for loop as soon as the entity is found if found
+      }
+    }
+    // If the entity is an actor, remove them from the scheduler, brilliant
+    if (entity.hasMixin('Actor')) {
+      this.scheduler.remove(entity);
+    }
   }
 }
 
