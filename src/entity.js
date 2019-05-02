@@ -93,5 +93,13 @@ Mixins.Moveable = {
 };
 
 Mixins.PlayerActor = {
-  
+  name: 'PlayerActor',
+  groupName: 'Actor',
+  act: function() {
+    // Re-render the screen
+    game.refresh();
+    // Lock the engine and wait asynchronously
+    // for the player to press a key
+    this.getMap().getEngine().lock();
+  }
 };
