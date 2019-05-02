@@ -1,10 +1,12 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
+import { Entity } from './entity';
+import Entities from './entities';
 
 // yeah okay this is actually pretty good design love it
 
 class Map {
-  constructor(tiles) {
+  constructor(tiles, player) {
     this.tiles = tiles;
     // cache the width and height based
     // on the length of the dimensions of the tiles array
@@ -13,6 +15,11 @@ class Map {
     this.entities = []; // keep track of all entities on a given map in a list
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
+    this.addEntityAtRandomPosition(player);
+    // add random fungi
+    for (let i = 0; i < 50; i++) {
+      this.addEntityAtRandomPosition(new Entity(Entities.FungusTemplate));
+    }
   }
 
   getEngine() {
@@ -65,7 +72,7 @@ class Map {
     do {
       x = Math.floor(Math.random() * this.width);
       y = Math.floor(Math.random() * this.width);
-    } while(this.getTile(x, y) != TILES.floorTile);
+    } while(this.getTile(x, y) != TILES.floorTile || this.getEntityAt(x, y)); // if either of these conditions returns true keep checking --> the second will return true if any entity is found, which means it's not a valid starting position
     return {x, y}; // JS is magic and will literally just translate this to {x: x, y: y}
   }
 
