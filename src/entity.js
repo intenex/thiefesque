@@ -77,12 +77,12 @@ export class Entity extends Glyph {
     if (receipient.hasMixin(Mixins.MessageRecipient)) {
       // if no arguments passed in, format the message, otherwise don't and defer to what was passed in as args
       if (args) {
-        message = SPRINTF.vsprintf(message, args);
+        message = SPRINTF.vsprintf(message, args); // make sure the namepsacing works here for referencing this function
       }
       receipient.receiveMessage(message);
     }
   }
-};
+}
 
 // love duck typing here with these Mixins and making literally
 // all characters indistinguishable in implementation - makes it incredibly
