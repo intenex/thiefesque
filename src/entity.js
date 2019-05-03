@@ -176,7 +176,7 @@ Mixins.Attacker = {
       const damage = 1 + Math.floor(Math.random() * max);
 
       this.sendMessage(this, `You strike the ${target.getName()} for ${damage} damage!`);
-      this.sendMessage()
+      this.sendMessage(target, `The ${this.getName()} strikes you for ${damage} damage!`);
 
       target.takeDamage(this, damage); // this will do minimum 1 damage no matter what even if the defender has insanely higher defense value which can lead to some very interesting monsters who can only ever take 1 damage per turn or something
     }
