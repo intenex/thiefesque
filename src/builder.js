@@ -6,7 +6,11 @@ class Builder {
     this.height = height;
     this.depth = depth;
     this.tiles = [];
-    this.regions = [];
+    // instantiate the arrays to be multi-dimensional
+    for (let z = 0; z < depth; z++) {
+      // fill out each level
+      this.tiles.push(this.generateLevel());
+    }
   }
 
   generateLevel() {
@@ -25,6 +29,7 @@ class Builder {
       }
     };
     generator.create(generatorCB);
+    return map;
   }
 }
 
