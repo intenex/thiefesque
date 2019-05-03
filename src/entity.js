@@ -207,7 +207,9 @@ export const Entities = {};
 Entities.PlayerTemplate = {
   character: '@',
   foreground: 'white',
-  background: 'black',
+  maxHP: 15,
+  attackValue: 5,
+  defenseValue: 2,
   mixins: [Mixins.Moveable, Mixins.PlayerActor,
   Mixins.Attacker, Mixins.Destructible]
 };
@@ -215,5 +217,6 @@ Entities.PlayerTemplate = {
 Entities.FungusTemplate = {
   character: 'F',
   foreground: 'green',
+  maxHP: 6,
   mixins: [Mixins.FungusActor, Mixins.Destructible],
 };
