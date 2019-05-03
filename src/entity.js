@@ -153,9 +153,12 @@ Mixins.Destructible = {
   }
 };
 
-Mixins.SimpleAttacker = {
-  name: 'SimpleAttacker',
+Mixins.Attacker = {
+  name: 'Attacker',
   groupName: 'Attacker',
+  init(template) {
+    this.attackValue = template.attackValue || 1;
+  },
   attack(target) {
     // only attack the entity if they are destructible
     if (target.hasMixin('Destructible')) {
@@ -203,7 +206,7 @@ Entities.PlayerTemplate = {
   foreground: 'white',
   background: 'black',
   mixins: [Mixins.Moveable, Mixins.PlayerActor,
-  Mixins.SimpleAttacker, Mixins.Destructible]
+  Mixins.Attacker, Mixins.Destructible]
 };
 
 Entities.FungusTemplate = {
