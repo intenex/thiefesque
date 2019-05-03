@@ -216,6 +216,10 @@ Mixins.FungusActor = {
               entity.setY(this.getY() + yOffset);
               this.getMap().addEntity(entity);
               this.growthsRemaining--;
+
+              this.sendMessageNearby(this.getMap(), // okay this is amazing lol
+                entity.getX(), entity.getY(),
+                `The fungus is spreading!`);
             }
         }
       }
