@@ -119,7 +119,7 @@ class Map {
   }
 
   getEntitiesWithinRadius(centerX, centerY, radius) {
-    boundedEntities = [];
+    const boundedEntities = [];
     // determine bounds
     const leftX = centerX - radius;
     const rightX = centerX + radius;
