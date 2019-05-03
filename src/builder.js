@@ -1,12 +1,12 @@
 
-// makes all the tiles for a given map
+// makes all the tiles for all the levels in the whole map
 class Builder {
   constructor(width, height, depth) {
     this.width = width;
     this.height = height;
     this.depth = depth;
-    this.tiles = new Array(depth); // look into if this is necessary or not
-    this.regions = new Array(depth);
+    this.tiles = [];
+    this.regions = [];
   }
 
   generateLevel() {
