@@ -11,9 +11,9 @@ class Builder {
 
   generateLevel() {
     // create empty map, better way of doing it hmm see if this is necessary at all
-    const map = new Array(this.width);
+    const map = [];
     for (let w = 0; w < this.width; w++) {
-      map[w] = new Array(this.height);
+      map.push([]);
     }
     // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
     const generator = new ROT.Map.Digger(mapWidth, mapHeight);

@@ -51,6 +51,10 @@ playScreen.enter = function(game) {
   // Create a map based on these size parameters fuck yeah
   const mapWidth = 100;
   const mapHeight = 100;
+  for (let x = 0; x < mapWidth; x++) {
+    // Create nested array for the y values
+    map.push([]);
+  }
   // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
   const generator = new ROT.Map.Digger(mapWidth, mapHeight);
   const generatorCB = (x, y, v) => { // making this an arrow function so you don't have to bind the scope here it automatically should have access to the scope here love it
