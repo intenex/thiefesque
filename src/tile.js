@@ -22,8 +22,22 @@ export class Tile extends Glyph {
 }
 
 export const nullTile = new Tile();
-export const floorTile = new Tile({character: '.',
-                                   walkable: true});
-export const wallTile = new Tile({character: '#',
-                                  foreground: 'goldenrod',
-                                  diggable: true});
+export const floorTile = new Tile({
+  character: '.',
+  walkable: true
+});
+export const wallTile = new Tile({
+  character: '#',
+  foreground: 'goldenrod',
+  diggable: true
+});
+export const stairsUpTile = new Tile({
+  character: '<',
+  foreground: 'white',
+  isWalkable: true
+});
+export const stairsDownTile = new Tile({
+  character: '>',
+  foreground: 'white',
+  isWalkable: true
+});
