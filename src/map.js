@@ -126,6 +126,10 @@ class Map {
     const topY = centerY - radius;
     const bottomY = centerY + radius;
     // iterate through all entitites within the bounds specified
+    // there most certainly must be a better way to do all these things by
+    // storing a reference of every entity at every X and Y position somewhere
+    // entity finding by coordinates happens way too often such that this is almost
+    // certainly worth optimizing at some point, esp if you have huge #s of entities
     for (let i = 0; i < this.entities.length; i++) {
       if (this.entities[i].getX() >= leftX &&
           this.entities[i].getX() <= rightX &&
