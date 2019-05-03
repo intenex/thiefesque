@@ -1,5 +1,4 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
-import * as SPRINTF from 'sprintf-js';
 import Glyph from './glyph';
 
 // the basic prototype for everything in the game, from creatures to the player to items
@@ -72,14 +71,10 @@ export class Entity extends Glyph {
     }
   }
 
-  sendMessage(receipient, message, args) {
+  sendMessage(recipient, message) {
     // ensure the recipient can actually receive the message
-    if (receipient.hasMixin(Mixins.MessageRecipient)) {
-      // if no arguments passed in, format the message, otherwise don't and defer to what was passed in as args
-      if (args) {
-        message = SPRINTF.vsprintf(message, args); // make sure the namepsacing works here for referencing this function
-      }
-      receipient.receiveMessage(message);
+    if (recipient.hasMixin(Mixins.MessageRecipient)) {
+      recipient.receiveMessage(message);
     }
   }
 }
@@ -178,7 +173,12 @@ Mixins.Attacker = {
       const attack = this.getAttackValue();
       const defense = target.getDefenseValue();
       const max = Math.max(0, attack-defense);
-      target.takeDamage(this, 1 + Math.floor(Math.random() * max)); // this will do minimum 1 damage no matter what even if the defender has insanely higher defense value which can lead to some very interesting monsters who can only ever take 1 damage per turn or something
+      const damage = 1 + Math.floor(Math.random() * max);
+
+      this.sendMessage(this, `You strike the ${target.getName()} for ${damage} damage!`);
+      this.sendMessage()
+
+      target.takeDamage(this, damage); // this will do minimum 1 damage no matter what even if the defender has insanely higher defense value which can lead to some very interesting monsters who can only ever take 1 damage per turn or something
     }
   }
 };
