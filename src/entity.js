@@ -141,6 +141,8 @@ Mixins.PlayerActor = {
     // Lock the engine and wait asynchronously
     // for the player to press a key
     this.getMap().getEngine().lock();
+    // clear the message queue on every turn
+    this.clearMessages();
   }
 };
 
