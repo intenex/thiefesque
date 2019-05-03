@@ -129,6 +129,10 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
     // draw each message, incrementing the Y by the index each time
     display.drawText(0, idx, `%c{white}%b{black}${message}`); // unclear why sprintf was ever helpful hmm vs just clear interpolation even in ES5 format
   });
+
+  // render player stats
+  const stats = `%c{white}%b{black}HP: ${this.player.getHP()}/${this.player.getMaxHP()}`;
+  display.drawText(0, screenHeight, stats);
 };
 
 playScreen.handleEvent = function(game, e) {
