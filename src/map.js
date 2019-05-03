@@ -117,6 +117,25 @@ class Map {
     // Check if the tile is an empty floor tile aka one with no entity
     return this.getTile(x, y) === TILES.floorTile && !this.getEntityAt(x, y);
   }
+
+  getEntitiesWithinRadius(centerX, centerY, radius) {
+    boundedEntities = [];
+    // determine bounds
+    const leftX = centerX - radius;
+    const rightX = centerX + radius;
+    const topY = centerY - radius;
+    const bottomY = centerY + radius;
+    // iterate through all entitites within the bounds specified
+    for (let i = 0; i < this.entities.length; i++) {
+      if (this.entities[i].getX() >= leftX &&
+          this.entities[i].getX() <= rightX &&
+          this.entities[i].getY() >= topY &&
+          this.entities[i].getY() <= bottomY) {
+            boundedEntities.push(this.entities[i]);
+          } 
+    }
+    return boundedEntities;
+  }
 }
 
 export default Map;
