@@ -159,6 +159,7 @@ Mixins.Attacker = {
   init(template) {
     this.attackValue = template.attackValue || 1;
   },
+  getAttackValue() { return this.attackValue; },
   attack(target) {
     // only attack the entity if they are destructible
     if (target.hasMixin('Destructible')) {
@@ -200,6 +201,17 @@ Mixins.FungusActor = {
       }
     }
   }
+};
+
+Mixins.MessageRecipient = {
+  name: 'MessageRecipient',
+  init(template) {
+    this.messages = [];
+  },
+  receiveMessage(message) {
+    this.messages.push(message);
+  },
+
 };
 
 export const Entities = {};
