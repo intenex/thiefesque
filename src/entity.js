@@ -162,7 +162,10 @@ Mixins.Attacker = {
   attack(target) {
     // only attack the entity if they are destructible
     if (target.hasMixin('Destructible')) {
-      target.takeDamage(this, 1);
+      const attack = this.getAttackValue();
+      const defense = target.getDefenseValue();
+      const max = Math.max(0, attack-defense);
+      target.takeDamage(this, 1 + Math.floor(Math.random() * max)); // this will do minimum 1 damage no matter what even if the defender has insanely higher defense value which can lead to some very interesting monsters who can only ever take 1 damage per turn or something
     }
   }
 };
