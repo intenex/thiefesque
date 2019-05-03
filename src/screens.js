@@ -122,6 +122,13 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
         );
     }
   });
+
+  // get all the messages in the player entity's queue and render them
+  const messages = this.player.getMessages();
+  messages.forEach((message, idx) => {
+    // draw each message, incrementing the Y by the index each time
+    display.drawText(0, idx, `%c{white}%b{black}${message}`); // unclear why sprintf was ever helpful hmm vs just clear interpolation even in ES5 format
+  });
 };
 
 playScreen.handleEvent = function(game, e) {
