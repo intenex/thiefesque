@@ -1,4 +1,5 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
+import * as SPRINTF from 'sprintf-js';
 import Glyph from './glyph';
 
 // the basic prototype for everything in the game, from creatures to the player to items
@@ -70,7 +71,18 @@ export class Entity extends Glyph {
       return this.attachedMixins[obj] || this.attachedMixinGroups[obj]; // check if either the specific mixin or the group mixin exists, this function can be passed either a GroupMixin name or a specific Mixin name and it'll worse for both // if typeof obj === 'string' since string is a primitive so dope
     }
   }
-}
+
+  sendMessage(receipient, message, args) {
+    // ensure the recipient can actually receive the message
+    if (receipient.hasMixin(Mixins.MessageRecipient)) {
+      // if no arguments passed in, format the message, otherwise don't and defer to what was passed in as args
+      if (args) {
+        message = SPRINTF.vsprintf(message, args);
+      }
+      receipient.receiveMessage(message);
+    }
+  }
+};
 
 // love duck typing here with these Mixins and making literally
 // all characters indistinguishable in implementation - makes it incredibly

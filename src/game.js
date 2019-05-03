@@ -59,10 +59,6 @@ class Game {
         // render the screen
         this.currentScreen.render(this, this.display);
     }
-
-    sendMessage(receipient, message, args) {
-        
-    }
 }
 
 export default Game;
