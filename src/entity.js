@@ -155,6 +155,8 @@ Mixins.Destructible = {
     this.hp -= damage;
     // if 0 or less HP, remove from map
     if (this.hp <= 0) {
+      this.sendMessage(attacker, `You kill the ${this.getName()}`);
+      this.sendMessage(this, `You die!`);
       this.getMap().removeEntity(this);
     }
   }
