@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.11",
-    "rot-js": "^2.0.3"
+    "rot-js": "^2.0.3",
+    "sprintf-js": "^1.1.2"
   }
 }

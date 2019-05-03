@@ -211,7 +211,12 @@ Mixins.MessageRecipient = {
   receiveMessage(message) {
     this.messages.push(message);
   },
-
+  getMessages() {
+    return this.messages;
+  },
+  clearMessages() {
+    this.messages = [];
+  }
 };
 
 export const Entities = {};
