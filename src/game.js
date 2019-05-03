@@ -9,7 +9,7 @@ class Game {
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
         this.screenWidth = 80;
         this.screenHeight = 40;
-        this.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight }); // holy shit this works reading the source is always a winning strategy wow
+        this.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight + 1 }); // make sure to keep one extra line at the bottom of the screen for displaying player stats
 
         document.body.appendChild(this.display.getContainer());
 
