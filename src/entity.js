@@ -135,9 +135,14 @@ Mixins.FungusActor = {
 
 Mixins.Destructible = {
   name: 'Destructible',
-  init() {
-    this.hp = 1;
+  init(template) {
+    this.maxHP = template.maxHP || 10;
+    // gives optionality to set starting HP to something lower than max HP, that would be really cool in some future Worm lung monster shit
+    this.hp = template.hp || this.maxHP;
+
   },
+  getHP() { return this.hp; },
+  getMaxHP() { return this.maxHP },
   takeDamage(attacker, damage) {
     this.hp -= damage;
     // if 0 or less HP, remove from map
