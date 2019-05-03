@@ -10,7 +10,7 @@ class Builder {
   }
 
   generateLevel() {
-    // create empty map
+    // create empty map, better way of doing it hmm see if this is necessary at all
     const map = new Array(this.width);
     for (let w = 0; w < this.width; w++) {
       map[w] = new Array(this.height);
