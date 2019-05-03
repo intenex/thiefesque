@@ -240,10 +240,12 @@ Entities.PlayerTemplate = {
   attackValue: 5,
   defenseValue: 2,
   mixins: [Mixins.Moveable, Mixins.PlayerActor,
-  Mixins.Attacker, Mixins.Destructible]
+  Mixins.Attacker, Mixins.Destructible,
+  Mixins.MessageRecipient]
 };
 
 Entities.FungusTemplate = {
+  name: 'fungus',
   character: 'F',
   foreground: 'green',
   maxHP: 6,
