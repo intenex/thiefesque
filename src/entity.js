@@ -77,6 +77,12 @@ export class Entity extends Glyph {
       recipient.receiveMessage(message);
     }
   }
+
+  sendMessageNearby(map, centerX, centerY, message, args) {
+    entities = map.getEntitiesWithinRadius(centerX, centerY, 5); // every entity should have an associated map already but nice to make functions more pure wherever possible anyway
+    // Iterate through nearby entities, sending the message if they can receive it
+    
+  }
 }
 
 // love duck typing here with these Mixins and making literally
