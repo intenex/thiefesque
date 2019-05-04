@@ -164,7 +164,41 @@ Mixins.PlayerActor = {
 Mixins.FungusActor = {
   name: 'FungusActor',
   groupName: 'Actor',
-  act() { } // fungus don't do anything yet lol
+  init() {
+    this.growthsRemaining = 5;
+  },
+  act() {
+    // don't do anything if not on the same level as the player
+    if (this.getZ() !== this.map.currentZ) {
+      return false;
+    }
+    // see if fungus should randomly grow this turn or not
+    if (this.growthsRemaining > 0) {
+      if (Math.random() <= 0.03) {
+        // Generate the coordinates of a random adjacent square
+        // by generating an offset of either -1, 0, or 1 for both the x and y coordinates
+        // To do that, generate a number from 0 to 2 and subtract one, smart lol.
+        // Note that Math.random() is not inclusive of 1 so you can safely do * 3 and be assured it will never actaully equal 1 * 3 and will always round down to 2 at the highest end of things, Math.floor is great, this is a smart method for sure wow
+        const xOffset = Math.floor(Math.random() * 3) - 1;
+        const yOffset = Math.floor(Math.random() * 3) - 1;
+        // Make sure you're not trying to spawn on the same tile as the current spawning fungus lol
+        if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
+          // make sure this location is actually a floor and if so all good
+          if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset)) {
+            const entity = new Entity(Entities.FungusTemplate); // rough can't have a circular require makes sense lol hmm // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
+            entity.setX(this.getX() + xOffset);
+            entity.setY(this.getY() + yOffset);
+            this.getMap().addEntity(entity);
+            this.growthsRemaining--;
+
+            this.sendMessageNearby(this.getMap(), // okay this is amazing lol
+              entity.getX(), entity.getY(),
+              `The fungus is spreading!`);
+          }
+        }
+      }
+    }
+  }
 };
 
 Mixins.Destructible = {
@@ -208,42 +242,6 @@ Mixins.Attacker = {
       this.sendMessage(target, `The ${this.getName()} strikes you for ${damage} damage!`);
 
       target.takeDamage(this, damage); // this will do minimum 1 damage no matter what even if the defender has insanely higher defense value which can lead to some very interesting monsters who can only ever take 1 damage per turn or something
-    }
-  }
-};
-
-Mixins.FungusActor = {
-  name: 'FungusActor',
-  groupName: 'Actor',
-  init() {
-    this.growthsRemaining = 5;
-  },
-  act() {
-    // see if fungus should randomly grow this turn or not
-    if (this.growthsRemaining > 0) {
-      if (Math.random() <= 0.03) {
-        // Generate the coordinates of a random adjacent square
-        // by generating an offset of either -1, 0, or 1 for both the x and y coordinates
-        // To do that, generate a number from 0 to 2 and subtract one, smart lol.
-        // Note that Math.random() is not inclusive of 1 so you can safely do * 3 and be assured it will never actaully equal 1 * 3 and will always round down to 2 at the highest end of things, Math.floor is great, this is a smart method for sure wow
-        const xOffset = Math.floor(Math.random() * 3) - 1;
-        const yOffset = Math.floor(Math.random() * 3) - 1;
-        // Make sure you're not trying to spawn on the same tile as the current spawning fungus lol
-        if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
-          // make sure this location is actually a floor and if so all good
-          if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset)) {
-              const entity = new Entity(Entities.FungusTemplate); // rough can't have a circular require makes sense lol hmm // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
-              entity.setX(this.getX() + xOffset);
-              entity.setY(this.getY() + yOffset);
-              this.getMap().addEntity(entity);
-              this.growthsRemaining--;
-
-              this.sendMessageNearby(this.getMap(), // okay this is amazing lol
-                entity.getX(), entity.getY(),
-                `The fungus is spreading!`);
-            }
-        }
-      }
     }
   }
 };

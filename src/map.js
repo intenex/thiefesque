@@ -10,6 +10,7 @@ class Map {
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0][0].length; // a single column of all the rows
     this.entities = {}; // all the z levels are attributes on this object and point to an array of entities on each level // keep track of all entities on a given map in a list
+    this.currentZ = player.getZ(); // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
     this.addEntityAtRandomPosition(player);
