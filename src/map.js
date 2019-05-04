@@ -27,16 +27,18 @@ class Map {
     return this.entities;
   }
 
-  getEntityAt(x, y) {
+  getEntityAt(x, y, z) {
     // Iterate through all entities searching for one with the matching position hmmmm should be stored in some hash format for better searching then
     // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
     // would be ideal for that, ah but the problem is the coordinates change with time hmm maybe updating some hash map object with the new position of every entity on every move
     // would still function well but also there aren't that many entities ever that this is such an issue deal with it later
-    for (let i = 0; i < this.entities.length; i++) {
-      if (this.entities[i].getX() === x && this.entities[i].getY() === y) {
-        return this.entities[i];
+    this.entities.forEach(entity => {
+      if (entity.getX() === x &&
+          entity.getY() === y &&
+          entity.getZ() === z) {
+          return entity;
       }
-    }
+    });
     return false;
   }
 
