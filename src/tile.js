@@ -34,10 +34,10 @@ export const wallTile = new Tile({
 export const stairsUpTile = new Tile({
   character: '<',
   foreground: 'white',
-  isWalkable: true
+  walkable: true
 });
 export const stairsDownTile = new Tile({
   character: '>',
   foreground: 'white',
-  isWalkable: true
+  walkable: true
 });
