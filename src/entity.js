@@ -149,9 +149,16 @@ Mixins.Moveable = {
         this.sendMessage(this, `Sorry, these are fake stairs. No lower level.`);
       } else {
         const currentDownstairPos = this.map.getDownstairPos()[z]; // just the current level
-        const newDownstairPos = this.map.getDownstairPos()[z + 1];
-        this.sendMessage(this, `You descend to level ${z+1}!`);
-        this.setPosition(x, y, z);
+        const newUpstairPos = this.map.getUpstairPos()[z - 1];
+        let index;
+        for (let i = 0; i < currentDownstairPos.length; i++) {
+          if (currentDownstairPos[0] === x && currentDownstairPos[1] === y) {
+            index = i;
+          }
+        }
+        const newX = newUpstairPos[index][0];
+        const newY = newUpstairPos[index][1];        this.sendMessage(this, `You descend to level ${z+1}!`);
+        this.setPosition(newX, newY, z);
         map.currentZ = z;
         map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
         map.entities[z].push(this); // add the entity back on the right level
