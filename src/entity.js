@@ -1,4 +1,5 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
+import * as TILES from './tile';
 import Glyph from './glyph';
 
 // the basic prototype for everything in the game, from creatures to the player to items
@@ -114,10 +115,26 @@ export const Mixins = {};
 // entity mixin
 Mixins.Moveable = {
   name: 'Moveable',
-  tryMove(x, y, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
-    const tile = map.getTile(x, y);
-    const target = map.getEntityAt(x, y);
-    if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
+  tryMove(x, y, z, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
+    const tile = map.getTile(x, y, this.getZ());
+    const target = map.getEntityAt(x, y, this.getZ());
+    // if the z level of the attempted move is different from the current z, that means
+    // they're trying to ascend or descend. Ensure that this is a valid move then execute it
+    if (z < this.getZ()) { // attempting to go up
+      if (tile !== TILES.stairsUpTile) {
+        this.sendMessage(this, `You can't go up here!`);
+      } else {
+        this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
+        this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later 
+      }
+    } else if (z > this.getZ()) {
+      if (tile !== TILES.stairsDownTile) {
+        this.sendMessage(this, `You can't go down here!`);
+      } else {
+        this.sendMessage(this, `You descend to level ${z+1}!`);
+        this.setPosition(x, y, z);
+      }
+    } else if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
       // if this entity is an attacker, try to attack the target
       // basically this is because entities can be anything and there are presumably
       // some entities that don't attack, not just the player character but all the
