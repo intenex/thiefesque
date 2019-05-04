@@ -78,7 +78,7 @@ class Map {
   }
 
   // to get the random starting position for the player so great heh
-  getRandomFloorPosition() {
+  getRandomFloorPosition(z) {
     // Randomly identify a tile that's a floor tile lol definitely a better way to do this but whatever
     let x, y;
     do {
@@ -110,10 +110,11 @@ class Map {
     }
   }
 
-  addEntityAtRandomPosition(entity) {
-    const position = this.getRandomFloorPosition();
+  addEntityAtRandomPosition(entity, z) {
+    const position = this.getRandomFloorPosition(z);
     entity.setX(position.x);
     entity.setY(position.y);
+    entity.setZ(position.z);
     this.addEntity(entity);
   }
 
