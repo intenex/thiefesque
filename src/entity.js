@@ -157,7 +157,8 @@ Mixins.Moveable = {
           }
         }
         const newX = newUpstairPos[index][0];
-        const newY = newUpstairPos[index][1];        this.sendMessage(this, `You descend to level ${z+1}!`);
+        const newY = newUpstairPos[index][1];
+        this.sendMessage(this, `You descend to level ${z+1}!`);
         this.setPosition(newX, newY, z);
         map.currentZ = z;
         map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
