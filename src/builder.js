@@ -13,6 +13,22 @@ class Builder {
     }
   }
 
+  getTiles() {
+    return this.tiles;
+  }
+
+  getDepth() {
+    return this.depth;
+  }
+
+  getWidth() {
+    return this.width;
+  }
+
+  getHeight() { 
+    return this.height;
+  }
+
   generateLevel() {
     // create empty map, better way of doing it hmm see if this is necessary at all
     const map = [];
