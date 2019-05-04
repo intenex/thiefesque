@@ -13,7 +13,7 @@ class Map {
     this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
-    this.addEntityAtRandomPosition(player, currentZ); // have a single source of truth for all these numbers 
+    this.addEntityAtRandomPosition(player, this.currentZ); // have a single source of truth for all these numbers 
     // add 25 random fungi on every level for (let z = 0; z < this.depth, z++) {}
     for (let z = 0; z < this.depth; z++) {
       for (let i = 0; i < 25; i++) {

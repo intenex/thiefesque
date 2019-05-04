@@ -76,13 +76,13 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
   let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
-  const z = this.player.getZ();
+  const currentZ = this.player.getZ();
   
   // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
     for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
       // Fetch the glyph for the tile and render it to the screen so fucking great
-      const tile = this.map.getTile(x, y, z); // right this gets a Tile object and each of those has a getGlyph method amazing
+      const tile = this.map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
       display.draw( // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it --> but anyway you could solve this by passing arguments into .bind at call time which you did do above love it
           x - topLeftX, // right because you want these to always be constant to the screen position love it
           y - topLeftY,
@@ -94,7 +94,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   }
   // Render all entities
   const entities = this.map.getEntities();
-  entities.z.forEach(entity => {
+  entities.currentZ.forEach(entity => {
     // only render the entity if they would show up on the screen
     if (entity.getX() >= topLeftX && entity.getY() >= topLeftY &&
         entity.getX() < topLeftX + screenWidth &&
