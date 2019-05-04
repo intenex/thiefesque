@@ -42,13 +42,12 @@ class Map {
     if (!this.entities[z]) { // check that this exists first
       return false;
     }
-
-    this.entities[z].forEach(entity => {
-      if (entity.getX() === x &&
-          entity.getY() === y) {
-          return entity;
-      }
-    });
+    for (let i = 0; i < this.entities[z].length; i++) {
+      if (this.entities[z][i].getX() === x &&
+          this.entities[z][i].getY() === y) {
+            return this.entities[z][i];
+          }
+    }
   }
 
   getWidth() {
