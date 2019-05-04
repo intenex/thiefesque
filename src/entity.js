@@ -135,6 +135,8 @@ Mixins.Moveable = {
     } else if (z > this.getZ()) {
       if (tile !== TILES.stairsDownTile) {
         this.sendMessage(this, `You can't go down here!`);
+      } else if (z >= map.depth) {
+        this.sendMessage(this, `Sorry, these are fake stairs. No lower level.`);
       } else {
         this.sendMessage(this, `You descend to level ${z+1}!`);
         this.setPosition(x, y, z);
