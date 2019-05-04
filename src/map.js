@@ -27,6 +27,10 @@ class Map {
     return this.entities;
   }
 
+  // okay obviously in the long run you'll have to segregate searching by entities
+  // by level that would be ideal hmm entities should be an object with z values as all the attributes
+  // and each z level points to an array of all the entities on that level that would
+  // save a ton of indexing and search time but requires some serious refactoring consider later
   getEntityAt(x, y, z) {
     // Iterate through all entities searching for one with the matching position hmmmm should be stored in some hash format for better searching then
     // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
