@@ -130,7 +130,7 @@ class Map {
     return this.getTile(x, y, z) === TILES.floorTile && !this.getEntityAt(x, y, z);
   }
 
-  getEntitiesWithinRadius(centerX, centerY, radius) {
+  getEntitiesWithinRadius(centerX, centerY, currentZ, radius) {
     const boundedEntities = [];
     // determine bounds
     const leftX = centerX - radius;
@@ -146,7 +146,8 @@ class Map {
       if (entity.getX() >= leftX &&
         entity.getX() <= rightX &&
         entity.getY() >= topY &&
-        entity.getY() <= bottomY) {
+        entity.getY() <= bottomY &&
+        entity.getZ() === currentZ) {
         boundedEntities.push(entity);
       }
     });
