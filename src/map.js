@@ -122,6 +122,15 @@ class Map {
     this.addEntity(entity);
   }
 
+  destroyEntity(entity) {
+    this.removeEntity(entity);
+    // If the entity is an actor, remove them from the scheduler, brilliant
+    if (entity.hasMixin('Actor')) {
+      this.scheduler.remove(entity);
+    }
+  }
+
+  // a method to just remove the entity without removing it from the scheduler --> should call the method above destroyEntity and this one removeEntity
   removeEntity(entity) {
     // Find entity in the list of entities if present
     // first get all the z levels as keys in the object array to iterate through
@@ -134,10 +143,6 @@ class Map {
         }
       }
     });
-    // If the entity is an actor, remove them from the scheduler, brilliant
-    if (entity.hasMixin('Actor')) {
-      this.scheduler.remove(entity);
-    }
   }
 
   isEmptyFloor(x, y, z) {
