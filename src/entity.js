@@ -270,7 +270,7 @@ Entities.PlayerTemplate = {
   maxHP: 15,
   attackValue: 5,
   defenseValue: 2,
-  mixins: [Mixins.Moveable, Mixins.PlayerActor,
+  mixins: [Mixins.PlayerActor, Mixins.Moveable, 
   Mixins.Attacker, Mixins.Destructible,
   Mixins.MessageRecipient]
 };
