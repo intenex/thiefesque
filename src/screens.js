@@ -1,5 +1,5 @@
 import * as ROT from 'rot-js';
-import * as TILES from './tile';
+import Builder from './builder';
 import Map from './map';
 import { Entity, Entities } from './entity';
 
@@ -49,24 +49,13 @@ export const playScreen = new Screen("play"); // at least you know this export s
 playScreen.enter = function(game) {
   const map = [];
   // Create a map based on these size parameters fuck yeah
-  const mapWidth = 100;
-  const mapHeight = 100;
-  for (let x = 0; x < mapWidth; x++) {
-    // Create nested array for the y values
-    map.push([]);
-  }
-  // Setup the map generator, using Map.Digger for the Tyrant algo vs the Map.Cellular option used by the tutorial as this one leads to more natural cavelike patterns versus man-made dungeons and also possibly leads to dead ends which are not great
-  const generator = new ROT.Map.Digger(mapWidth, mapHeight);
-  const generatorCB = (x, y, v) => { // making this an arrow function so you don't have to bind the scope here it automatically should have access to the scope here love it
-    if (v) { // if v is true, meaning 1, then this is a wall tile. The Map generators return 1 and 0 generally to distinguish these two characteristics
-      map[x][y] = TILES.wallTile;
-    } else { // if v is false, meaning 0 (since 0 equals false in JS lol), then this is a floor tile
-      map[x][y] = TILES.floorTile;
-    }
-  };
-  generator.create(generatorCB);
+  const width = 100;
+  const height = 100;
+  const depth = 6;
+  // create map from the tiles from the Builder
+  const tiles = new Builder(width, height, depth).getTiles();
   this.player = new Entity(Entities.PlayerTemplate, game);
-  this.map = new Map(map, this.player); // this still refers to the playScreen object at this point in time since it'll be called method style
+  this.map = new Map(tiles, this.player); // this still refers to the playScreen object at this point in time since it'll be called method style
   this.map.getEngine().start();
 };
 
