@@ -32,6 +32,14 @@ class Map {
     return this.entities;
   }
 
+  getUpstairPos() {
+    return this.upstairPos;
+  }
+
+  getDownstairPos() {
+    return this.downstairPos;
+  }
+
   // okay obviously in the long run you'll have to segregate searching by entities
   // by level that would be ideal hmm entities should be an object with z values as all the attributes
   // and each z level points to an array of all the entities on that level that would

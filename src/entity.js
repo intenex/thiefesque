@@ -126,6 +126,7 @@ Mixins.Moveable = {
       } else if (z < 0) {
         this.sendMessage(this, `Sorry, these are fake stairs. No higher level.`);
       } else {
+        const currentUpstairPos = this.map.
         this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
         
         this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
