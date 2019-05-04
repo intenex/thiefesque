@@ -126,11 +126,11 @@ Mixins.Moveable = {
       } else if (z < 0) {
         this.sendMessage(this, `Sorry, these are fake stairs. No higher level.`);
       } else {
-        const currentUpstairPos = this.map.getUpstairPos()[z]; // just the current level
-        const newDownstairPos = this.map.getDownstairPos()[z - 1];
+        const currentUpstairPos = this.map.getUpstairPos()[this.getZ()]; // just the current level
+        const newDownstairPos = this.map.getDownstairPos()[z];
         let index;
         for (let i = 0; i < currentUpstairPos.length; i++) {
-          if (currentUpstairPos[0] === x && currentUpstairPos[1] === y) {
+          if (currentUpstairPos[i][0] === x && currentUpstairPos[i][1] === y) {
             index = i;
           }
         }
@@ -148,11 +148,11 @@ Mixins.Moveable = {
       } else if (z >= map.depth) {
         this.sendMessage(this, `Sorry, these are fake stairs. No lower level.`);
       } else {
-        const currentDownstairPos = this.map.getDownstairPos()[z]; // just the current level
-        const newUpstairPos = this.map.getUpstairPos()[z - 1];
+        const currentDownstairPos = this.map.getDownstairPos()[this.getZ()]; // just the current level
+        const newUpstairPos = this.map.getUpstairPos()[z];
         let index;
         for (let i = 0; i < currentDownstairPos.length; i++) {
-          if (currentDownstairPos[0] === x && currentDownstairPos[1] === y) {
+          if (currentDownstairPos[i][0] === x && currentDownstairPos[i][1] === y) {
             index = i;
           }
         }
