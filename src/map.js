@@ -91,7 +91,8 @@ class Map {
   addEntity(entity) {
     // Make sure the entity's position is within bounds
     if (entity.getX() < 0 || entity.getX() >= this.width ||
-        entity.getY() < 0 || entity.getY() >= this.height) {
+        entity.getY() < 0 || entity.getY() >= this.height ||
+        entity.getZ() < 0 || entity.getZ() >= this.depth) {
           throw new Error('Adding entity out of bounds.');
     }
     // set the entity's map
