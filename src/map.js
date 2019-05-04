@@ -128,8 +128,10 @@ class Map {
     Object.keys(this.entities).forEach(z => {
       // iterate through the whole array for each level until the entity is found --> ideally just refactor removeEntity to only search one level and to know what level to search from the beginning
       for (let i = 0; i < this.entities[z].length; i++) {
-        this.entities[z].splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
-        break; // end the for loop as soon as the entity is found if found
+        if (this.entities[z][i] === entity) {
+          this.entities[z].splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
+          break; // end the for loop as soon as the entity is found if found
+        }
       }
     });
     // If the entity is an actor, remove them from the scheduler, brilliant
