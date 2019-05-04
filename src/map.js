@@ -119,9 +119,9 @@ class Map {
     }
   }
 
-  isEmptyFloor(x, y) {
+  isEmptyFloor(x, y, z) {
     // Check if the tile is an empty floor tile aka one with no entity
-    return this.getTile(x, y) === TILES.floorTile && !this.getEntityAt(x, y);
+    return this.getTile(x, y, z) === TILES.floorTile && !this.getEntityAt(x, y, z);
   }
 
   getEntitiesWithinRadius(centerX, centerY, radius) {
