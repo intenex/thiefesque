@@ -51,18 +51,12 @@ class Builder {
     generator.create(generatorCB);
     // create stairs up and stairs down, three per level of each
     for (let i = 0; i < 3; i++) {
-      const randPos = floorTiles[Math.floor(Math.random()*floorTiles.length)]; // since Math.random() is exclusive of 1 this will always get a random tile in the list from 0 to length-1 which is exactly what you want
-
+      const idx = Math.floor(Math.random() * floorTiles.length);
+      const randPos = floorTiles[idx]; // since Math.random() is exclusive of 1 this will always get a random tile in the list from 0 to length-1 which is exactly what you want
+      floorTiles.splice(idx, 1); // remove that tile from the floor tiles list so you don't accidentally go over it again, though this isn't necessary - if you don't do this odds are exceedingly small but possible that you'll have less than 3 total stairs but you should still have at least 1 stair. The real issue is that you could theoretically in the most unlucky case have 3 downstairs that replace all the upstairs somehow lol and that would be gamebreaking
+      map[randPos[0]][randPos[1]] = TILES.stairsUpTile; // change that given tile position to a stairsUpTile hell yeah
     }
-    let stairsUp = 0;
-    do {
 
-    } while (stairsUp < 3);
-
-    let stairsDown = 0;
-    do {
-
-    } while (stairsDown < 3);
     return map;
   }
 }
