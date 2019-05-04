@@ -94,7 +94,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   }
   // Render all entities
   const entities = this.map.getEntities();
-  entities.currentZ.forEach(entity => {
+  entities[currentZ].forEach(entity => {
     // only render the entity if they would show up on the screen
     if (entity.getX() >= topLeftX && entity.getY() >= topLeftY &&
         entity.getX() < topLeftX + screenWidth &&
