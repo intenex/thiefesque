@@ -125,7 +125,7 @@ Mixins.Moveable = {
         this.sendMessage(this, `You can't go up here!`);
       } else {
         this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
-        this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later 
+        this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
       }
     } else if (z > this.getZ()) {
       if (tile !== TILES.stairsDownTile) {
