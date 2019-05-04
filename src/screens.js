@@ -59,11 +59,12 @@ playScreen.enter = function(game) {
   this.map.getEngine().start();
 };
 
-playScreen.move = function(dX, dY, game) {
+playScreen.move = function(dX, dY, dZ, game) {
   const newX = this.player.getX() + dX;
   const newY = this.player.getY() + dY;
+  const newZ = this.player.getZ() + dZ;
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
-  this.player.tryMove(newX, newY, this.map);
+  this.player.tryMove(newX, newY, newZ, this.map);
   game.refresh();
 };
 
@@ -122,55 +123,56 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
 };
 
 playScreen.handleEvent = function(game, e) {
-  switch(e.keyCode) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
-    case ROT.KEYS.VK_SPACE:
-    case ROT.KEYS.VK_RETURN:
+  console.log(e);
+  switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
+    case ' ':
+    case 'Enter':
       game.switchScreen(game.screens.winScreen);
       break;
-    case ROT.KEYS.VK_ESCAPE:
+    case 'Escape':
       game.switchScreen(game.screens.loseScreen);
       break;
-    case ROT.KEYS.VK_O: // man fall through mapping is totally the best
-    case ROT.KEYS.VK_W:
-    case ROT.KEYS.VK_UP:
+    case 'o': // man fall through mapping is totally the best
+    case 'w':
+    case 'ArrowUp':
       this.move(0, -1, game); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_P:
-    case ROT.KEYS.VK_E:
+    case 'p':
+    case 'e':
       this.move(1, -1, game);
       this.map.getEngine().unlock();
       break; // now you understand why break statements are important too so great man adding so much functionality here fucking love it
-    case 186: // the semicolon ';', sadly no VK mapping for it it seems but it does expose the underpinnings of the magic of it anyway to do it this way so this is nice
-    case ROT.KEYS.VK_D:
-    case ROT.KEYS.VK_RIGHT: // damn so fucking smart
+    case ';':
+    case 'd':
+    case 'ArrowRight': // damn so fucking smart
       this.move(1, 0, game);
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_SLASH:
-    case ROT.KEYS.VK_C:
+    case '/':
+    case 'c':
       this.move(1, 1, game);
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_PERIOD:
-    case ROT.KEYS.VK_X:
-    case ROT.KEYS.VK_DOWN:
+    case '.':
+    case 'x':
+    case 'ArrowDown':
       this.move(0, 1, game);
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_COMMA:
-    case ROT.KEYS.VK_Z:
+    case ',':
+    case 'z':
       this.move(-1, 1, game);
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_K:
-    case ROT.KEYS.VK_A:
-    case ROT.KEYS.VK_LEFT:
+    case 'k':
+    case 'a':
+    case 'ArrowLeft':
       this.move(-1, 0, game);
       this.map.getEngine().unlock();
       break;
-    case ROT.KEYS.VK_I:
-    case ROT.KEYS.VK_Q:
+    case 'i':
+    case 'q':
       this.move(-1, -1, game);
       this.map.getEngine().unlock();
       break;
