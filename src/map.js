@@ -53,21 +53,21 @@ class Map {
   }
 
   // get the tile for a given coordinate set
-  getTile(x, y) {
+  getTile(x, y, z) {
     // Make sure you're inside bounds. If not, return the null tile, right this Null Object pattern allows you to be able to treat all tiles the same even if they don't exist instead of separately having to do null checks all the time
     if (x < 0 || x >= this.width ||
         y < 0 || y >= this.height ||
         z < 0 || z >= this.depth ) { // right length must start counting from 1 not 0 so >= is correct
       return TILES.nullTile;
     } else {
-      return this.tiles[x][y][z] || TILES.nullTile; // if you're to do this why have a bounds check at all it'll just be undefined anyway sigh
+      return this.tiles[z][x][y] || TILES.nullTile; // if you're to do this why have a bounds check at all it'll just be undefined anyway sigh
     }
   }
 
-  dig(x, y) {
+  dig(x, y, z) {
     // If the tile is diggable, update it to a floor
-    if (this.getTile(x, y).isDiggable()) {
-      this.tiles[x][y] = TILES.floorTile;
+    if (this.getTile(x, y, z).isDiggable()) {
+      this.tiles[z][x][y] = TILES.floorTile;
     }
   }
 
