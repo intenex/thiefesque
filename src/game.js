@@ -51,6 +51,7 @@ class Game {
             this.refresh();
         }
         window.addEventListener('keydown', this.currentScreen);
+        window.addEventListener('keypress', this.currentScreen);
     }
 
     refresh() {
