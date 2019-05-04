@@ -55,8 +55,10 @@ playScreen.enter = function(game) {
   // create map from the tiles from the Builder
   const builder = new Builder(width, height, depth);
   const tiles = builder.getTiles();
+  const upstairPos = builder.getAllUpstairPos();
+  const downstairPos = builder.getAllDownstairPos();
   this.player = new Entity(Entities.PlayerTemplate, game);
-  this.map = new Map(tiles, this.player); // this still refers to the playScreen object at this point in time since it'll be called method style
+  this.map = new Map(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
   this.map.getEngine().start();
 };
 

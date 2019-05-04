@@ -3,8 +3,10 @@ import * as TILES from './tile';
 import { Entity, Entities } from './entity';
 
 class Map {
-  constructor(tiles, player) {
+  constructor(tiles, player, upstairPos, downstairPos) {
     this.tiles = tiles;
+    this.upstairPos = upstairPos;
+    this.downstairPos = downstairPos;
     // cache dimensions
     this.depth = tiles.length;
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
