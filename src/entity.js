@@ -124,20 +124,16 @@ Mixins.Moveable = {
     if (z < this.getZ()) { // attempting to go up
       if (tile !== TILES.stairsUpTile) {
         this.sendMessage(this, `You can't go up here!`);
-        return false;
       } else {
         this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
         this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
-        return true;
       }
     } else if (z > this.getZ()) {
       if (tile !== TILES.stairsDownTile) {
         this.sendMessage(this, `You can't go down here!`);
-        return false;
       } else {
         this.sendMessage(this, `You descend to level ${z+1}!`);
         this.setPosition(x, y, z);
-        return true;
       }
     } else if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
       // if this entity is an attacker, try to attack the target
@@ -153,9 +149,7 @@ Mixins.Moveable = {
         // If not an attacker do nothing, but denote with a false that the entity could not move to the tile
         return false;
       }
-    }
-    // Check if you can walk onto the tile and if so walk onto it
-    if (tile.isWalkable()) {
+    } else if (tile.isWalkable()) { // Check if you can walk onto the tile and if so walk onto it
       // update entity positoin
       this.setPosition(x, y, z);
       return true;
