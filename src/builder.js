@@ -8,10 +8,18 @@ class Builder {
     this.height = height;
     this.depth = depth;
     this.tiles = [];
+    this.allUpStairPos = []; // keep a track of all the upstair and downstair pos in each floor so you can map them to each other when moving between levels
+    this.allDownStairPos = [];
     // instantiate the arrays to be multi-dimensional
     for (let z = 0; z < depth; z++) {
       // fill out each level
-      this.tiles.push(this.generateLevel());
+      const results = this.generateLevel();
+      const map = results[0];
+      const upStairPos = results[1];
+      const downStairPos = results[2];
+      this.tiles.push(map);
+      this.allUpStairPos.push(upStairPos);
+      this.allDownStairPos.push(downStairPos);
     }
   }
 
@@ -62,7 +70,7 @@ class Builder {
       floorTiles.splice(idx, 1);
       map[randPos[0]][randPos[1]] = TILES.stairsDownTile;
     }
-    return map;
+    return [map, upStairPos, downStairPos];
   }
 }
 

@@ -53,7 +53,8 @@ playScreen.enter = function(game) {
   const height = 100;
   const depth = 6;
   // create map from the tiles from the Builder
-  const tiles = new Builder(width, height, depth).getTiles();
+  const builder = new Builder(width, height, depth);
+  const tiles = builder.getTiles();
   this.player = new Entity(Entities.PlayerTemplate, game);
   this.map = new Map(tiles, this.player); // this still refers to the playScreen object at this point in time since it'll be called method style
   this.map.getEngine().start();
