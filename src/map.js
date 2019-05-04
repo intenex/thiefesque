@@ -39,7 +39,7 @@ class Map {
     // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
     // would be ideal for that, ah but the problem is the coordinates change with time hmm maybe updating some hash map object with the new position of every entity on every move
     // would still function well but also there aren't that many entities ever that this is such an issue deal with it later
-    this.entities.z.forEach(entity => {
+    this.entities[z].forEach(entity => {
       if (entity.getX() === x &&
           entity.getY() === y) {
           return entity;
@@ -101,10 +101,10 @@ class Map {
     entity.setMap(this);
     // Add the entity to this map's list of entities
     const z = entity.getZ();
-    if (this.entities.z) { // if the level has already been instantiated before it'll already be an array of entities and just push into it
-      this.entities.z.push(entity);
+    if (this.entities[z]) { // if the level has already been instantiated before it'll already be an array of entities and just push into it
+      this.entities[z].push(entity);
     } else { // otherwise if this.entities.z is undefined then set that key to a new entity wrapped in an array
-      this.entities.z = [entity];
+      this.entities[z] = [entity];
     }
     // check if this entity is an actor, and if so add them to the scheduler
     if (entity.hasMixin('Actor')) {
@@ -125,8 +125,8 @@ class Map {
     // first get all the z levels as keys in the object array to iterate through
     Object.keys(this.entities).forEach(z => {
       // iterate through the whole array for each level until the entity is found --> ideally just refactor removeEntity to only search one level and to know what level to search from the beginning
-      for (let i = 0; i < this.entities.z.length; i++) {
-        this.entities.z.splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
+      for (let i = 0; i < this.entities[z].length; i++) {
+        this.entities[z].splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
         break; // end the for loop as soon as the entity is found if found
       }
     });
@@ -153,7 +153,7 @@ class Map {
     // storing a reference of every entity at every X and Y position somewhere
     // entity finding by coordinates happens way too often such that this is almost
     // certainly worth optimizing at some point, esp if you have huge #s of entities
-    this.entities.currentZ.forEach(entity => {
+    this.entities[currentZ].forEach(entity => {
       if (entity.getX() >= leftX &&
         entity.getX() <= rightX &&
         entity.getY() >= topY &&
