@@ -39,12 +39,14 @@ class Map {
     // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
     // would be ideal for that, ah but the problem is the coordinates change with time hmm maybe updating some hash map object with the new position of every entity on every move
     // would still function well but also there aren't that many entities ever that this is such an issue deal with it later
-    this.entities[z].forEach(entity => {
-      if (entity.getX() === x &&
-          entity.getY() === y) {
-          return entity;
-      }
-    });
+    if (this.entities[z]) { // check that this exists first
+      this.entities[z].forEach(entity => {
+        if (entity.getX() === x &&
+            entity.getY() === y) {
+            return entity;
+        }
+      });
+    }
     return false;
   }
 
