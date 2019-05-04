@@ -123,7 +123,6 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
 };
 
 playScreen.handleEvent = function(game, e) {
-  console.log(e);
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
     case 'Enter':
