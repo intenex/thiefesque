@@ -130,7 +130,7 @@ class Map {
     }
   }
 
-  // a method to just remove the entity without removing it from the scheduler --> should call the method above destroyEntity and this one removeEntity
+  // a method to just remove the entity without removing it from the scheduler, useful currently for having the player move between levels without removing them inadvertently from the scheduler
   removeEntity(entity) {
     // Find entity in the list of entities if present
     // first get all the z levels as keys in the object array to iterate through
