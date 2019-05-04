@@ -126,10 +126,10 @@ Mixins.Moveable = {
       } else if (z < 0) {
         this.sendMessage(this, `Sorry, these are fake stairs. No higher level.`);
       } else {
-        const currentUpstairPos = this.map.getUpstairPos();
-        const currentDownstairPos = this.map.getDownstairPos();
-        this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
+        const currentUpstairPos = this.map.getUpstairPos()[z]; // just the current level
+        const newUpstairPos = this.map.getUpstairPos()[z - 1];
         
+        this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
         this.setPosition(x, y, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
         map.currentZ = z;
         map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
@@ -141,6 +141,8 @@ Mixins.Moveable = {
       } else if (z >= map.depth) {
         this.sendMessage(this, `Sorry, these are fake stairs. No lower level.`);
       } else {
+        const currentDownstairPos = this.map.getDownstairPos()[z]; // just the current level
+        const newDownstairPos = this.map.getDownstairPos()[z + 1];
         this.sendMessage(this, `You descend to level ${z+1}!`);
         this.setPosition(x, y, z);
         map.currentZ = z;
