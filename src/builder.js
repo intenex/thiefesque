@@ -34,6 +34,7 @@ class Builder {
   generateLevel() {
     // create empty map, better way of doing it hmm see if this is necessary at all
     const map = [];
+    const floorTiles = [];
     for (let w = 0; w < this.width; w++) {
       map.push([]);
     }
@@ -44,15 +45,20 @@ class Builder {
         map[x][y] = TILES.wallTile;
       } else { // if v is false, meaning 0 (since 0 equals false in JS lol), then this is a floor tile
         map[x][y] = TILES.floorTile;
+        floorTiles.push([x, y]);
       }
     };
     generator.create(generatorCB);
     // create stairs up and stairs down, three per level of each
+    for (let i = 0; i < 3; i++) {
+      const randPos = floorTiles[Math.floor(Math.random()*floorTiles.length)]; // since Math.random() is exclusive of 1 this will always get a random tile in the list from 0 to length-1 which is exactly what you want
+
+    }
     let stairsUp = 0;
     do {
 
     } while (stairsUp < 3);
-    
+
     let stairsDown = 0;
     do {
 
