@@ -47,6 +47,16 @@ class Builder {
       }
     };
     generator.create(generatorCB);
+    // create stairs up and stairs down, three per level of each
+    let stairsUp = 0;
+    do {
+
+    } while (stairsUp < 3);
+    
+    let stairsDown = 0;
+    do {
+
+    } while (stairsDown < 3);
     return map;
   }
 }
