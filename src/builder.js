@@ -43,6 +43,8 @@ class Builder {
     // create empty map, better way of doing it hmm see if this is necessary at all
     const map = [];
     const floorTiles = [];
+    const upStairPos = [];
+    const downStairPos = [];
     for (let w = 0; w < this.width; w++) {
       map.push([]);
     }
@@ -60,15 +62,17 @@ class Builder {
     // create stairs up and stairs down, three per level of each
     for (let i = 0; i < 3; i++) {
       const idx = Math.floor(Math.random() * floorTiles.length);
-      const randPos = floorTiles[idx]; // since Math.random() is exclusive of 1 this will always get a random tile in the list from 0 to length-1 which is exactly what you want
+      const stairPos = floorTiles[idx]; // since Math.random() is exclusive of 1 this will always get a random tile in the list from 0 to length-1 which is exactly what you want
       floorTiles.splice(idx, 1); // remove that tile from the floor tiles list so you don't accidentally go over it again, though this isn't necessary - if you don't do this odds are exceedingly small but possible that you'll have less than 3 total stairs but you should still have at least 1 stair. The real issue is that you could theoretically in the most unlucky case have 3 downstairs that replace all the upstairs somehow lol and that would be gamebreaking
-      map[randPos[0]][randPos[1]] = TILES.stairsUpTile; // change that given tile position to a stairsUpTile hell yeah
+      map[stairPos[0]][stairPos[1]] = TILES.stairsUpTile; // change that given tile position to a stairsUpTile hell yeah
+      upStairPos.push(stairPos);
     }
     for (let i = 0; i < 3; i++) {
       const idx = Math.floor(Math.random() * floorTiles.length);
-      const randPos = floorTiles[idx];
+      const stairPos = floorTiles[idx];
       floorTiles.splice(idx, 1);
-      map[randPos[0]][randPos[1]] = TILES.stairsDownTile;
+      map[stairPos[0]][stairPos[1]] = TILES.stairsDownTile;
+      downStairPos.push(stairPos);
     }
     return [map, upStairPos, downStairPos];
   }
