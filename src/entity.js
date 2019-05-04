@@ -71,6 +71,12 @@ export class Entity extends Glyph {
     return this.y;
   }
 
+  setPosition(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+
   hasMixin(obj) {
     // check if obj or name as a string was passed in
     if (typeof obj === 'object') {
