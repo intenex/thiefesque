@@ -10,6 +10,7 @@ export class Entity extends Glyph {
     this.game = game;
     this.name = properties.name || '';
     this.x = properties.x || 0;
+    this.z = properties.z || 0;
     this.y = properties.y || 0;
     this.map = null; // just putting this here so you know what properties are going to be available here, just for our own benefit in reading this later, not actually necessary, do this elsewhere too for the same reason
 
@@ -48,6 +49,14 @@ export class Entity extends Glyph {
 
   setY(y) {
     this.y = y;
+  }
+
+  setZ(z) {
+    this.z = z;
+  }
+
+  getZ() {
+    return this.z;
   }
 
   getName() {
