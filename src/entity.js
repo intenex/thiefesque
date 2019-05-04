@@ -118,6 +118,7 @@ Mixins.Moveable = {
   tryMove(x, y, z, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const tile = map.getTile(x, y, this.getZ());
     const target = map.getEntityAt(x, y, this.getZ());
+    console.log(target);
     // if the z level of the attempted move is different from the current z, that means
     // they're trying to ascend or descend. Ensure that this is a valid move then execute it
     if (z < this.getZ()) { // attempting to go up
