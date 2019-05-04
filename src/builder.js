@@ -1,4 +1,5 @@
 import * as ROT from 'rot-js';
+import * as TILES from './tile';
 
 // makes all the tiles for all the levels in the whole map
 class Builder {
