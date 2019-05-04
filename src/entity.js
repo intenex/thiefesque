@@ -152,12 +152,11 @@ Mixins.Moveable = {
     // Check if you can walk onto the tile and if so walk onto it
     if (tile.isWalkable()) {
       // update entity positoin
-      this.x = x;
-      this.y = y;
+      this.setPosition(x, y, z);
       return true;
       // check if the tile is diggable and if so, try to dig it
     } else if (tile.isDiggable()) {
-      map.dig(x, y);
+      map.dig(x, y, z);
       return true;
     }
     return false;
