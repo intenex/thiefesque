@@ -226,7 +226,7 @@ class Map {
   isExplored(x, y, z) {
     // only return the value if within bounds
     if (this.getTile(x, y, z) !== TILES.nullTile) {
-      return this.explored[z][x][y];
+      return this.exploredTiles[z][x][y];
     } else {
       return false; // could honestly just do a ternary like (this.explored[z][x][y] !== undefined) ? this.explored[z][x][y] : false;
     }
