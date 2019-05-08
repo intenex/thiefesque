@@ -205,9 +205,9 @@ class Map {
 
   setupExploredArray() {
     for (let z = 0; z < this.depth; z++) {
-      this.exploredTiles[z] = [];
+      this.exploredTiles[z] = []; // same as this.exploredTiles.push([]);
       for (let x = 0; x < this.width; x++) {
-        this.exploredTiles[z][x] = [];
+        this.exploredTiles[z][x] = []; // same as this.exploredTiles[z].push([]);
         for (let y = 0; y < this.height; y++) {
           this.exploredTiles[z][x][y] = false; // likely don't actually have to explicitly set this and can just let it implicitly fail with an undefined but doesn't hurt to do this minor performance cost
         }

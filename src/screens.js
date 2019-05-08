@@ -90,6 +90,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
     this.player.getSightRadius(),
     (x, y, radius, visibility) => { // radius and visibility are never used thus far, but they are passed in here as arguments such that you could access them later, though not sure where you're passing in visibility from rn (maybe it has a default value unlcear how that would work though)
       visibleCells[`${x},${y}`] = true;
+      this.map.setExplored(x, y, currentZ, true);
     }
   );
   
