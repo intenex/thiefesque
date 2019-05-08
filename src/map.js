@@ -11,7 +11,7 @@ class Map {
     this.depth = tiles.length;
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0][0].length; // a single column of all the rows
-    // setup the field of view for the player
+    // setup the field of vision for the player
     this.fov = [];
     this.setupFov();
     // create an object that will hold all the entities namespaced in the object with keys representing each z level of depth in the dungeon
@@ -185,6 +185,15 @@ class Map {
       }
     });
     return boundedEntities;
+  }
+
+  setupFov() {
+    // iterate through each depth level, setting up the field of vision
+    for (let z = 0; z < this.depth; z++) { // conditional blocks don't create their own scope so this with an arrow function should be fine in here but let's see // in fact may not need the secondary scope at all because const and let are block scoped and not function scoped for this exact reason ah yes that makes sense right you don't want the variable hoisted out of the loop because you want to make it anew every time love it brilliant heh so no need of any of that workaround stuff in ES5 this is a perfect shining example of ES6 crushing it this guy does know his JS so great
+      this.fov.push(new ROT.FOV.DiscreteShadowcasting((x, y) => {
+        return !this.getTile(x, y, z).isBlockingLight();
+      }, {topology: 4})); // give this a radius of 4 for the FOV, and for each tile if the tile returns true for blocking light then return false so that that tile is not visible and does not project light farther, love it, and if it is false and does not block light then return true for light passes through it
+    }
   }
 }
 
