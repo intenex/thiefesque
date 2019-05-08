@@ -10,6 +10,7 @@ export class Tile extends Glyph {
     super(properties);
     this.walkable = properties.walkable || false;
     this.diggable = properties.diggable || false;
+    this.blocksLight = (properties.blocksLight !== undefined) ? properties.blocksLight : true; // love ternaries exact same structure here dope and dope that they do triple equals here lol you really should just learn triple and double equals appropriately in each case instead of just blindly always using triple equals
   }
 
   isWalkable() {
