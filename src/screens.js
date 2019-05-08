@@ -109,20 +109,25 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
       }
     }
   }
+
   // Render all entities
   const entities = this.map.getEntities();
-  entities[currentZ].forEach(entity => {
+  entities[currentZ].forEach(entity => { // right you absolutely should set variables because things are block scoped here and not function scoped fucking love it definitely do it going forward for things whenever you reference them multiple times
+    const x = entity.getX();
+    const y = entity.getY();
     // only render the entity if they would show up on the screen
-    if (entity.getX() >= topLeftX && entity.getY() >= topLeftY &&
-        entity.getX() < topLeftX + screenWidth &&
-        entity.getY() < topLeftY + screenHeight) {
-        display.draw( // draw that motherfucker
-            entity.getX() - topLeftX,
-            entity.getY() - topLeftY,
+    if (x >= topLeftX && y >= topLeftY &&
+        x < topLeftX + screenWidth &&
+        y < topLeftY + screenHeight) {
+        if (visibleCells[`${x},${y}`]) { // only draw the entity if its coordinates are within the visible cells on the screen
+          display.draw( // draw that motherfucker
+            x - topLeftX,
+            y - topLeftY,
             entity.getChar(),
             entity.getForeground(),
             entity.getBackground()
-        );
+          );
+        }
     }
   });
 
