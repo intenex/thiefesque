@@ -214,6 +214,13 @@ class Map {
       }
     }
   }
+
+  setExplored(x, y, z, state) {
+    // only update the tile if it's within bounds
+    if (this.getTile(x, y, z) !== TILES.nullTile) {
+      this.exploredTiles[z][x][y] = state;
+    }
+  }
 }
 
 export default Map;
