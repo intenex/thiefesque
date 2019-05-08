@@ -15,7 +15,7 @@ class Map {
     this.fov = [];
     this.setupFov();
     // setup the array of all previously explored tiles
-    this.explored = [];
+    this.exploredTiles = [];
     this.setupExploredArray();
     // create an object that will hold all the entities namespaced in the object with keys representing each z level of depth in the dungeon
     this.entities = {}; // all the z levels are attributes on this object and point to an array of entities on each level // keep track of all entities on a given map in a list
@@ -201,6 +201,18 @@ class Map {
 
   getFov(depth) { // note that this returns a ROT.FOV.DiscreteShadowcasting object that was instantiated for each depth of the this.fov push in setupFov()
     return this.fov[depth]; // right have to use bracket notation when using a variable name because dot notation converts it to a string and doesn't reference variables, only bracket notation references variables love it love actually getting this stuff and why the jslinter says to do things one way or another - with the normal bracket notation only use it for variables and not strings, and use dot notation for strings and not variables love it that's a good rule of thumb for now
+  }
+
+  setupExploredArray() {
+    for (let z = 0; z < this.depth; z++) {
+      this.exploredTiles[z] = [];
+      for (let x = 0; x < this.width; x++) {
+        this.exploredTiles[z][x] = [];
+        for (let y = 0; y < this.height; y++) {
+          this.exploredTiles[z][x][y] = false; // likely don't actually have to explicitly set this and can just let it implicitly fail with an undefined but doesn't hurt to do this minor performance cost
+        }
+      }
+    }
   }
 }
 
