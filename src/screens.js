@@ -88,7 +88,7 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   this.map.getFov(currentZ).compute(
     this.player.getX(), this.player.getY(),
     this.player.getSightRadius(),
-    (x, y, radius, visibility) => {
+    (x, y, radius, visibility) => { // radius and visibility are never used thus far, but they are passed in here as arguments such that you could access them later, though not sure where you're passing in visibility from rn (maybe it has a default value unlcear how that would work though)
       visibleCells[`${x},${y}`] = true;
     }
   );
@@ -96,15 +96,17 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
     for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
-      // Fetch the glyph for the tile and render it to the screen so fucking great
-      const tile = this.map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
-      display.draw( // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it --> but anyway you could solve this by passing arguments into .bind at call time which you did do above love it
+      if (visibleCells[`${x},${y}`]) { // only render the cell if it's defined as true in the visibleCells object and not undefined --> on every rendering this updates anew which is great damn supercomputers are insane this would be totally unfeasible on anything less than a supercomputer absolutely unbelievable that we don't have to be too conscientious about performance with all this shit kind of nice actually thinking about having to optimize with scarcity of resources for everything instead of this insane fast and loose code man
+        // Fetch the glyph for the tile and render it to the screen so fucking great
+        const tile = this.map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
+        display.draw( // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it --> but anyway you could solve this by passing arguments into .bind at call time which you did do above love it
           x - topLeftX, // right because you want these to always be constant to the screen position love it
           y - topLeftY,
           tile.getChar(), // love semicolons letting you do things correctly on multiple lines passing in 5 arguments here to draw interesting can do it multiple ways it appears with the %c and %b and as just straight up arguments here hmm
           tile.getForeground(),
           tile.getBackground()
-      );
+        );
+      }
     }
   }
   // Render all entities
