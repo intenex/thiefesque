@@ -81,6 +81,17 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
   const currentZ = this.player.getZ();
+
+  // keep track of all visible map cells
+  const visibleCells = {};
+  // find all visible cells and add them to visibleCells
+  this.map.getFov(currentZ).compute(
+    this.player.getX(), this.player.getY(),
+    this.player.getSightRadius(),
+    (x, y, radius, visibility) => {
+      visibleCells[`${x},${y}`] = true;
+    }
+  );
   
   // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it

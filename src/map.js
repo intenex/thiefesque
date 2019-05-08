@@ -196,7 +196,7 @@ class Map {
     }
   }
 
-  getFov(depth) {
+  getFov(depth) { // note that this returns a ROT.FOV.DiscreteShadowcasting object that was instantiated for each depth of the this.fov push in setupFov()
     return this.fov[depth]; // right have to use bracket notation when using a variable name because dot notation converts it to a string and doesn't reference variables, only bracket notation references variables love it love actually getting this stuff and why the jslinter says to do things one way or another - with the normal bracket notation only use it for variables and not strings, and use dot notation for strings and not variables love it that's a good rule of thumb for now
   }
 }
