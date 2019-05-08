@@ -11,6 +11,10 @@ class Map {
     this.depth = tiles.length;
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0][0].length; // a single column of all the rows
+    // setup the field of view for the player
+    this.fov = [];
+    this.setupFov();
+    // create an object that will hold all the entities namespaced in the object with keys representing each z level of depth in the dungeon
     this.entities = {}; // all the z levels are attributes on this object and point to an array of entities on each level // keep track of all entities on a given map in a list
     this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Simple();
