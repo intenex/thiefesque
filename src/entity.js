@@ -196,7 +196,7 @@ Mixins.Sight = {
   name: 'Sight',
   groupName: 'Sight',
   init(template) {
-    this.sightRadius = template['sightRadius'] || 5;
+    this.sightRadius = template.sightRadius || 5;
   },
   getSightRadius() {
     return this.sightRadius;
@@ -284,7 +284,7 @@ Mixins.Destructible = {
 Mixins.Attacker = {
   name: 'Attacker',
   groupName: 'Attacker',
-  init(template) {
+  init(template) { // properties are passed in as an argument to the init call, and properties correspond to the Template that's passed in as an argument to the Entity constructor function love it
     this.attackValue = template.attackValue || 1;
   },
   getAttackValue() { return this.attackValue; },
@@ -328,9 +328,10 @@ Entities.PlayerTemplate = {
   maxHP: 15,
   attackValue: 5,
   defenseValue: 2,
+  sightRadius: 6,
   mixins: [Mixins.PlayerActor, Mixins.Moveable, 
   Mixins.Attacker, Mixins.Destructible,
-  Mixins.MessageRecipient]
+  Mixins.Sight, Mixins.MessageRecipient]
 };
 
 Entities.FungusTemplate = {
