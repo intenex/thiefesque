@@ -191,6 +191,18 @@ Mixins.Moveable = {
   }
 };
 
+// this mixin denotes an entity having a field of vision with a given radius
+Mixins.Sight = {
+  name: 'Sight',
+  groupName: 'Sight',
+  init(template) {
+    this.sightRadius = template['sightRadius'] || 5;
+  },
+  getSightRadius() {
+    return this.sightRadius;
+  }
+};
+
 Mixins.PlayerActor = {
   name: 'PlayerActor',
   groupName: 'Actor',
