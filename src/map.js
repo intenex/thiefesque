@@ -195,6 +195,10 @@ class Map {
       }, {topology: 4})); // give this a radius of 4 for the FOV, and for each tile if the tile returns true for blocking light then return false so that that tile is not visible and does not project light farther, love it, and if it is false and does not block light then return true for light passes through it
     }
   }
+
+  getFov(depth) {
+    return this.fov[depth]; // right have to use bracket notation when using a variable name because dot notation converts it to a string and doesn't reference variables, only bracket notation references variables love it love actually getting this stuff and why the jslinter says to do things one way or another - with the normal bracket notation only use it for variables and not strings, and use dot notation for strings and not variables love it that's a good rule of thumb for now
+  }
 }
 
 export default Map;
