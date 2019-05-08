@@ -97,14 +97,16 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
   // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
     for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
-      if (visibleCells[`${x},${y}`]) { // only render the cell if it's defined as true in the visibleCells object and not undefined --> on every rendering this updates anew which is great damn supercomputers are insane this would be totally unfeasible on anything less than a supercomputer absolutely unbelievable that we don't have to be too conscientious about performance with all this shit kind of nice actually thinking about having to optimize with scarcity of resources for everything instead of this insane fast and loose code man
+      if (this.map.isExplored(x, y, currentZ)) { // only render the cell if it's in the array of all explored tiles
         // Fetch the glyph for the tile and render it to the screen so fucking great
         const tile = this.map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
+        // only render the cell in its original color (otherwise render in a faded darkGray) if it's defined as true in the visibleCells object and not undefined --> on every rendering this updates anew which is great damn supercomputers are insane this would be totally unfeasible on anything less than a supercomputer absolutely unbelievable that we don't have to be too conscientious about performance with all this shit kind of nice actually thinking about having to optimize with scarcity of resources for everything instead of this insane fast and loose code man
+        const foreground = visibleCells[`${x},${y}`] ? tile.getForeground() : 'darkGray';
         display.draw( // ah thank god you pass in the display here otherwise no way to really do it can't have two bound thises love it --> but anyway you could solve this by passing arguments into .bind at call time which you did do above love it
           x - topLeftX, // right because you want these to always be constant to the screen position love it
           y - topLeftY,
           tile.getChar(), // love semicolons letting you do things correctly on multiple lines passing in 5 arguments here to draw interesting can do it multiple ways it appears with the %c and %b and as just straight up arguments here hmm
-          tile.getForeground(),
+          foreground,
           tile.getBackground()
         );
       }
