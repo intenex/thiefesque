@@ -215,10 +215,20 @@ class Map {
     }
   }
 
+  // set a tile to either an explored (true) or unexplored (false) state, like if you get hit over the head really hard and get amnesia or lose your map or something, that'd be cool if you have to keep a map item on you that maps where you've explored and if it burns up or something you forget everything and have to start over with a new map object
   setExplored(x, y, z, state) {
     // only update the tile if it's within bounds
-    if (this.getTile(x, y, z) !== TILES.nullTile) {
+    if (this.getTile(x, y, z) !== TILES.nullTile) { // remember that getTile returns either TILES.nullTile if out of bounds or the tile isn't defined/found or the tile if it is
       this.exploredTiles[z][x][y] = state;
+    }
+  }
+
+  isExplored(x, y, z) {
+    // only return the value if within bounds
+    if (this.getTile(x, y, z) !== TILES.nullTile) {
+      return this.explored[z][x][y];
+    } else {
+      return false; // could honestly just do a ternary like (this.explored[z][x][y] !== undefined) ? this.explored[z][x][y] : false;
     }
   }
 }
