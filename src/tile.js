@@ -20,6 +20,10 @@ export class Tile extends Glyph {
   isDiggable() {
     return this.diggable;
   }
+
+  isBlockingLight() {
+    return this.blocksLight;
+  }
 }
 
 export const nullTile = new Tile();
