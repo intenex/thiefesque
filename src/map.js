@@ -27,10 +27,13 @@ class Map {
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
     this.addEntityAtRandomPosition(player, this.currentZ); // have a single source of truth for all these numbers 
-    // add 25 random fungi on every level for (let z = 0; z < this.depth, z++) {}
+    // add 25 random monsters on every level for (let z = 0; z < this.depth, z++) {}
+    const monsterTemplates = [Entities.BatTemplate, Entities.NewtTemplate, Entities.FungusTemplate];
     for (let z = 0; z < this.depth; z++) {
       for (let i = 0; i < 25; i++) {
-        this.addEntityAtRandomPosition(new Entity(Entities.FungusTemplate), z);
+        // randomly select a template
+        const template = monsterTemplates[Math.floor(Math.random() * monsterTemplates.length)];
+        this.addEntityAtRandomPosition(new Entity(template), z);
       }
     }
   }
