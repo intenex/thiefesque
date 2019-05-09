@@ -235,7 +235,8 @@ playScreen.handleEvent = function(e) {
         this.game.refresh();
       } else {
         // show the inventory
-        this.game.screens.
+        this.game.screens.inventoryScreen.setup(this.player, this.player.getItems());
+        this.setSubScreen(this.game.screens.inventoryScreen);
       }
       break;
     case 'P':
