@@ -404,7 +404,7 @@ Mixins.InventoryHolder = {
     // drops an item to the current map tile
     if (this.items[i]) {
       if (this.map) {
-        this.map.addItem(thix.getX(), this.getY(), this.getZ(). this.items[i]);
+        this.map.addItem(this.getX(), this.getY(), this.getZ(). this.items[i]);
       }
       this.removeItem(i);
     }
