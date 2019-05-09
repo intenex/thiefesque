@@ -12,7 +12,7 @@ ItemRepository.define('apple', {
 ItemRepository.define('rock', {
   name: 'rock',
   character: '*',
-  foregroudn: 'white'
+  foreground: 'white'
 });
 
 // right you can export default classes and functions directly but not variables those you have to do separately here make sure this is true look into it more

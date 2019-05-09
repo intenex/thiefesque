@@ -301,6 +301,22 @@ export class ItemListScreen {
       this.player.getMap().getEngine().unlock();
     }
   }
+
+  handleEvent(e) {
+    switch(e.key) {
+      case 'Escape':
+        this.parentScreen.setSubScreen(undefined);
+        break;
+      case 'Enter':
+        if (!this.canSelectItem || Object.keys(this.selectedIndices).length === 0) {
+          this.parentScreen.setSubScreen(undefined);
+        } else {
+          this.executeOkFunction();
+        }
+        break;
+    }
+    
+  }
 }
 
 export const inventoryScreeen = new ItemListScreen({
