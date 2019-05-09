@@ -26,7 +26,7 @@ export class Screen {
 export const startScreen = new Screen("start");
 
 // refactor methods like this to have the optional arguments come second not first so you can actually just omit them and take advantage of Javascript's flexible argument functionality
-startScreen.render = function(game, display) {
+startScreen.render = function(display, game) {
   // Render prompt to the screen
   display.drawText(1, 1, "%c{yellow}Welcome to Thiefesque. Feel free to dig around."); // must be some regex for them to read strings like this interesting
   display.drawText(1, 2, "Press [Enter] to start.");
@@ -74,7 +74,7 @@ playScreen.move = function(dX, dY, dZ, game) {
   game.refresh();
 };
 
-playScreen.render = function(game, display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+playScreen.render = function(display, game) { // amazing that most 'variables' are in fact constants and not variable at all lol
   const screenWidth = game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
   const screenHeight = game.getScreenHeight();
   // make sure the x-axis doesn't go out of bounds
@@ -214,7 +214,7 @@ playScreen.handleEvent = function(game, e) {
 
 export const winScreen = new Screen("win");
 
-winScreen.render = function(game, display) {
+winScreen.render = function(display, game) {
   // Render prompt to the screen
   for (let i = 0; i < 22; i ++) {
     const r = Math.round(Math.random() * 255); // hah love it exactly what you wanted to make earlier
@@ -227,7 +227,7 @@ winScreen.render = function(game, display) {
 
 export const loseScreen = new Screen("lose");
 
-loseScreen.render = function(game, display) {
+loseScreen.render = function(display, game) {
   for (let i = 0; i < 22; i++) {
     display.drawText(2, i + 1, "%b{red}You lose! :(");
   }
@@ -246,5 +246,9 @@ export class ItemListScreen {
     this.items = items;
     // an empty set of selected indices
     this.selectedIndices = {};
+  }
+
+  render(display, game) {
+    
   }
 }
