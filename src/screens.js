@@ -233,6 +233,7 @@ playScreen.handleEvent = function(e) {
         // if the player has no items, send a message and don't take a turn
         this.player.sendMessage(this.player, "You are not carrying anything!");
         this.game.refresh();
+        this.player.clearMessages();
       } else {
         // show the inventory
         this.game.screens.inventoryScreen.setup(this.player, this.player.getItems());
@@ -244,8 +245,8 @@ playScreen.handleEvent = function(e) {
       // if there are no items, show a message saying so
       if (!items) {
         this.player.sendMessage(this.player, "There is nothing here to pick up.");
-        this.render(this.game.display); // try to show the message immediately
-        this.player.clearMessages(); // not sure why this message persists otherwise hmm
+        this.game.refresh(); // try to show the message immediately
+        this.player.clearMessages(); // pretty sure it's because messages are only cleared on the next act not this one that you have to manually clear here otherwise messages will persist twice love it
       } else if (items.length === 1) {
         // if only one item, just try to pick it up no need to show a screen
         const item = items[0];
@@ -266,6 +267,7 @@ playScreen.handleEvent = function(e) {
         // if the player has no items, send a message and don't take a turn
         this.player.sendMessage(this.player, "You have nothing to drop lol");
         this.game.refresh();
+        this.player.clearMessages();
       } else {
         // show the drop screen
         this.game.screens.dropScreen.setup(this.player, this.player.getItems());
