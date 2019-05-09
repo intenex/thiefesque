@@ -43,7 +43,7 @@ startScreen.handleEvent = function(game, e) { // okay triggering is working fine
 
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
 
-playScreen.gameEnded = false;
+playScreen.gameEnded = false; // no need to actually explicitly set but again doesn't hurt to be clear
 
 playScreen.setGameEnded = function(gameEnded) {
   this.gameEnded = gameEnded;
@@ -159,7 +159,9 @@ playScreen.handleEvent = function(game, e) {
       game.switchScreen(game.screens.winScreen);
       break;
     case 'Escape':
-      game.switchScreen(game.screens.loseScreen);
+      if (this.gameEnded) {
+        game.switchScreen(game.screens.loseScreen);
+      }
       break;
     case 'o': // man fall through mapping is totally the best
     case 'w':
