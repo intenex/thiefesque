@@ -132,9 +132,6 @@ class Map {
     if (this.entities[z][key] === entity) {
       delete this.entities[z][key];
     }
-    if (entity.hasMixin('Actor')) {
-      this.scheduler.remove(entity);
-    }
   }
 
   isEmptyFloor(x, y, z) {

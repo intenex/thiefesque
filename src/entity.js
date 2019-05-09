@@ -73,9 +73,17 @@ export class Entity extends Glyph {
   }
 
   setPosition(x, y, z) {
+    const oldX = this.x;
+    const oldY = this.y;
+    const oldZ = this.z;
+    // update position
     this.x = x;
     this.y = y;
     this.z = z;
+    // if the entity is already on a map, tell the map that the entity has moved
+    if (this.map) {
+      this.map.updateEntityPosition(this, oldX, oldY, oldZ);
+    }
   }
 
   hasMixin(obj) {
