@@ -391,6 +391,15 @@ Mixins.InventoryHolder = {
     // return true only if you added all items
     return added === indices.length;
   },
+  dropItem(i) {
+    // drops an item to the current map tile
+    if (this.items[i]) {
+      if (this.map) {
+        this.map.addItem(thix.getX(), this.getY(), this.getZ(). this.items[i]);
+      }
+      this.removeItem(i);
+    }
+  }
 };
 
 Mixins.MessageRecipient = {
