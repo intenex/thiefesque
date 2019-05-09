@@ -148,7 +148,8 @@ export class Entity extends Glyph {
       // other entities that act on their turns. have monsters attack each other in your game
       // for sure, would be amazing to have all out brawls that happen between different
       // races that patrol the dungeons and things like that
-      if (this.hasMixin('Attacker')) {
+      if (this.hasMixin('Attacker') && this.hasMixin(Mixins.PlayerActor) ||
+          target.hasMixin(Mixins.PlayerActor)) { // only allow for an attack if it is the player attacking or if the target of the entity is the player
         this.attack(target);
         return true;
       } else {
@@ -159,8 +160,8 @@ export class Entity extends Glyph {
       // update entity positoin
       this.setPosition(x, y, z);
       return true;
-      // check if the tile is diggable and if so, try to dig it
-    } else if (tile.isDiggable()) {
+      // check if the tile is diggable and if so, try to dig it --> but only if it's the player character trying to dig
+    } else if (tile.isDiggable() && this.hasMixin(Mixins.PlayerActor)) {
       map.dig(x, y, z);
       return true;
     }
