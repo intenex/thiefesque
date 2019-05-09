@@ -48,7 +48,10 @@ class Map {
   }
 
   getEntityAt(x, y, z) {
-    return this.entities[`${x},${y},${z}`];
+    if (!this.entities[z]) {
+      return false;
+    }
+    return this.entities[z][`${x},${y}`]; // keep entities still namespaced by a z to make searching just the entities on a given level possible
   }
 
   getWidth() {
