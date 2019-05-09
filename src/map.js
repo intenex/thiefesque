@@ -47,24 +47,8 @@ class Map {
     return this.downstairPos;
   }
 
-  // okay obviously in the long run you'll have to segregate searching by entities
-  // by level that would be ideal hmm entities should be an object with z values as all the attributes
-  // and each z level points to an array of all the entities on that level that would
-  // save a ton of indexing and search time but requires some serious refactoring consider later
   getEntityAt(x, y, z) {
-    // Iterate through all entities searching for one with the matching position hmmmm should be stored in some hash format for better searching then
-    // right this is such horribly inefficient look up time this should be refactored to be stored as an object with x, y coordinates as the lookup array key, a map object
-    // would be ideal for that, ah but the problem is the coordinates change with time hmm maybe updating some hash map object with the new position of every entity on every move
-    // would still function well but also there aren't that many entities ever that this is such an issue deal with it later
-    if (!this.entities[z]) { // check that this exists first, it should, but doesn't hurt to check
-      return false;
-    }
-    for (let i = 0; i < this.entities[z].length; i++) {
-      if (this.entities[z][i].getX() === x &&
-          this.entities[z][i].getY() === y) {
-            return this.entities[z][i];
-          }
-    }
+    return this.entities[`${x},${y},${z}`];
   }
 
   getWidth() {
