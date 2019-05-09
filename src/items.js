@@ -2,7 +2,7 @@ import Item from './item';
 import Repository from './repository';
 
 // interesting syntax don't have to specify a let or a const variable declaration here? So strange
-export default ItemRepository = new Repository('items', Item);
+const ItemRepository = new Repository('items', Item);
 
 ItemRepository.define('apple', {
   name: 'apple',
@@ -15,3 +15,5 @@ ItemRepository.define('rock', {
   character: '*',
   foregroudn: 'white'
 });
+
+export default ItemRepository;
