@@ -146,6 +146,13 @@ playScreen.render = function(display, game) { // amazing that most 'variables' a
   display.drawText(0, screenHeight, stats);
 };
 
+// for subscreens like the inventory screen and other future screens
+playScreen.setSubScreen = function(subScreen) {
+  this.subScreen = subScreen;
+  // refresh screen on changing the subscreen
+  game.refresh();
+};
+
 playScreen.handleEvent = function(game, e) {
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
