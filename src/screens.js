@@ -232,3 +232,19 @@ loseScreen.render = function(game, display) {
     display.drawText(2, i + 1, "%b{red}You lose! :(");
   }
 };
+
+// time to admit the basic Screen class is more of a handicap than anything else
+export class ItemListScreen {
+  constructor(template, player, items) {
+    this.caption = template.caption;
+    this.okFunction = template.ok;
+    // whether or not the user can select items on here
+    this.canSelectItem = template.canSelect;
+    // whether or not the user can select multiple items
+    this.canSelectMultipleItems = template.canSelectMultipleItems;
+    this.player = player;
+    this.items = items;
+    // an empty set of selected indices
+    this.selectedIndices = {};
+  }
+}
