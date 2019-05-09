@@ -115,24 +115,26 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
 
   // Render all entities
   const entities = this.map.getEntities();
-  entities[currentZ].forEach(entity => { // right you absolutely should set variables because things are block scoped here and not function scoped fucking love it definitely do it going forward for things whenever you reference them multiple times
+  // iterate through all the keys in the object that is every level
+  for (const key in entities[currentZ]) {
+    const entity = entities[currentZ][key];
     const x = entity.getX();
     const y = entity.getY();
     // only render the entity if they would show up on the screen
     if (x >= topLeftX && y >= topLeftY &&
-        x < topLeftX + screenWidth &&
-        y < topLeftY + screenHeight) {
-        if (visibleCells[`${x},${y}`]) { // only draw the entity if its coordinates are within the visible cells on the screen
-          display.draw( // draw that motherfucker
-            x - topLeftX,
-            y - topLeftY,
-            entity.getChar(),
-            entity.getForeground(),
-            entity.getBackground()
-          );
-        }
+      x < topLeftX + screenWidth &&
+      y < topLeftY + screenHeight) {
+      if (visibleCells[`${x},${y}`]) { // only draw the entity if its coordinates are within the visible cells on the screen
+        display.draw( // draw that motherfucker
+          x - topLeftX,
+          y - topLeftY,
+          entity.getChar(),
+          entity.getForeground(),
+          entity.getBackground()
+        );
+      }
     }
-  });
+  }
 
   // get all the messages in the player entity's queue and render them
   const messages = this.player.getMessages();

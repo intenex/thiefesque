@@ -19,6 +19,10 @@ class Map {
     this.setupExploredArray();
     // create an object that will hold all the entities namespaced in the object with keys representing each z level of depth in the dungeon
     this.entities = {}; // all the z levels are attributes on this object and point to an array of entities on each level // keep track of all entities on a given map in a list
+    // instantiate an empty object for each z level as a key in the entities hash
+    for (let z = 0; z < this.depth; z++) {
+      this.entities[z] = {};
+    }
     this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
