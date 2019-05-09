@@ -352,6 +352,24 @@ Entities.PlayerTemplate = {
   Mixins.MessageRecipient]
 };
 
+Entities.BatTemplate = {
+  name: 'bat',
+  character: 'B',
+  foreground: 'white',
+  maxHP: 3,
+  attackValue: 2,
+  mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
+};
+
+Entities.NewtTemplate = {
+  name: 'newt',
+  character: ':',
+  foreground: 'yellow',
+  maxHP: 5,
+  attackValue: 2,
+  mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
+};
+
 Entities.FungusTemplate = {
   name: 'fungus',
   character: 'F',
