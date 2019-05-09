@@ -97,21 +97,10 @@ class Map {
   }
 
   addEntity(entity) {
-    // Make sure the entity's position is within bounds
-    if (entity.getX() < 0 || entity.getX() >= this.width ||
-        entity.getY() < 0 || entity.getY() >= this.height ||
-        entity.getZ() < 0 || entity.getZ() >= this.depth) {
-          throw new Error('Adding entity out of bounds.');
-    }
     // set the entity's map
     entity.setMap(this);
     // Add the entity to this map's list of entities
-    const z = entity.getZ();
-    if (this.entities[z]) { // if the level has already been instantiated before it'll already be an array of entities and just push into it
-      this.entities[z].push(entity);
-    } else { // otherwise if this.entities.z is undefined then set that key to a new entity wrapped in an array
-      this.entities[z] = [entity];
-    }
+    this.updateEntityPosition(entity);
     // check if this entity is an actor, and if so add them to the scheduler
     if (entity.hasMixin('Actor')) {
       this.scheduler.add(entity, true); // true I believe readds them again after they act or something like that look into it again so they're not just one time
