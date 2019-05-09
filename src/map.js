@@ -23,6 +23,11 @@ class Map {
     for (let z = 0; z < this.depth; z++) {
       this.entities[z] = {};
     }
+    // create an object of all items
+    this.items = {};
+    for (let z = 0; z < this.depth; z++) { // treat items just like entities namespace them by level
+      this.items[z] = {};
+    }
     this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Simple();
     this.engine = new ROT.Engine(this.scheduler);
@@ -237,6 +242,25 @@ class Map {
       return false; // could honestly just do a ternary like (this.explored[z][x][y] !== undefined) ? this.explored[z][x][y] : false;
     }
   }
+
+  getItemsAt(x, y, z) {
+    return this.items[z][`${x},${y}`];
+  }
+
+  setItemsAt(x, y, z, items) {
+    const key = `${x},${y}`;
+    // if the items array is empty, delete the key from the table
+    if (items.length === 0) {
+      if (this.items[z][key]) {
+        delete this.items[z][key];
+      }
+    } else {
+      // update the items at the given key
+      this.items[z][key] = items;
+    }
+  }
+
+  
 }
 
 export default Map;
