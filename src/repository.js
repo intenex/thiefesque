@@ -10,6 +10,23 @@ class Repository {
     this.templates = {};
     this.ctor = ctor;
   }
+
+  // define a new named template
+  define(name, template) {
+    this.templates[name] = template;
+  }
+
+  // create an object based on a given template
+  create(name) {
+    const template = this.templates[name];
+
+    if (!template) {
+      throw new Error(`No template named '${name}' in repository '${this.name}'`);
+    }
+
+    // return the newly created object --> do the insane thing where you can literally just pass in the variable name referencing a constructor function to instantiate a new object of that constructor function makes sense I suppose, passing in the template that was found as the argument to the constructor function (currently works for both creating Entity and Item objects from those respective constructor functions)
+    return new this.ctor(template);
+  }
 }
 
 export default Repository;
