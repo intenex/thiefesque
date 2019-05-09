@@ -249,6 +249,23 @@ export class ItemListScreen {
   }
 
   render(display, game) {
-    
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    // render caption in the top row
+    display.drawText(0, 0, this.caption);
+    let row = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      // if there is an item, render it
+      if (this.items[i]) {
+        // get the letter matching the item's index
+        const letter = letters.substring(i, i + 1);
+        // if we have selected an item, show a +, else show a dash between
+        // the letter and the item's name amazing
+        const selectionState = (this.canSelectItem && this.canSelectMultipleItems &&
+              this.selectedIndices[i]) ? '+' : '-';
+        // render at the correct row and add 2 to give a space between the caption
+        display.drawText(0, 2 + row, `${letter} ${selectionState} ${this.items[i].describe()}`);
+        row++;
+      }
+    }
   }
 }
