@@ -336,8 +336,8 @@ Mixins.Attacker = {
 Mixins.InventoryHolder = {
   name: 'InventoryHolder',
   init(template) {
-    // default to 20 inventory slots.
-    const inventorySlots = template.inventorySlots || 20;
+    // default to 10 inventory slots.
+    const inventorySlots = template.inventorySlots || 10;
     // set up a new empty inventory, one of the few times where you actually do want to instantiate the array to a bunch of empty items of a set length that will never increase unless they find some potion of inventory slot increasement or something
     this.items = new Array(inventorySlots);
   },
@@ -368,7 +368,29 @@ Mixins.InventoryHolder = {
       }
     }
     return false;
-  }
+  },
+  pickupItems(indices) {
+    // allow the player to pickup items from the map, where indices are the indices
+    // for the array of items returned by Map.getItemsAt that specifies the specific items from the total array of items that you want to pick up
+    const mapItems = this.map.getItemsAt(this.getX(), this.getY(), this.getZ());
+    let added = 0;
+    // iterate through all indices
+    for (let i = 0; i < indices.length; i++) {
+      // try to add the item. If the inventory isn't full, splice the item out of the list of items.
+      // In order to get the right item going forward, you then have to offset the index by the number of items already added lol
+      if (this.addItem(mapItems[indices[i] - added])) { // this returns true if successful in adding the item dope
+        mapItems.splice(indices[i] - added, 1);
+        added++;
+      } else {
+        // inventory is full, stop the loop
+        break;
+      }
+    }
+    // update the items in the map - this shouldn't be necessary since mapItems should point to the same array so test it without this actually
+    this.map.setItemsAt(this.getX(), this.getY(), this.getZ(), mapItems);
+    // return true only if you added all items
+    return added === indices.length;
+  },
 };
 
 Mixins.MessageRecipient = {
