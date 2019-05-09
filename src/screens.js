@@ -147,7 +147,7 @@ playScreen.render = function(display, game) { // amazing that most 'variables' a
 };
 
 // for subscreens like the inventory screen and other future screens
-playScreen.setSubScreen = function(subScreen) {
+playScreen.setSubScreen = function(subScreen, game) {
   this.subScreen = subScreen;
   // refresh screen on changing the subscreen
   game.refresh();
