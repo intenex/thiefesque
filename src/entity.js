@@ -164,7 +164,7 @@ export class Entity extends Glyph {
       const items = this.getMap().getItemsAt(x, y, z);
       if (items) {
         if (items.length === 1) {
-          this.sendMessage(this, `You see ${items[0].describeA()}`);
+          this.sendMessage(this, `You see ${items[0].describeA()}.`);
         } else {
           this.sendMessage(this, `You see several objects here.`);
         }
