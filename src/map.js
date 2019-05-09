@@ -177,6 +177,18 @@ class Map {
     return boundedEntities;
   }
 
+  updateEntityPosition(entity, oldX, oldY, oldZ) {
+    // delete the old key if it's the same entity and we have old positions, these are optional
+    if (oldX) {
+      const oldKey = `${oldX},${oldY}`;
+      if (this.entities[oldZ][oldKey] === entity) {
+        delete this.entities[oldZ][oldKey]; // look into delete more this is interesting
+      }
+    }
+    // make sure the entity's position is within bounds
+    
+  }
+
   setupFov() {
     // iterate through each depth level, setting up the field of vision
     for (let z = 0; z < this.depth; z++) { // conditional blocks don't create their own scope so this with an arrow function should be fine in here but let's see // in fact may not need the secondary scope at all because const and let are block scoped and not function scoped for this exact reason ah yes that makes sense right you don't want the variable hoisted out of the loop because you want to make it anew every time love it brilliant heh so no need of any of that workaround stuff in ES5 this is a perfect shining example of ES6 crushing it this guy does know his JS so great
