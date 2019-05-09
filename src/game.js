@@ -16,7 +16,10 @@ export default class Game {
         this.screens = { startScreen: SCREENS.startScreen, // interesting the shorthand doesn't work when importing from a namespaced constant but this does
                          playScreen: SCREENS.playScreen,
                          winScreen: SCREENS.winScreen,
-                         loseScreen: SCREENS.loseScreen
+                         loseScreen: SCREENS.loseScreen,
+                         inventoryScreen: SCREENS.inventoryScreen,
+                         dropScreen: SCREENS.dropScreen,
+                         pickupScreen: SCREENS.pickupScreen
                        };
 
         this.screens.playScreen.game = this;

@@ -228,6 +228,18 @@ playScreen.handleEvent = function(e) {
       this.move(0, 0, -1);
       this.map.getEngine().unlock();
       break;
+    case 'I':
+      if (this.player.getItems().filter(x => true).length === 0) {
+        // if the player has no items, send a message and don't take a turn
+        this.player.sendMessage(this.player, "You are not carrying anything!");
+        this.game.refresh();
+      } else {
+        // show the inventory
+        this.game.screens.
+      }
+      break;
+    case 'P':
+    case 'D':
   }
 };
 
