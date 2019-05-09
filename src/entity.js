@@ -333,6 +333,22 @@ Mixins.Attacker = {
   }
 };
 
+Mixins.InventoryHolder = {
+  name: 'InventoryHolder',
+  init(template) {
+    // default to 20 inventory slots.
+    const inventorySlots = template['inventorySlots'] || 20;
+    // set up a new empty inventory
+    this.items = new Array(inventorySlots);
+  },
+  getItems() {
+    return this.items;
+  },
+  getItem(i) {
+    return this.items[i];
+  }
+};
+
 Mixins.MessageRecipient = {
   name: 'MessageRecipient',
   init(template) {
