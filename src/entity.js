@@ -356,6 +356,18 @@ Mixins.InventoryHolder = {
       }
     }
     return false;
+  },
+  removeItem(i) {
+    this.items[i] = null; // interesting yeah you don't set things to undefined right only null love it
+  },
+  canAddItem() {
+    // check if there are any empty slots
+    for (let i = 0; i < this.items.length; i++) {
+      if (!this.items[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 };
 
