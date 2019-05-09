@@ -254,7 +254,7 @@ loseScreen.render = function(display) {
 
 // time to admit the basic Screen class is more of a handicap than anything else
 export class ItemListScreen {
-  constructor(template, player, items) {
+  constructor(template) {
     this.caption = template.caption;
     this.parentScreen = template.parentScreen;
     this.okFunction = template.ok;
@@ -262,7 +262,12 @@ export class ItemListScreen {
     this.canSelectItem = template.canSelect;
     // whether or not the user can select multiple items
     this.canSelectMultipleItems = template.canSelectMultipleItems;
+  }
+
+  // needs to be separate from the initialization constructor function because these things are passed only later on
+  setup(player, items) {
     this.player = player;
+    // should be called before switching to the screen
     this.items = items;
     // an empty set of selected indices
     this.selectedIndices = {};
