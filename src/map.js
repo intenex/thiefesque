@@ -1,6 +1,6 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
-import { Entity, PlayerTemplate, EntityRepository } from './entity';
+import { EntityRepository } from './entity';
 
 class Map {
   constructor(tiles, player, upstairPos, downstairPos) {
@@ -33,12 +33,10 @@ class Map {
     this.engine = new ROT.Engine(this.scheduler);
     this.addEntityAtRandomPosition(player, this.currentZ); // have a single source of truth for all these numbers 
     // add 25 random monsters on every level for (let z = 0; z < this.depth, z++) {}
-    const monsterTemplates = [Entities.BatTemplate, Entities.NewtTemplate, Entities.FungusTemplate];
     for (let z = 0; z < this.depth; z++) {
       for (let i = 0; i < 25; i++) {
         // randomly select a template
-        const template = monsterTemplates[Math.floor(Math.random() * monsterTemplates.length)];
-        this.addEntityAtRandomPosition(new Entity(template), z);
+        this.addEntityAtRandomPosition(EntityRepository.createRandom(), z);
       }
     }
   }
