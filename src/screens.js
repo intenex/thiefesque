@@ -235,6 +235,7 @@ playScreen.handleEvent = function(e) {
         this.game.refresh();
       } else {
         // show the inventory
+        console.log(this.game.screens);
         this.game.screens.inventoryScreen.setup(this.player, this.player.getItems());
         this.setSubScreen(this.game.screens.inventoryScreen);
       }
@@ -384,7 +385,7 @@ export class ItemListScreen {
   }
 }
 
-export const inventoryScreeen = new ItemListScreen({
+export const inventoryScreen = new ItemListScreen({
   parentScreen: playScreen,
   caption: 'Inventory',
   canSelect: false
