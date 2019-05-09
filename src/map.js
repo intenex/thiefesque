@@ -127,15 +127,14 @@ class Map {
   removeEntity(entity) {
     // Find entity in the list of entities if present
     // first get all the z levels as keys in the object array to iterate through
-    Object.keys(this.entities).forEach(z => {
-      // iterate through the whole array for each level until the entity is found --> ideally just refactor removeEntity to only search one level and to know what level to search from the beginning
-      for (let i = 0; i < this.entities[z].length; i++) {
-        if (this.entities[z][i] === entity) {
-          this.entities[z].splice(i, 1); // remove 1 element starting from that index spot where the entity was found, i.e. remove that entity from the list of entities
-          break; // end the for loop as soon as the entity is found if found
-        }
-      }
-    });
+    const key = `${entity.getX()},${entity.getY()}`;
+    const z = entity.getZ();
+    if (this.entities[z][key] === entity) {
+      delete this.entities[z][key];
+    }
+    if (entity.hasMixin('Actor')) {
+      this.scheduler.remove(entity);
+    }
   }
 
   isEmptyFloor(x, y, z) {
