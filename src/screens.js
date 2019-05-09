@@ -26,7 +26,7 @@ export class Screen {
 export const startScreen = new Screen("start");
 
 // refactor methods like this to have the optional arguments come second not first so you can actually just omit them and take advantage of Javascript's flexible argument functionality
-startScreen.render = function(display, game) {
+startScreen.render = function(display) {
   // Render prompt to the screen
   display.drawText(1, 1, "%c{yellow}Welcome to Thiefesque. Feel free to dig around."); // must be some regex for them to read strings like this interesting
   display.drawText(1, 2, "Press [Enter] to start.");
@@ -35,9 +35,9 @@ startScreen.render = function(display, game) {
 // ah hmm bind this later to the actual game object try it lol that might just work
 // damn the problem is the binding isn't working here still hmm. but man everything else works incredible lol
 // right fucking arrow functions have no scope and can't be bound god damn it lol
-startScreen.handleEvent = function(game, e) { // okay triggering is working fine great
+startScreen.handleEvent = function(e) { // okay triggering is working fine great
   if (e.keyCode === ROT.KEYS.VK_SPACE || e.keyCode === ROT.KEYS.VK_RETURN) {
-    game.switchScreen(game.screens.playScreen);
+    this.game.switchScreen(this.game.screens.playScreen);
   }
 };
 
@@ -50,7 +50,7 @@ playScreen.setGameEnded = function(gameEnded) {
 };
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
-playScreen.enter = function(game) {
+playScreen.enter = function() {
   // Create a map based on these size parameters fuck yeah
   const width = 100;
   const height = 100;
@@ -60,23 +60,23 @@ playScreen.enter = function(game) {
   const tiles = builder.getTiles();
   const upstairPos = builder.getAllUpstairPos();
   const downstairPos = builder.getAllDownstairPos();
-  this.player = new Entity(PlayerTemplate, game);
+  this.player = new Entity(PlayerTemplate, this.game);
   this.map = new Map(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
   this.map.getEngine().start();
 };
 
-playScreen.move = function(dX, dY, dZ, game) {
+playScreen.move = function(dX, dY, dZ) {
   const newX = this.player.getX() + dX;
   const newY = this.player.getY() + dY;
   const newZ = this.player.getZ() + dZ;
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
   this.player.tryMove(newX, newY, newZ);
-  game.refresh();
+  this.game.refresh();
 };
 
-playScreen.render = function(display, game) { // amazing that most 'variables' are in fact constants and not variable at all lol
-  const screenWidth = game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
-  const screenHeight = game.getScreenHeight();
+playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+  const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
+  const screenHeight = this.game.getScreenHeight();
   // make sure the x-axis doesn't go out of bounds
   let topLeftX = Math.max(0, this.player.getX() - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
   // make sure you can still fit the entire game screen
@@ -147,73 +147,73 @@ playScreen.render = function(display, game) { // amazing that most 'variables' a
 };
 
 // for subscreens like the inventory screen and other future screens
-playScreen.setSubScreen = function(subScreen, game) {
+playScreen.setSubScreen = function(subScreen) {
   this.subScreen = subScreen;
   // refresh screen on changing the subscreen
-  game.refresh();
+  this.game.refresh();
 };
 
-playScreen.handleEvent = function(game, e) {
+playScreen.handleEvent = function(e) {
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
     case 'Enter':
-      game.switchScreen(game.screens.winScreen);
+      this.game.switchScreen(this.game.screens.winScreen);
       break;
     case 'Escape':
       if (this.gameEnded) {
-        game.switchScreen(game.screens.loseScreen);
+        this.game.switchScreen(this.game.screens.loseScreen);
       }
       break;
     case 'o': // man fall through mapping is totally the best
     case 'w':
     case 'ArrowUp':
-      this.move(0, -1, 0, game); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
+      this.move(0, -1, 0); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
       this.map.getEngine().unlock();
       break;
     case 'p':
     case 'e':
-      this.move(1, -1, 0, game);
+      this.move(1, -1, 0);
       this.map.getEngine().unlock();
       break; // now you understand why break statements are important too so great man adding so much functionality here fucking love it
     case ';':
     case 'd':
     case 'ArrowRight': // damn so fucking smart
-      this.move(1, 0, 0, game);
+      this.move(1, 0, 0);
       this.map.getEngine().unlock();
       break;
     case '/':
     case 'c':
-      this.move(1, 1, 0, game);
+      this.move(1, 1, 0);
       this.map.getEngine().unlock();
       break;
     case '.':
     case 'x':
     case 'ArrowDown':
-      this.move(0, 1, 0, game);
+      this.move(0, 1, 0);
       this.map.getEngine().unlock();
       break;
     case ',':
     case 'z':
-      this.move(-1, 1, 0, game);
+      this.move(-1, 1, 0);
       this.map.getEngine().unlock();
       break;
     case 'k':
     case 'a':
     case 'ArrowLeft':
-      this.move(-1, 0, 0, game);
+      this.move(-1, 0, 0);
       this.map.getEngine().unlock();
       break;
     case 'i':
     case 'q':
-      this.move(-1, -1, 0, game);
+      this.move(-1, -1, 0);
       this.map.getEngine().unlock();
       break;
     case '>':
-      this.move(0, 0, 1, game);
+      this.move(0, 0, 1);
       this.map.getEngine().unlock();
       break;
     case '<':
-      this.move(0, 0, -1, game);
+      this.move(0, 0, -1);
       this.map.getEngine().unlock();
       break;
   }
@@ -221,7 +221,7 @@ playScreen.handleEvent = function(game, e) {
 
 export const winScreen = new Screen("win");
 
-winScreen.render = function(display, game) {
+winScreen.render = function(display) {
   // Render prompt to the screen
   for (let i = 0; i < 22; i ++) {
     const r = Math.round(Math.random() * 255); // hah love it exactly what you wanted to make earlier
@@ -234,7 +234,7 @@ winScreen.render = function(display, game) {
 
 export const loseScreen = new Screen("lose");
 
-loseScreen.render = function(display, game) {
+loseScreen.render = function(display) {
   for (let i = 0; i < 22; i++) {
     display.drawText(2, i + 1, "%b{red}You lose! :(");
   }
@@ -255,7 +255,7 @@ export class ItemListScreen {
     this.selectedIndices = {};
   }
 
-  render(display, game) {
+  render(display) {
     const letters = 'abcdefghijklmnopqrstuvwxyz';
     // render caption in the top row
     display.drawText(0, 0, this.caption);
