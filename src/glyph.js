@@ -1,4 +1,4 @@
-class Glyph {
+export default class Glyph {
   constructor(properties = {}) {
     this.char = properties.character || ' '; // interesting the linter tells you to use dot notation over bracket hmm
     this.foreground = properties.foreground || 'white';
@@ -17,5 +17,3 @@ class Glyph {
     return this.background;
   }
 }
-
-export default Glyph;

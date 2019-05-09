@@ -4,7 +4,7 @@
 // a repo then holds all the templates that can be passed to that constructor function
 // and can be used to easily get returned instantiated object instances of a given constructor function with any specified template or a random template
 
-class Repository {
+export default class Repository {
   constructor(name, ctor) {
     this.name = name;
     this.templates = {};
@@ -35,5 +35,3 @@ class Repository {
     return this.create(keys[Math.floor(Math.random() * keys.length)]);
   }
 }
-
-export default Repository;

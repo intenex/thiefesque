@@ -2,7 +2,7 @@ import * as ROT from 'rot-js';
 import * as TILES from './tile';
 import { EntityRepository } from './entity';
 
-class Map {
+export default class Map {
   constructor(tiles, player, upstairPos, downstairPos) {
     this.tiles = tiles;
     this.upstairPos = upstairPos;
@@ -273,5 +273,3 @@ class Map {
     this.addItem(pos.x, pos.y, pos.z, item);
   }
 }
-
-export default Map;

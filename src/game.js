@@ -4,7 +4,7 @@
 import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that is necessary if things aren't named and there are multiple exports you have to name it yourself as an alias lucky to be able to just figure all this out as you go though for sure keep pushing at all of this for sure let's do this thing
 import * as SCREENS from './screens';
 
-class Game {
+export default class Game {
     constructor() {
         this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
         this.screenWidth = 80;
@@ -60,5 +60,3 @@ class Game {
         this.currentScreen.render(this, this.display);
     }
 }
-
-export default Game;

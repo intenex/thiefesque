@@ -2,7 +2,7 @@ import * as ROT from 'rot-js';
 import * as TILES from './tile';
 
 // makes all the tiles for all the levels in the whole map
-class Builder {
+export default class Builder {
   constructor(width, height, depth) {
     this.width = width;
     this.height = height;
@@ -85,5 +85,3 @@ class Builder {
     return [map, upstairPos, downstairPos];
   }
 }
-
-export default Builder;
