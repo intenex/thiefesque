@@ -1,7 +1,6 @@
 import Item from './item';
 import Repository from './repository';
 
-// interesting syntax don't have to specify a let or a const variable declaration here? So strange
 const ItemRepository = new Repository('items', Item);
 
 ItemRepository.define('apple', {
@@ -16,4 +15,5 @@ ItemRepository.define('rock', {
   foregroudn: 'white'
 });
 
+// right you can export default classes and functions directly but not variables those you have to do separately here make sure this is true look into it more
 export default ItemRepository;
