@@ -2,6 +2,7 @@ import * as ROT from 'rot-js';
 import Builder from './builder';
 import Map from './map';
 import { Entity, PlayerTemplate } from './entity';
+import Game from './game';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -254,6 +255,7 @@ loseScreen.render = function(display) {
 export class ItemListScreen {
   constructor(template, player, items) {
     this.caption = template.caption;
+    this.parentScreen = template.parentScreen;
     this.okFunction = template.ok;
     // whether or not the user can select items on here
     this.canSelectItem = template.canSelect;
@@ -285,4 +287,24 @@ export class ItemListScreen {
       }
     }
   }
+
+  executeOkFunction() {
+    // gather the selected items
+    const selectedItems = {};
+    for (const key in this.selectedIndices) {
+      selectedItems[key] = this.items[key];
+    }
+    // switch back to the play screen
+    this.parentScreen.setSubScreen(undefined);
+    // call the OK function and end the player's turn if it returns true
+    if (this.okFunction(selectedItems)) {
+      this.player.getMap().getEngine().unlock();
+    }
+  }
 }
+
+export const inventoryScreeen = new ItemListScreen({
+  caption: 'Inventory',
+  canSelect: false,
+  parentScreen: playScreen
+});
