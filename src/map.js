@@ -151,14 +151,15 @@ class Map {
     // storing a reference of every entity at every X and Y position somewhere
     // entity finding by coordinates happens way too often such that this is almost
     // certainly worth optimizing at some point, esp if you have huge #s of entities
-    this.entities[currentZ].forEach(entity => {
+    for (const key in this.entities[currentZ]) {
+      const entity = this.entities[currentZ][key];
       if (entity.getX() >= leftX &&
         entity.getX() <= rightX &&
         entity.getY() >= topY &&
         entity.getY() <= bottomY) {
         boundedEntities.push(entity);
       }
-    });
+    }
     return boundedEntities;
   }
 
