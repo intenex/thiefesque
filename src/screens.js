@@ -252,9 +252,12 @@ playScreen.handleEvent = function(e) {
         const item = items[0];
         if (this.player.pickupItems([0])) { // this returns true or false depending on if the item was successfully picked up great design // remember this takes an array of indices of items to try to pick up, if there's only one, just specify the first item love it
           this.player.sendMessage(this.player, `You pick up ${item.describeA()}`);
-          this.render(this.game.display); // try to show the message immediately
+          this.game.refresh();
+          this.player.clearMessages();
         } else {
           this.player.sendMessage(this.player, "Your inventory is full! Nothing was picked up.");
+          this.game.refresh();
+          this.player.clearMessages();
         }
       } else {
         // show the pickup screen if there are multiple items
