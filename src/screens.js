@@ -75,6 +75,11 @@ playScreen.move = function(dX, dY, dZ) {
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
+  // if there's a current subscreen, render that instead
+  if (this.subScreen) {
+    this.subScreen.render(display);
+    return;
+  }
   const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
   const screenHeight = this.game.getScreenHeight();
   // make sure the x-axis doesn't go out of bounds
@@ -154,6 +159,11 @@ playScreen.setSubScreen = function(subScreen) {
 };
 
 playScreen.handleEvent = function(e) {
+  // if there's a current subscreen, defer to that function instead
+  if (this.subScreen) {
+    this.subScreen.handleEvent(e);
+    return;
+  }
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
     case 'Enter':
