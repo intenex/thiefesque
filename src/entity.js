@@ -95,34 +95,6 @@ export class Entity extends Glyph {
     }
   }
 
-  sendMessage(recipient, message) {
-    // ensure the recipient can actually receive the message
-    if (recipient.hasMixin(Mixins.MessageRecipient)) {
-      recipient.receiveMessage(message);
-    }
-  }
-
-  sendMessageNearby(map, centerX, centerY, currentZ, message) {
-    const entities = map.getEntitiesWithinRadius(centerX, centerY, currentZ, 5); // every entity should have an associated map already but nice to make functions more pure wherever possible anyway
-    // Iterate through nearby entities, sending the message if they can receive it
-    entities.forEach(entity => {
-      if (entity.hasMixin(Mixins.MessageRecipient)) {
-        entity.receiveMessage(message);
-      }
-    });
-  }
-}
-
-// love duck typing here with these Mixins and making literally
-// all characters indistinguishable in implementation - makes it incredibly
-// easy later on to have different races and character types for a character and
-// for them to even polymorph over time. Roguelikes are such excellent tools in good
-// complex system design in their total insane degree of conventional complexity and nuance
-export const Mixins = {};
-
-// entity mixin
-Mixins.Moveable = {
-  name: 'Moveable',
   tryMove(x, y, z, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const tile = map.getTile(x, y, this.getZ());
     const target = map.getEntityAt(x, y, this.getZ());
@@ -144,7 +116,7 @@ Mixins.Moveable = {
         }
         const newX = newDownstairPos[index][0];
         const newY = newDownstairPos[index][1];
-        this.sendMessage(this, `You ascend to level ${z+1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
+        this.sendMessage(this, `You ascend to level ${z + 1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
         this.setPosition(newX, newY, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
         map.currentZ = z;
         map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
@@ -166,7 +138,7 @@ Mixins.Moveable = {
         }
         const newX = newUpstairPos[index][0];
         const newY = newUpstairPos[index][1];
-        this.sendMessage(this, `You descend to level ${z+1}!`);
+        this.sendMessage(this, `You descend to level ${z + 1}!`);
         this.setPosition(newX, newY, z);
         map.currentZ = z;
         map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
@@ -197,7 +169,31 @@ Mixins.Moveable = {
     }
     return false;
   }
-};
+
+  sendMessage(recipient, message) {
+    // ensure the recipient can actually receive the message
+    if (recipient.hasMixin(Mixins.MessageRecipient)) {
+      recipient.receiveMessage(message);
+    }
+  }
+
+  sendMessageNearby(map, centerX, centerY, currentZ, message) {
+    const entities = map.getEntitiesWithinRadius(centerX, centerY, currentZ, 5); // every entity should have an associated map already but nice to make functions more pure wherever possible anyway
+    // Iterate through nearby entities, sending the message if they can receive it
+    entities.forEach(entity => {
+      if (entity.hasMixin(Mixins.MessageRecipient)) {
+        entity.receiveMessage(message);
+      }
+    });
+  }
+}
+
+// love duck typing here with these Mixins and making literally
+// all characters indistinguishable in implementation - makes it incredibly
+// easy later on to have different races and character types for a character and
+// for them to even polymorph over time. Roguelikes are such excellent tools in good
+// complex system design in their total insane degree of conventional complexity and nuance
+export const Mixins = {};
 
 // this mixin denotes an entity having a field of vision with a given radius
 Mixins.Sight = {
@@ -337,9 +333,9 @@ Entities.PlayerTemplate = {
   attackValue: 5,
   defenseValue: 2,
   sightRadius: 6,
-  mixins: [Mixins.PlayerActor, Mixins.Moveable, 
+  mixins: [Mixins.PlayerActor, Mixins.Sight, 
   Mixins.Attacker, Mixins.Destructible,
-  Mixins.Sight, Mixins.MessageRecipient]
+  Mixins.MessageRecipient]
 };
 
 Entities.FungusTemplate = {
@@ -347,5 +343,5 @@ Entities.FungusTemplate = {
   character: 'F',
   foreground: 'green',
   maxHP: 6,
-  mixins: [Mixins.FungusActor, Mixins.Destructible],
+  mixins: [Mixins.FungusActor, Mixins.Destructible]
 };
