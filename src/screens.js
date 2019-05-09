@@ -358,3 +358,15 @@ export const pickupScreen = new ItemListScreen({
     return true;
   }
 });
+
+export const dropScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the item you wish to drop',
+  canSelect: true,
+  canSelectMultipleItems: false,
+  ok(selectedItems) {
+    // drop the selected item
+    this.player.dropItem(Object.keys(selectedItems)[0]);
+    return true;
+  }
+});
