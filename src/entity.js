@@ -209,6 +209,11 @@ Mixins.PlayerActor = {
   name: 'PlayerActor',
   groupName: 'Actor',
   act() {
+    // check if the game is over
+    if (this.getHP() <= 0) {
+      this.game.screens.playScreen.setGameEnded(true);
+      this.sendMessage(this, `You have died. Press [escape] to continue.`);
+    }
     // Re-render the screen
     this.game.refresh();
     // Lock the engine and wait asynchronously
