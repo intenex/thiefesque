@@ -240,7 +240,24 @@ playScreen.handleEvent = function(e) {
       }
       break;
     case 'P':
-      
+      const items = this.map.getItemsAt(this.player.getX(), this.player.getY(), this.player.getZ());
+      // if there are no items, show a message saying so
+      if (!items) {
+        this.player.sendMessage(this.player, "There is nothing here to pick up.");
+      } else if (items.length === 1) {
+        // if only one item, just try to pick it up no need to show a screen
+        const item = items[0];
+        if (this.player.pickupItems([0])) { // this returns true or false depending on if the item was successfully picked up great design // remember this takes an array of indices of items to try to pick up, if there's only one, just specify the first item love it
+          this.player.sendMessage(this.player, `You pick up ${item.describeA()}`);
+        } else {
+          this.player.sendMessage(this.player, "Your inventory is full! Nothing was picked up.");
+        }
+      } else {
+        // show the pickup screen if there are multiple items
+        this.game.screens.pickupScreen.setup(this.player, items);
+        this.setSubScreen(this.game.screens.pickupScreen);
+      }
+      break;
     case 'D':
       if (this.player.getItems().filter(x => true).length === 0) {
         // if the player has no items, send a message and don't take a turn
