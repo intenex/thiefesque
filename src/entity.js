@@ -95,7 +95,7 @@ export class Entity extends Glyph {
     }
   }
 
-  tryMove(x, y, z) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
+  tryMove(x, y, z = this.getZ()) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
     const map = this.getMap();
     const tile = map.getTile(x, y, this.getZ());
     const target = map.getEntityAt(x, y, this.getZ());
@@ -215,6 +215,23 @@ Mixins.PlayerActor = {
     this.getMap().getEngine().lock();
     // clear the message queue on every turn
     this.clearMessages();
+  }
+};
+
+Mixins.WanderActor = {
+  name: 'WanderActor',
+  groupName: 'Actor',
+  act() {
+    // randomly decide if moving forwards or backwards
+    const moveOffset = (Math.random() >= 0.5) ? 1 : -1; // love improving on code while you do it
+    // randomly decide if moving x or y
+    const x = this.getX();
+    const y = this.getY();
+    if (Math.random() >= 0.5) {
+      this.tryMove(x + moveOffset, y); // make z optional in tryMove
+    } else {
+      this.tryMove(x, y + moveOffset);
+    }
   }
 };
 
