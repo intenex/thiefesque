@@ -3,6 +3,7 @@ import Builder from './builder';
 import Map from './map';
 import { Entity, PlayerTemplate } from './entity';
 import Game from './game';
+import Item from './item';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -338,7 +339,22 @@ export class ItemListScreen {
 }
 
 export const inventoryScreeen = new ItemListScreen({
+  parentScreen: playScreen,
   caption: 'Inventory',
-  canSelect: false,
-  parentScreen: playScreen
+  canSelect: false
+});
+
+export const pickupScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the items you wish to pick up',
+  canSelect: true,
+  canSelectMultipleItems: true,
+  ok(selectedItems) {
+    // Try to pick up all items, messaging the player if they couldn't
+    // all be picked up
+    if (!this.player.pickupItems(Object.keys(selectedItems))) { // an array of all the indexes that were toggled to true in the object selectedItems love it. Weird though if you're only using the keys here totally pointless to actually do the whole create selectedItems instead of just using selectedIndices in the executeOkFunction look into it more later
+      this.player.sendMessage(this.player, "Your inventory is full! Not all items were picked up.");
+    }
+    return true;
+  }
 });
