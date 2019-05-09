@@ -266,7 +266,7 @@ Mixins.FungusActor = {
         if (xOffset !== 0 || yOffset !== 0) { // as long as one of these isn't true we're good, if they're both true then it's the same square as the spawning entity and this shouldn't happen
           // make sure this location is actually a floor and if so all good
           if (this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset, this.getZ())) {
-            const entity = new Entity(Entities.FungusTemplate); // rough can't have a circular require makes sense lol hmm // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
+            const entity = EntityRepository.create('fungus'); // rough can't have a circular require makes sense lol hmm // interesting even though this code I think is run when loaded into entities the FungusTemplate has to be defined here
             entity.setPosition(
               this.getX() + xOffset,
               this.getY() + yOffset,
