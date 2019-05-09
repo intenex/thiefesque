@@ -5,4 +5,8 @@ export default class Item extends Glyph {
     super(properties);
     this.name = properties.name || '';
   }
+
+  describe() {
+    return this.name;
+  }
 }
