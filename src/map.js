@@ -260,7 +260,20 @@ class Map {
     }
   }
 
-  
+  addItem(x, y, z, item) {
+    // if items already exist at this position, just append, otherwise create a new array object with that item as the only initial element
+    const key = `${x},${y}`;
+    if (this.items[z][key]) {
+      this.items[z][key].push(item);
+    } else {
+      this.items[z][key] = [item];
+    }
+  }
+
+  addItemAtRandomPosition(item, z) {
+    const pos = this.getRandomFloorPosition(z);
+    this.addItem(pos.x, pos.y, pos.z, item);
+  }
 }
 
 export default Map;
