@@ -235,7 +235,6 @@ playScreen.handleEvent = function(e) {
         this.game.refresh();
       } else {
         // show the inventory
-        console.log(this.game.screens);
         this.game.screens.inventoryScreen.setup(this.player, this.player.getItems());
         this.setSubScreen(this.game.screens.inventoryScreen);
       }
@@ -245,11 +244,14 @@ playScreen.handleEvent = function(e) {
       // if there are no items, show a message saying so
       if (!items) {
         this.player.sendMessage(this.player, "There is nothing here to pick up.");
+        this.render(this.game.display); // try to show the message immediately
+        this.player.clearMessages(); // not sure why this message persists otherwise hmm
       } else if (items.length === 1) {
         // if only one item, just try to pick it up no need to show a screen
         const item = items[0];
         if (this.player.pickupItems([0])) { // this returns true or false depending on if the item was successfully picked up great design // remember this takes an array of indices of items to try to pick up, if there's only one, just specify the first item love it
           this.player.sendMessage(this.player, `You pick up ${item.describeA()}`);
+          this.render(this.game.display); // try to show the message immediately
         } else {
           this.player.sendMessage(this.player, "Your inventory is full! Nothing was picked up.");
         }
