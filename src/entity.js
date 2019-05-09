@@ -120,8 +120,6 @@ export class Entity extends Glyph {
         this.sendMessage(this, `You ascend to level ${z + 1}!`); // +1 because the first level of the dungeon is denoted as 1 but stored/counted as 0
         this.setPosition(newX, newY, z); // what happens if a creature is accidentally on the stairs at time of ascension ensure that can't happen later --> maybe if this does work push the other entity to the side or something
         map.currentZ = z;
-        map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
-        map.entities[z].push(this); // add the entity back on the right level
       }
     } else if (z > this.getZ()) {
       if (tile !== TILES.stairsDownTile) {
@@ -142,8 +140,6 @@ export class Entity extends Glyph {
         this.sendMessage(this, `You descend to level ${z + 1}!`);
         this.setPosition(newX, newY, z);
         map.currentZ = z;
-        map.removeEntity(this); // remove the entity from whatever level it's on currently (this methods needs to be more efficient code and not iterate through all the levels)
-        map.entities[z].push(this); // add the entity back on the right level
       }
     } else if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
       // if this entity is an attacker, try to attack the target
