@@ -337,8 +337,8 @@ Mixins.InventoryHolder = {
   name: 'InventoryHolder',
   init(template) {
     // default to 20 inventory slots.
-    const inventorySlots = template['inventorySlots'] || 20;
-    // set up a new empty inventory
+    const inventorySlots = template.inventorySlots || 20;
+    // set up a new empty inventory, one of the few times where you actually do want to instantiate the array to a bunch of empty items of a set length that will never increase unless they find some potion of inventory slot increasement or something
     this.items = new Array(inventorySlots);
   },
   getItems() {
@@ -346,6 +346,16 @@ Mixins.InventoryHolder = {
   },
   getItem(i) {
     return this.items[i];
+  },
+  addItem(item) {
+    // try to find an empty slot in the inventory, returning true only if one was found --> if all slots are taken, don't add the item and return false, I like this actually
+    for (let i = 0; i < this.items.length; i++) {
+      if (!this.items[i]) {
+        this.items[i] = item;
+        return true;
+      }
+    }
+    return false;
   }
 };
 
