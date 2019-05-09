@@ -316,7 +316,23 @@ export class ItemListScreen {
       }
     } else if (this.canSelectItem && alpha.includes(e.key)) {  // if you can select items here and they press a key that corresponds to a letter of the alphabet lol
       // check if the key pressed corresponds to a valid item
-      
+      const index = alpha.indexOf(e.key);
+      if (this.items[index]) {
+        // if multiple selection is allowed, toggle the selection status for the given item,
+        // otherwise just select this one item and exit the screen
+        if (this.canSelectMultipleItems) {
+          if (this.selectedIndices[index]) { // if already selected, deselect
+            delete this.selectedIndices[index];
+          } else {
+            this.selectedIndices[index] = true;
+          }
+          // redraw the screen
+          this.parentScreen.game.refresh();
+        } else {
+          this.selectedIndices[index] = true;
+          this.executeOkFunction();
+        }
+      }
     }
   }
 }
