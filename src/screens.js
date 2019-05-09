@@ -251,7 +251,7 @@ playScreen.handleEvent = function(e) {
         // if only one item, just try to pick it up no need to show a screen
         const item = items[0];
         if (this.player.pickupItems([0])) { // this returns true or false depending on if the item was successfully picked up great design // remember this takes an array of indices of items to try to pick up, if there's only one, just specify the first item love it
-          this.player.sendMessage(this.player, `You pick up ${item.describeA()}`);
+          this.player.sendMessage(this.player, `You pick up ${item.describeA()}.`);
           this.game.refresh();
           this.player.clearMessages();
         } else {
