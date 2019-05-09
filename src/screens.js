@@ -1,7 +1,7 @@
 import * as ROT from 'rot-js';
 import Builder from './builder';
 import Map from './map';
-import { Entity, Entities } from './entity';
+import { Entity, PlayerTemplate } from './entity';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -51,7 +51,6 @@ playScreen.setGameEnded = function(gameEnded) {
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
 playScreen.enter = function(game) {
-  const map = [];
   // Create a map based on these size parameters fuck yeah
   const width = 100;
   const height = 100;
@@ -61,7 +60,7 @@ playScreen.enter = function(game) {
   const tiles = builder.getTiles();
   const upstairPos = builder.getAllUpstairPos();
   const downstairPos = builder.getAllDownstairPos();
-  this.player = new Entity(Entities.PlayerTemplate, game);
+  this.player = new Entity(PlayerTemplate, game);
   this.map = new Map(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
   this.map.getEngine().start();
 };
@@ -110,14 +109,14 @@ playScreen.render = function(game, display) { // amazing that most 'variables' a
         // if the cell is in the FOV, check if there are items or entities to display
         if (visibleCells[`${x},${y}`]) {
           // check for items first, since entities should overwrite tiles if there are both items and items love it
-          const items = map.getItemsAt(x, y, currentZ);
+          const items = this.map.getItemsAt(x, y, currentZ);
           // if there's an items array, render the top most item, aka the last item put on the stack
           if (items) {
             glyph = items[items.length - 1];
           }
           // check if there's an entity at the given position
-          if (map.getEntityAt(x, y, currentZ)) {
-            glyph = map.getEntityAt(x, y, currentZ);
+          if (this.map.getEntityAt(x, y, currentZ)) {
+            glyph = this.map.getEntityAt(x, y, currentZ);
           }
           foreground = glyph.getForeground();
         } else {
