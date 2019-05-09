@@ -303,19 +303,21 @@ export class ItemListScreen {
   }
 
   handleEvent(e) {
-    switch(e.key) {
-      case 'Escape':
+    const alpha = 'abcdefghijklmnopqrztuvwxyz';
+    if (e.key === 'Escape') {
+      this.parentScreen.setSubScreen(undefined);
+    } else if (e.key === 'Enter') {
+      // if they can't select an item on this screen or if they hit enter without any items selected, exit the screen
+      if (!this.canSelectItem || Object.keys(this.selectedIndices).length === 0) {
         this.parentScreen.setSubScreen(undefined);
-        break;
-      case 'Enter':
-        if (!this.canSelectItem || Object.keys(this.selectedIndices).length === 0) {
-          this.parentScreen.setSubScreen(undefined);
-        } else {
-          this.executeOkFunction();
-        }
-        break;
+      } else {
+        // handles what should happen when a player presses enter with items selected
+        this.executeOkFunction();
+      }
+    } else if (this.canSelectItem && alpha.includes(e.key)) {  // if you can select items here and they press a key that corresponds to a letter of the alphabet lol
+      // check if the key pressed corresponds to a valid item
+      
     }
-    
   }
 }
 
