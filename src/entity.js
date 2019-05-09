@@ -426,9 +426,10 @@ export const PlayerTemplate = {
   attackValue: 5,
   defenseValue: 2,
   sightRadius: 6,
+  inventorySlots: 22,
   mixins: [Mixins.PlayerActor, Mixins.Sight,
   Mixins.Attacker, Mixins.Destructible,
-  Mixins.MessageRecipient]
+  Mixins.MessageRecipient, Mixins.InventoryHolder]
 };
 
 export const EntityRepository = new Repository('entities', Entity); // insane that you can really pass constructor functions like this as variable names man I guess they're just objects like everything else so you should be able to do this in Ruby too no?
