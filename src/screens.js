@@ -43,7 +43,11 @@ startScreen.handleEvent = function(game, e) { // okay triggering is working fine
 
 export const playScreen = new Screen("play"); // at least you know this export style is working amazing to remember it all
 
-// playScreen.map = null; // pretty sure unnecessary man JS is great
+playScreen.gameEnded = false;
+
+playScreen.setGameEnded = function(gameEnded) {
+  this.gameEnded = gameEnded;
+};
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
 playScreen.enter = function(game) {
