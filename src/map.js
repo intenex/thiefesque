@@ -1,6 +1,6 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
-import { Entity, Entities } from './entity';
+import { Entity, PlayerTemplate, EntityRepository } from './entity';
 
 class Map {
   constructor(tiles, player, upstairPos, downstairPos) {
