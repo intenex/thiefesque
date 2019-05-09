@@ -1,6 +1,7 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
 import * as TILES from './tile';
 import Glyph from './glyph';
+import Repository from './repository';
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -348,42 +349,43 @@ Mixins.MessageRecipient = {
   }
 };
 
-export const Entities = {};
-
-Entities.PlayerTemplate = {
+// kept out of the EntityRepo for now so it doesn't generate an automatic player template lol...would be amazing to create clones of yourself you have to fight though
+export const PlayerTemplate = {
   character: '@',
   foreground: 'white',
   maxHP: 15,
   attackValue: 5,
   defenseValue: 2,
   sightRadius: 6,
-  mixins: [Mixins.PlayerActor, Mixins.Sight, 
+  mixins: [Mixins.PlayerActor, Mixins.Sight,
   Mixins.Attacker, Mixins.Destructible,
   Mixins.MessageRecipient]
 };
 
-Entities.BatTemplate = {
+export const EntityRepository = new Repository('entities', Entity); // insane that you can really pass constructor functions like this as variable names man I guess they're just objects like everything else so you should be able to do this in Ruby too no?
+
+EntityRepository.define('bat', {
   name: 'bat',
   character: 'B',
   foreground: 'white',
   maxHP: 3,
   attackValue: 2,
   mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
-};
+});
 
-Entities.NewtTemplate = {
+EntityRepository.define('newt', {
   name: 'newt',
   character: ':',
   foreground: 'yellow',
   maxHP: 5,
   attackValue: 2,
   mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
-};
+});
 
-Entities.FungusTemplate = {
+EntityRepository.define('fungus', {
   name: 'fungus',
   character: 'F',
   foreground: 'green',
   maxHP: 6,
   mixins: [Mixins.FungusActor, Mixins.Destructible]
-};
+});
