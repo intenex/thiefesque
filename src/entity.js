@@ -142,7 +142,7 @@ export class Entity extends Glyph {
         this.setPosition(newX, newY, z);
         map.currentZ = z;
       }
-    } else if (target) { // check if there's an entity at the present tile and prevent a move if so --> refactor later to check if it is an item or a creature or other unmovable object
+    } else if (target) { // check if there's an entity at the present tile and prevent a move if so
       // if this entity is an attacker, try to attack the target
       // basically this is because entities can be anything and there are presumably
       // some entities that don't attack, not just the player character but all the
@@ -160,6 +160,15 @@ export class Entity extends Glyph {
     } else if (tile.isWalkable()) { // Check if you can walk onto the tile and if so walk onto it
       // update entity positoin
       this.setPosition(x, y, z);
+      // notify the entity if there are items at this position
+      const items = this.getMap().getItemsAt(x, y, z);
+      if (items) {
+        if (items.length === 1) {
+          this.sendMessage(this, `You see ${items[0].describeA()}`);
+        } else {
+          this.sendMessage(this, `You see several objects here.`);
+        }
+      }
       return true;
       // check if the tile is diggable and if so, try to dig it --> but only if it's the player character trying to dig
     } else if (tile.isDiggable() && this.hasMixin(Mixins.PlayerActor)) {
