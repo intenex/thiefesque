@@ -186,7 +186,21 @@ class Map {
       }
     }
     // make sure the entity's position is within bounds
-    
+    const x = entity.getX();
+    const y = entity.getY();
+    const z = entity.getZ();
+    if (x < 0 || x >= this.width ||
+        y < 0 || y >= this.height ||
+        z < 0 || z >= this.depth) {
+          throw new Error("Entity's position is out of bounds.");
+    }
+    // make sure there is no entity at the new position
+    const key = `${x},${y}`;
+    if (this.entities[z][key]) {
+      throw new Error("Tried to add an entity at an occupied position.");
+    }
+    // Add the entity to the object of all entities
+    this.entities[z][key] = entity;
   }
 
   setupFov() {
