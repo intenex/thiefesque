@@ -95,7 +95,8 @@ export class Entity extends Glyph {
     }
   }
 
-  tryMove(x, y, z, map) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
+  tryMove(x, y, z) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
+    const map = this.getMap();
     const tile = map.getTile(x, y, this.getZ());
     const target = map.getEntityAt(x, y, this.getZ());
     // if the z level of the attempted move is different from the current z, that means

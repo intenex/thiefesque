@@ -67,7 +67,7 @@ playScreen.move = function(dX, dY, dZ, game) {
   const newY = this.player.getY() + dY;
   const newZ = this.player.getZ() + dZ;
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
-  this.player.tryMove(newX, newY, newZ, this.map);
+  this.player.tryMove(newX, newY, newZ);
   game.refresh();
 };
 
