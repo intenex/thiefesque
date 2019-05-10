@@ -228,7 +228,7 @@ playScreen.handleEvent = function(e) {
       this.map.getEngine().unlock();
       break;
     case 'I':
-      if (this.player.getItems().filter(x => true).length === 0) { // filter is pretty amazing, you need it since an inventory is always a set # of items both empty and not empty, so you need to filter to get only the non empty items, filter returns an array of all the elements that evaluate to true with the passed in callback function, and filter only passes to that callback function all the elements that actually exist, so if you just have a callback function that automatically evaluates to true for every real non-empty element passed in it'll work fantastic for returning an array of just non-empty elements so great
+      if (this.player.getItems().filter(x => x).length === 0) { // note we filter to return x, this means that if x === any falsey value, like null or undefined or 0, it will evaluate to false for the return of the filter and thus be very different from if you did x => true because in that case if you had put your own null or undefined values in the Array they would actually be passed as real arguments to the filter and consequently the filter would return true instead of false // filter is pretty amazing, you need it since an inventory is always a set # of items both empty and not empty, so you need to filter to get only the non empty items, filter returns an array of all the elements that evaluate to true with the passed in callback function, and filter only passes to that callback function all the elements that actually exist, so if you just have a callback function that automatically evaluates to true for every real non-empty element passed in it'll work fantastic for returning an array of just non-empty elements so great
         // if the player has no items, send a message and don't take a turn
         this.player.sendMessage(this.player, "You are not carrying anything!");
         this.game.refresh();
@@ -265,7 +265,7 @@ playScreen.handleEvent = function(e) {
       }
       break;
     case 'D':
-      if (this.player.getItems().filter(x => true).length === 0) {
+      if (this.player.getItems().filter(x => x).length === 0) {
         // if the player has no items, send a message and don't take a turn
         this.player.sendMessage(this.player, "You have nothing to drop lol");
         this.game.refresh();
