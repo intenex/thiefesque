@@ -1,9 +1,8 @@
 import * as ROT from 'rot-js';
 import Builder from './builder';
 import Map from './map';
-import { Entity, PlayerTemplate } from './entity';
-import Game from './game';
-import Item from './item';
+import Entity from './entity';
+import { PlayerTemplate } from './entities';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */

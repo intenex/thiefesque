@@ -1,6 +1,6 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
-import { EntityRepository } from './entity';
+import { EntityRepository } from './entities';
 import ItemRepository from './items';
 
 export default class Map {
