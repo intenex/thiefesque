@@ -118,12 +118,7 @@ EntityMixins.Destructible = {
     // if 0 or less HP, remove from map
     if (this.hp <= 0) {
       this.sendMessage(attacker, `You kill the ${this.getName()}`);
-      // if it's the player that died, let them take the next action
-      if (this.hasMixin(EntityMixins.PlayerActor)) {
-        this.act();
-      } else {
-        this.getMap().destroyEntity(this);
-      }
+      this.kill();
     }
   }
 };
