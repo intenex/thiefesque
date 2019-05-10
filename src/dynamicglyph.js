@@ -3,7 +3,7 @@ import Glyph from './glyph';
 
 export default class DynamicGlyph extends Glyph {
   constructor(properties = {}) {
-    super(properties);
+    super(properties); // interesting that when you do DynamicGlyph.call(this, properties) as in a call on a constructor function directly it just runs the function that makes sense since you're literally specifying the function to call and it is a function yeah does make sense hmm functions are objects such a fascinating language man so a constructor function is just something that defines subfunctions and assigns values to keys attached to the instance objects of that constructor function with this.key
 
     // allow for some mixin functionality
     this.attachedMixins = {}; // right these object attributes are actually stored as just strings or symbols and can be associated with p much any type of value
