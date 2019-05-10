@@ -24,11 +24,6 @@ export default class Entity extends DynamicGlyph {
     return this.map;
   }
 
-  // setter for name dope
-  setName(name) {
-    this.name = name;
-  }
-
   setX(x) {
     this.x = x;
   }
@@ -43,10 +38,6 @@ export default class Entity extends DynamicGlyph {
 
   getZ() {
     return this.z;
-  }
-
-  getName() {
-    return this.name;
   }
 
   getX() {
@@ -68,15 +59,6 @@ export default class Entity extends DynamicGlyph {
     // if the entity is already on a map, tell the map that the entity has moved
     if (this.map) {
       this.map.updateEntityPosition(this, oldX, oldY, oldZ);
-    }
-  }
-
-  hasMixin(obj) {
-    // check if obj or name as a string was passed in
-    if (typeof obj === 'object') {
-      return this.attachedMixins[obj.name]; // this is a bool that returns either true or undefined (aka false)
-    } else {
-      return this.attachedMixins[obj] || this.attachedMixinGroups[obj]; // check if either the specific mixin or the group mixin exists, this function can be passed either a GroupMixin name or a specific Mixin name and it'll worse for both // if typeof obj === 'string' since string is a primitive so dope
     }
   }
 
