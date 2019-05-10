@@ -1,21 +1,7 @@
 import DynamicGlyph from './dynamicglyph';
 
 export default class Item extends DynamicGlyph {
-  constructor(properties = {}) {
-    super(properties);
-    this.name = properties.name || '';
-  }
-
-  describe() {
-    return this.name;
-  }
-
-  describeA(capitalize = false) {
-    const prefixes = capitalize ? ['A', 'An'] : ['a', 'an'];
-    const string = this.describe();
-    const firstLetter = string.charAt(0).toLowerCase();
-    // if word starts with a vowel, use an, otherwise use a
-    const prefix = 'aeiou'.includes(firstLetter) ? 1 : 0; // will return -1 if index not found in string love it
-    return `${prefixes[prefix]} ${string}`;
-  }
+  // constructor(properties = {}) { // if all a constructor does is call super it's unnecessary it'll just call the parent's constructor method directly if this one isn't found which will have the same effect love it also why you have to manually call super to call the parent constructor method if you overwrite it very logical everything can be understood so lucky
+  //   super(properties);
+  // }
 }

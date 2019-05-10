@@ -9,7 +9,6 @@ export default class Entity extends DynamicGlyph {
   constructor(properties = {}, game) {
     super(properties);
     this.game = game;
-    this.name = properties.name || '';
     this.x = properties.x || 0;
     this.z = properties.z || 0;
     this.y = properties.y || 0;
