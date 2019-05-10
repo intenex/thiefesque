@@ -51,4 +51,9 @@ export default class DynamicGlyph extends Glyph {
     const prefix = 'aeiou'.includes(firstLetter) ? 1 : 0; // will return -1 if index not found in string love it
     return `${prefixes[prefix]} ${string}`;
   }
+
+  describeThe(capitalize = false) {
+    const prefix = capitalize ? 'The' : 'the';
+    return `${prefix} ${this.describe()}`; // yeah nope you can definitely call functions with this syntax so confusing hmm
+  }
 }
