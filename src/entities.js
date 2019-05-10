@@ -43,6 +43,10 @@ Mixins.WanderActor = {
   name: 'WanderActor',
   groupName: 'Actor',
   act() {
+    // don't do anything if not on the same level as the player
+    if (this.getZ() !== this.map.currentZ) {
+      return false;
+    }
     // randomly decide if moving forwards or backwards
     const moveOffset = (Math.random() >= 0.5) ? 1 : -1; // love improving on code while you do it
     // randomly decide if moving x or y
