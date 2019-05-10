@@ -9,6 +9,7 @@ export default class Entity extends DynamicGlyph {
   constructor(properties = {}, game) {
     super(properties);
     this.game = game;
+    this.alive = true;
     this.x = properties.x || 0;
     this.z = properties.z || 0;
     this.y = properties.y || 0;
@@ -59,6 +60,14 @@ export default class Entity extends DynamicGlyph {
     if (this.map) {
       this.map.updateEntityPosition(this, oldX, oldY, oldZ);
     }
+  }
+
+  isAlive() {
+    return this.alive;
+  }
+
+  kill(message) {
+    
   }
 
   tryMove(x, y, z = this.getZ()) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
