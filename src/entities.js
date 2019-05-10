@@ -6,10 +6,10 @@ import Repository from './repository';
 // easy later on to have different races and character types for a character and
 // for them to even polymorph over time. Roguelikes are such excellent tools in good
 // complex system design in their total insane degree of conventional complexity and nuance
-export const Mixins = {};
+export const EntityMixins = {};
 
 // this mixin denotes an entity having a field of vision with a given radius
-Mixins.Sight = {
+EntityMixins.Sight = {
   name: 'Sight',
   groupName: 'Sight',
   init(template) {
@@ -20,7 +20,7 @@ Mixins.Sight = {
   }
 };
 
-Mixins.PlayerActor = {
+EntityMixins.PlayerActor = {
   name: 'PlayerActor',
   groupName: 'Actor',
   act() {
@@ -39,7 +39,7 @@ Mixins.PlayerActor = {
   }
 };
 
-Mixins.WanderActor = {
+EntityMixins.WanderActor = {
   name: 'WanderActor',
   groupName: 'Actor',
   act() {
@@ -60,7 +60,7 @@ Mixins.WanderActor = {
   }
 };
 
-Mixins.FungusActor = {
+EntityMixins.FungusActor = {
   name: 'FungusActor',
   groupName: 'Actor',
   init() {
@@ -102,7 +102,7 @@ Mixins.FungusActor = {
   }
 };
 
-Mixins.Destructible = {
+EntityMixins.Destructible = {
   name: 'Destructible',
   init(template) {
     this.maxHP = template.maxHP || 10;
@@ -119,7 +119,7 @@ Mixins.Destructible = {
     if (this.hp <= 0) {
       this.sendMessage(attacker, `You kill the ${this.getName()}`);
       // if it's the player that died, let them take the next action
-      if (this.hasMixin(Mixins.PlayerActor)) {
+      if (this.hasMixin(EntityMixins.PlayerActor)) {
         this.act();
       } else {
         this.getMap().destroyEntity(this);
@@ -128,7 +128,7 @@ Mixins.Destructible = {
   }
 };
 
-Mixins.Attacker = {
+EntityMixins.Attacker = {
   name: 'Attacker',
   groupName: 'Attacker',
   init(template) { // properties are passed in as an argument to the init call, and properties correspond to the Template that's passed in as an argument to the Entity constructor function love it
@@ -151,7 +151,7 @@ Mixins.Attacker = {
   }
 };
 
-Mixins.InventoryHolder = {
+EntityMixins.InventoryHolder = {
   name: 'InventoryHolder',
   init(template) {
     // default to 10 inventory slots.
@@ -220,7 +220,7 @@ Mixins.InventoryHolder = {
   }
 };
 
-Mixins.MessageRecipient = {
+EntityMixins.MessageRecipient = {
   name: 'MessageRecipient',
   init(template) {
     this.messages = [];
@@ -245,9 +245,9 @@ export const PlayerTemplate = {
   defenseValue: 2,
   sightRadius: 6,
   inventorySlots: 22,
-  mixins: [Mixins.PlayerActor, Mixins.Sight,
-  Mixins.Attacker, Mixins.Destructible,
-  Mixins.MessageRecipient, Mixins.InventoryHolder]
+  mixins: [EntityMixins.PlayerActor, EntityMixins.Sight,
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.MessageRecipient, EntityMixins.InventoryHolder]
 };
 
 export const EntityRepository = new Repository('entities', Entity); // insane that you can really pass constructor functions like this as variable names man I guess they're just objects like everything else so you should be able to do this in Ruby too no?
@@ -258,7 +258,7 @@ EntityRepository.define('bat', {
   foreground: 'white',
   maxHP: 3,
   attackValue: 2,
-  mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
+  mixins: [EntityMixins.WanderActor, EntityMixins.Attacker, EntityMixins.Destructible]
 });
 
 EntityRepository.define('newt', {
@@ -267,7 +267,7 @@ EntityRepository.define('newt', {
   foreground: 'yellow',
   maxHP: 5,
   attackValue: 2,
-  mixins: [Mixins.WanderActor, Mixins.Attacker, Mixins.Destructible]
+  mixins: [EntityMixins.WanderActor, EntityMixins.Attacker, EntityMixins.Destructible]
 });
 
 EntityRepository.define('fungus', {
@@ -275,5 +275,5 @@ EntityRepository.define('fungus', {
   character: 'F',
   foreground: 'green',
   maxHP: 6,
-  mixins: [Mixins.FungusActor, Mixins.Destructible]
+  mixins: [EntityMixins.FungusActor, EntityMixins.Destructible]
 });

@@ -1,7 +1,7 @@
 import defaults from 'lodash/defaults'; // // lodash is god // crazy syntax wow look into this more
 import * as TILES from './tile';
 import Glyph from './glyph';
-import { Mixins } from './entities';
+import { EntityMixins } from './entities';
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -149,8 +149,8 @@ export default class Entity extends Glyph {
       // other entities that act on their turns. have monsters attack each other in your game
       // for sure, would be amazing to have all out brawls that happen between different
       // races that patrol the dungeons and things like that
-      if (this.hasMixin('Attacker') && this.hasMixin(Mixins.PlayerActor) ||
-          target.hasMixin(Mixins.PlayerActor)) { // only allow for an attack if it is the player attacking or if the target of the entity is the player
+      if (this.hasMixin('Attacker') && this.hasMixin(EntityMixins.PlayerActor) ||
+          target.hasMixin(EntityMixins.PlayerActor)) { // only allow for an attack if it is the player attacking or if the target of the entity is the player
         this.attack(target);
         return true;
       } else {
@@ -171,7 +171,7 @@ export default class Entity extends Glyph {
       }
       return true;
       // check if the tile is diggable and if so, try to dig it --> but only if it's the player character trying to dig
-    } else if (tile.isDiggable() && this.hasMixin(Mixins.PlayerActor)) {
+    } else if (tile.isDiggable() && this.hasMixin(EntityMixins.PlayerActor)) {
       map.dig(x, y, z);
       return true;
     }
@@ -180,7 +180,7 @@ export default class Entity extends Glyph {
 
   sendMessage(recipient, message) {
     // ensure the recipient can actually receive the message
-    if (recipient.hasMixin(Mixins.MessageRecipient)) {
+    if (recipient.hasMixin(EntityMixins.MessageRecipient)) {
       recipient.receiveMessage(message);
     }
   }
@@ -189,7 +189,7 @@ export default class Entity extends Glyph {
     const entities = map.getEntitiesWithinRadius(centerX, centerY, currentZ, 5); // every entity should have an associated map already but nice to make functions more pure wherever possible anyway
     // Iterate through nearby entities, sending the message if they can receive it
     entities.forEach(entity => {
-      if (entity.hasMixin(Mixins.MessageRecipient)) {
+      if (entity.hasMixin(EntityMixins.MessageRecipient)) {
         entity.receiveMessage(message);
       }
     });
