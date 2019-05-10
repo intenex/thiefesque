@@ -77,7 +77,7 @@ export default class Entity extends DynamicGlyph {
     if (this.hasMixin(EntityMixins.PlayerActor)) {
       this.act();
     } else {
-      this.getMap().removeEntity(this);
+      this.getMap().destroyEntity(this);
     }
   }
 
