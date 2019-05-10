@@ -150,6 +150,10 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
   // render player stats
   const stats = `%c{white}%b{black}HP: ${this.player.getHP()}/${this.player.getMaxHP()}`;
   display.drawText(0, screenHeight, stats);
+
+  // render hunger state
+  const hungerState = this.player.getHungerState();
+  display.drawText(screenWidth - hungerState.length, screenHeight, hungerState); // render in the bottom right corner of the screen
 };
 
 // for subscreens like the inventory screen and other future screens
