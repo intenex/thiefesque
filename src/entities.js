@@ -231,6 +231,21 @@ EntityMixins.MessageRecipient = {
   }
 };
 
+EntityMixins.FoodConsumer = {
+  name: 'FoodConsumer',
+  init(template) {
+    this.maxFullness = template.maxFullness || 1000;
+    // start half full if no default
+    this.fullness = template.fullness || this.maxFullness / 2;
+    // num points to decrease fullness by every turn
+    this.fullnessDepletionRate = template.fullnessDepletionRate || 1;
+  },
+  addTurnHunger() {
+    // deplete fullness by the depletion rate
+    this.modifyFullnessBy(-this.fullnessDepletionRate);
+  }
+};
+
 // kept out of the EntityRepo for now so it doesn't generate an automatic player template lol...would be amazing to create clones of yourself you have to fight though
 export const PlayerTemplate = {
   character: '@',
