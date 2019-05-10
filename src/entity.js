@@ -66,8 +66,19 @@ export default class Entity extends DynamicGlyph {
     return this.alive;
   }
 
-  kill(message) {
-    
+  kill(message = 'You have died!') {
+    // only allow killing once
+    if (!this.alive) { // if not alive, don't do anything lol
+      return;
+    }
+    this.alive = false;
+    this.sendMessage(this, message);
+    // check if it was the player who died and if so call their act method to prompt the user
+    if (this.hasMixin(EntityMixins.PlayerActor)) {
+      this.act();
+    } else {
+      this.getMap().removeEntity(this);
+    }
   }
 
   tryMove(x, y, z = this.getZ()) { // don't even have to fucking define the attribute name for this JS is so nuts so lucky to have learned all of this
