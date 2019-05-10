@@ -25,7 +25,7 @@ EntityMixins.PlayerActor = {
   groupName: 'Actor',
   act() {
     // check if the game is over
-    if (this.getHP() <= 0) {
+    if (!this.isAlive()) {
       this.game.screens.playScreen.setGameEnded(true);
       this.sendMessage(this, `You have died. Press [escape] to continue.`);
     }
