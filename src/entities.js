@@ -118,7 +118,7 @@ EntityMixins.Destructible = {
     // if 0 or less HP, remove from map
     if (this.hp <= 0) {
       this.sendMessage(attacker, `You kill the ${this.getName()}`);
-      this.kill();
+      this.kill("You have been killed to death.");
     }
   }
 };
@@ -243,6 +243,14 @@ EntityMixins.FoodConsumer = {
   addTurnHunger() {
     // deplete fullness by the depletion rate
     this.modifyFullnessBy(-this.fullnessDepletionRate);
+  },
+  modifyFullnessBy(points) {
+    this.fullness = this.fullness + points;
+    if (this.fullness <= 0) {
+      this.kill("You have died of starvation!");
+    } else if (this.fullness > this.maxFullness) {
+      this.kill("You have died of overindulgence.");
+    }
   }
 };
 
