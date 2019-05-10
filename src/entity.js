@@ -1,11 +1,11 @@
 import * as TILES from './tile';
-import Glyph from './glyph';
+import DynamicGlyph from './dynamicglyph';
 import { EntityMixins } from './entities';
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
 
-export default class Entity extends Glyph {
+export default class Entity extends DynamicGlyph {
   constructor(properties = {}, game) {
     super(properties);
     this.game = game;

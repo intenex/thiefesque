@@ -1,6 +1,6 @@
-import Glyph from './glyph';
+import DynamicGlyph from './dynamicglyph';
 
-export default class Item extends Glyph {
+export default class Item extends DynamicGlyph {
   constructor(properties = {}) {
     super(properties);
     this.name = properties.name || '';
