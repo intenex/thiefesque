@@ -24,6 +24,12 @@ EntityMixins.PlayerActor = {
   name: 'PlayerActor',
   groupName: 'Actor',
   act() {
+    // need this to not double call the act() method for the player specifically as you can be killed during the player's turn, such as by starvation during addTurnHunger, which is also protected against in the kill() method but other things we want to prevent here too in double acting for sure
+    if (this.acting) {
+      return;
+    }
+    this.acting = true;
+    this.addTurnHunger();
     // check if the game is over
     if (!this.isAlive()) {
       this.game.screens.playScreen.setGameEnded(true);
@@ -36,6 +42,7 @@ EntityMixins.PlayerActor = {
     this.getMap().getEngine().lock();
     // clear the message queue on every turn
     this.clearMessages();
+    this.acting = false;
   }
 };
 
