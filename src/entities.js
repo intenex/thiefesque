@@ -251,6 +251,22 @@ EntityMixins.FoodConsumer = {
     } else if (this.fullness > this.maxFullness) {
       this.kill("You have died of overindulgence.");
     }
+  },
+  getHungerState() {
+    // one percent of max fullness
+    const percent = this.maxFullness / 100;
+    // 5% of max fullness or less = starving
+    if (this.fullness <= percent * 5) {
+      return 'Starving';
+    } else if (this.fullness <= percent * 25) {
+      return 'Hungry';
+    } else if (this.fullness >= percent * 95) {
+      return 'Stuffed to Death';
+    } else if (this.fullness >= percent * 75) {
+      return 'Full';
+    } else {
+      return 'Not Hungry';
+    }
   }
 };
 
