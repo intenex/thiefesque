@@ -82,6 +82,40 @@ EntityMixins.PlayerActor = {
   }
 };
 
+// fuck yeah AStar time
+// this entity has multiple tasks with a list of priorities for each task, and will attempt to execute the highest priority task it can each turn that is available to it
+EntityMixins.TaskActor = {
+  name: 'TaskActor',
+  groupName: 'Actor',
+  init(template) {
+    // load tasks
+    this.tasks = template.tasks || ['wander']; // if no tasks, then only task is to wander lol
+  },
+  act() {
+    // iterate through all the tasks and do the first one that can be done
+    // tasks.forEach(task => {
+    //   if (this.canDoTask(task)) {
+    //     this[task]();
+    //     return; // damn nope doesn't break out of a forEach because it's a callback shit ah well do it the other way then // make sure this is working later but it almost certianly should be unless this being a callback fucks with that // break out of the whole function, works fine for forEaches just can't break out of a forEach function like you can for a for loop right good to learn all the differences go back and refactor to use forEaches where possible you've been forgetting about it interesting
+    //   }
+    // });
+    for (let i = 0; i < this.tasks.length; i++) {
+      if (this.canDoTask(this.tasks[i])) {
+        // if you can perform the task, execute the function for it
+        this[this.tasks[i]]();
+        return; // end the entire function love it since this is just a for loop it'll break the function, break; is to end just the loop
+      }
+    }
+  },
+  canDoTask(task) {
+    if (task === 'hunt') {
+      return this.hasMixin('Sight') && this.canSee(this.getMap().getPlayer());
+    } else if (task === 'wander') {
+      
+    }
+  }
+};
+
 EntityMixins.WanderActor = {
   name: 'WanderActor',
   groupName: 'Actor',
