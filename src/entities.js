@@ -28,11 +28,20 @@ EntityMixins.Sight = {
     const otherY = entity.getY();
 
     // if not in a square FOV, then won't be in a real FOV either, so this does the rough work of most calculations
-    if ((otherX - this.x) * (otherX - this.x) +
-        (otherY - this.y) * (otherY - this.y) >
-        this.sightRadius * this.sightRadius) {
-          return false;
+    // if ((otherX - this.x) * (otherX - this.x) + // unclear why this isn't (otherX - this.x) * (otherY - this.y) > this.sightRadius * this.sightRadius to be the square field of view
+    //     (otherY - this.y) * (otherY - this.y) >
+    //     this.sightRadius * this.sightRadius) {
+    //       return false;
+    // }
+
+    // your preferred more simple solution --> if (otherX - this.x) > this.sightRadius || (otherY - this.y) > this.sightRadius then it won't be seen in a real FOV either let's do that and then think about the other one more later
+    if (Math.abs(otherX - this.x) > this.sightRadius ||
+        Math.abs(otherY - this.y) > this.sightRadius) {
+          return false; // yeah you like this indentation pattern better
     }
+
+
+
   }
 };
 
