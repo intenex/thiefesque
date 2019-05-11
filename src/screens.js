@@ -308,8 +308,10 @@ loseScreen.render = function(display) {
 export class ItemListScreen {
   constructor(template) {
     this.caption = template.caption;
-    this.parentScreen = template.parentScreen;
+    this.parentScreen = template.parentScreen; // can't believe this works lol
     this.okFunction = template.ok;
+    // by default, use identity function which returns whatever is passed in (so if a falsey value, like null or undefined or 0 or '', it'll return false)
+    this.isAcceptableFunction = template.isAcceptable || function(x) { return x; }; // weird can't use fat arrow here? kind of makes sense since kind of ambiguous syntax
     // whether or not the user can select items on here
     this.canSelectItem = template.canSelect;
     // whether or not the user can select multiple items
@@ -427,3 +429,4 @@ export const dropScreen = new ItemListScreen({
     return true;
   }
 });
+
