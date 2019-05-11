@@ -440,3 +440,23 @@ export const dropScreen = new ItemListScreen({
   }
 });
 
+export const eatScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the item you wish to eat',
+  canSelect: true,
+  canSelectMultipleItems: false,
+  isAcceptable(item) {
+    return item && item.hasMixin('Edible');
+  },
+  ok(selectedItems) { // the function to execute if everything is okay
+    // eat the item, removing it if there are no consumptions remaining
+    const key = Object.keys(selectedItems)[0];
+    const item = selectedItems[key];
+    this.player.sendMessage(this.player, `You eat ${item.describeThe()}`);
+    item.eat(this.player);
+    if (!item.hasRemainingConsumptions()) {
+      this.player.removeItem(key); // right have to do it here because it has to be part of the player removing it, the item can't remove itself of course
+    }
+    return true;
+  }
+});
