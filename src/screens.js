@@ -310,7 +310,7 @@ export class ItemListScreen {
     this.caption = template.caption;
     this.parentScreen = template.parentScreen; // can't believe this works lol
     this.okFunction = template.ok;
-    // by default, use identity function which returns whatever is passed in (so if a falsey value, like null or undefined or 0 or '', it'll return false)
+    // callback function to determine if an item should be shown on the screen, called for each item // by default, use identity function which returns whatever is passed in (so if a falsey value, like null or undefined or 0 or '', it'll return false)
     this.isAcceptableFunction = template.isAcceptable || function(x) { return x; }; // weird can't use fat arrow here? kind of makes sense since kind of ambiguous syntax
     // whether or not the user can select items on here
     this.canSelectItem = template.canSelect;
@@ -322,9 +322,19 @@ export class ItemListScreen {
   setup(player, items) {
     this.player = player;
     // should be called before switching to the screen
-    this.items = items;
+    this.count = 0;
+    // iterate over each item, keeping only the acceptable ones and counting each acceptable item
+    this.items = items.map(item => {
+      if (this.isAcceptableFunction(item)) {
+        count++;
+        return item;
+      } else {
+        return null;
+      }
+    });
     // an empty set of selected indices
     this.selectedIndices = {};
+    return count; // explicitly return so we can see if this is 0 and if so not show the screen
   }
 
   render(display) {
