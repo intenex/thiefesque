@@ -1,5 +1,6 @@
 import Entity from './entity';
 import Repository from './repository';
+import ItemRepository from './items';
 
 // love duck typing here with these Mixins and making literally
 // all characters indistinguishable in implementation - makes it incredibly
@@ -273,6 +274,21 @@ EntityMixins.FoodConsumer = {
       return 'Full';
     } else {
       return 'Not Hungry';
+    }
+  }
+};
+
+EntityMixins.CorpseDropper = {
+  name: 'CorpseDropper',
+  init(template) {
+    // chance of droppping a corpse out of 100
+    this.corpseDropRate = template.corpseDropRate || 100;
+  },
+  tryDropCorpse() {
+    if (Math.round(Math.random() * 100) <= this.corpseDropRate) {
+      // create a new corpse item and drop it
+      this.map.addItem(this.getX(), this.getY(), this.getZ(),
+          ItemRepository.create)
     }
   }
 };
