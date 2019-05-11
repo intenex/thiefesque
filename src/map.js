@@ -45,8 +45,12 @@ export default class Map {
         this.addItemAtRandomPosition(ItemRepository.createRandom(), z);
       }
     }
-    
-  
+    // add weapons and armor to the map in random positions, one of each unique to the entire dungeon across all levels lol
+    const templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'platemail'];
+    for (let i = 0; i < templates.length; i++) {
+      this.addItemAtRandomPosition(ItemRepository.create(templates[i]),
+        Math.floor(this.depth * Math.random()));
+    }
   }
 
   getEngine() {
