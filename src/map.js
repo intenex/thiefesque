@@ -30,8 +30,9 @@ export default class Map {
       this.items[z] = {};
     }
     this.currentZ = 0; // so you can reference this in act methods
-    this.scheduler = new ROT.Scheduler.Simple();
+    this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
+    this.player = player;
     this.addEntityAtRandomPosition(player, this.currentZ); // have a single source of truth for all these numbers 
     for (let z = 0; z < this.depth; z++) {
       // add 25 random monsters on every level
@@ -55,6 +56,10 @@ export default class Map {
 
   getEngine() {
     return this.engine;
+  }
+
+  getPlayer() {
+    return this.player;
   }
 
   getEntities() {
