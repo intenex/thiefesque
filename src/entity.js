@@ -10,6 +10,8 @@ export default class Entity extends DynamicGlyph {
     super(properties);
     this.game = game;
     this.alive = true;
+    // acting speed
+    this.speed = properties.speed || 1000;
     this.x = properties.x || 0;
     this.z = properties.z || 0;
     this.y = properties.y || 0;
@@ -22,6 +24,14 @@ export default class Entity extends DynamicGlyph {
 
   getMap() {
     return this.map;
+  }
+
+  setSpeed(speed) {
+    this.speed = speed;
+  }
+
+  getSpeed() {
+    return this.speed;
   }
 
   setX(x) {
