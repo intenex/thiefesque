@@ -4,6 +4,16 @@ import ItemMixins from './itemmixins';
 
 const ItemRepository = new Repository('items', Item);
 
+ItemRepository.define('corpse', {
+  name: 'corpse',
+  character: '%',
+  foodValue: 75,
+  consumptions: 1,
+  mixins: [ItemMixins.Edible]
+}, {
+  disableRandomCreation: true
+});
+
 ItemRepository.define('apple', {
   name: 'apple',
   character: '%',
