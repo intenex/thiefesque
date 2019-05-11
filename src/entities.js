@@ -300,6 +300,40 @@ EntityMixins.CorpseDropper = {
   }
 };
 
+EntityMixins.Equipper = {
+  name: 'Equipper',
+  init(template) {
+    this.weapon = null; // just for good form
+    this.armor = null;
+  },
+  wield(item) {
+    this.weapon = item;
+  },
+  unwield() {
+    this.weapon = null;
+  },
+  wear(item) {
+    this.armor = item;
+  },
+  takeOff() {
+    this.armor = null;
+  },
+  getWeapon() {
+    return this.weapon;
+  },
+  getArmor() {
+    return this.armor;
+  },
+  unequip(item) {
+    // helper function to be called to determine if weapon or armor
+    if (this.weapon === item) {
+      this.unwield();
+    } else if (this.armor === item) {
+      this.takeOff();
+    }
+  }
+};
+
 // kept out of the EntityRepo for now so it doesn't generate an automatic player template lol...would be amazing to create clones of yourself you have to fight though
 export const PlayerTemplate = {
   character: '@',
