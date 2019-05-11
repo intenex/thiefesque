@@ -376,7 +376,7 @@ export class ItemListScreen {
           suffix = ' (wielding)';
         }
         // render at the correct row and add 2 to give a space between the caption
-        display.drawText(0, 2 + row, `${letter} ${selectionState} ${this.items[i].describe()}`);
+        display.drawText(0, 2 + row, `${letter} ${selectionState} ${this.items[i].describe()} ${suffix}`);
         row++;
       }
     }
