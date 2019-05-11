@@ -29,7 +29,7 @@ export default class Repository {
     }
 
     // copy the template
-    const template = Object.assign({}, this.templates[name]); // almost positive that this is the create way to copy the template, not Object.create, which sets whatever was passed in as the prototype of the object that is returned, which is always an empty object
+    const template = Object.assign({}, this.templates[name]); // ah fascinating p sure their object.create way works because if a property isn't defined on the object itself it looks at the prototype of the object to find the property insane so incorrect but totally worked without an error // almost positive that this is the create way to copy the template, not Object.create, which sets whatever was passed in as the prototype of the object that is returned, which is always an empty object
     // apply extra properties
     if (extraProperties) {
       for (const key in extraProperties) {

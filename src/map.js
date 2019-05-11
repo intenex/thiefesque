@@ -183,7 +183,7 @@ export default class Map {
 
   updateEntityPosition(entity, oldX, oldY, oldZ) {
     // delete the old key if it's the same entity and we have old positions, these are optional
-    if (oldX !== undefined) {
+    if (typeof oldX === 'number') { // good to learn the typeof method
       const oldKey = `${oldX},${oldY}`;
       if (this.entities[oldZ][oldKey] === entity) {
         delete this.entities[oldZ][oldKey]; // look into delete more this is interesting
