@@ -111,9 +111,12 @@ EntityMixins.TaskActor = {
     if (task === 'hunt') {
       return this.hasMixin('Sight') && this.canSee(this.getMap().getPlayer());
     } else if (task === 'wander') {
-      
+      return true;
+    } else {
+      throw new Error(`Tried to perform undefined task ${task}`);
     }
-  }
+  },
+  
 };
 
 EntityMixins.WanderActor = {
