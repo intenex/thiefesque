@@ -31,4 +31,26 @@ ItemMixins.Edible = {
   }
 };
 
+ItemMixins.Equippable = {
+  name: 'Equippable',
+  init(template) {
+    this.attackValue = template.attackValue || 0;
+    this.defenseValue = template.defenseValue || 0;
+    this.wieldable = template.wieldable || false;
+    this.wearable = template.wearable || false;
+  },
+  getAttackValue() {
+    return this.attackValue;
+  },
+  getDefenseValue() {
+    return this.defenseValue;
+  },
+  isWieldable() {
+    return this.wieldable;
+  },
+  isWearable() {
+    return this.wearable;
+  }
+};
+
 export default ItemMixins;
