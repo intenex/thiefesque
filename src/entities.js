@@ -354,10 +354,9 @@ EntityMixins.Equipper = {
   },
   unequip(item) {
     // helper function to be called to determine if weapon or armor
-    if (this.weapon === item) {
+    if (this.weapon === item) { // weird when you call it you use this.weapon but when others call it they use entity.getWeapon()? Look into this more and the correct use cases
       this.unwield();
-    }
-    if (this.armor === item) { // consider making this an else if --> the only case you don't want this to be an else if is if you can for some reason equip the same item twice as both a weapon and as armor which shouldn't be allowable so make sure not to allow that lol then make this an else if
+    } else if (this.armor === item) { // consider making this an else if --> the only case you don't want this to be an else if is if you can for some reason equip the same item twice as both a weapon and as armor which shouldn't be allowable so make sure not to allow that lol then make this an else if
       this.takeOff();
     }
   }

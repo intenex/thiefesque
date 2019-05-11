@@ -354,6 +354,10 @@ export class ItemListScreen {
     const letters = 'abcdefghijklmnopqrstuvwxyz';
     // render caption in the top row
     display.drawText(0, 0, this.caption);
+    // render the no item row if enabled
+    if (this.hasNoItemOption) {
+      display.drawText(0, 1, '0 - no item');
+    }
     let row = 0;
     for (let i = 0; i < this.items.length; i++) {
       // if there is an item, render it
@@ -364,6 +368,13 @@ export class ItemListScreen {
         // the letter and the item's name amazing
         const selectionState = (this.canSelectItem && this.canSelectMultipleItems &&
               this.selectedIndices[i]) ? '+' : '-';
+        // check if item is worn or wielded
+        let suffix = '';
+        if (this.items[i] === this.player.getArmor()) {
+          suffix = ' (wearing)';
+        } else if (this.items[i] === this.player.getWeapon()) {
+          suffix = ' (wielding)';
+        }
         // render at the correct row and add 2 to give a space between the caption
         display.drawText(0, 2 + row, `${letter} ${selectionState} ${this.items[i].describe()}`);
         row++;
