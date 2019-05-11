@@ -30,7 +30,7 @@ EntityMixins.PlayerActor = {
       return;
     }
     this.acting = true;
-    this.addTurnHunger();
+    this.addTurnHunger(); // fascinating this happens even if you're trying to eat on that turn so you can die of starvation on the same turn that you eat since you lose hunger first before you eat lol
     // check if the game is over
     if (!this.isAlive()) {
       this.game.screens.playScreen.setGameEnded(true);
