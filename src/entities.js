@@ -24,6 +24,9 @@ EntityMixins.Sight = {
     if (!entity || this.map !== entity.getMap() || this.z !== entity.getZ()) {
       return false;
     }
+
+    const x = this.getX();
+    const y = this.getY();
     const otherX = entity.getX();
     const otherY = entity.getY();
 
@@ -35,13 +38,21 @@ EntityMixins.Sight = {
     // }
 
     // your preferred more simple solution --> if (otherX - this.x) > this.sightRadius || (otherY - this.y) > this.sightRadius then it won't be seen in a real FOV either let's do that and then think about the other one more later
-    if (Math.abs(otherX - this.x) > this.sightRadius ||
-        Math.abs(otherY - this.y) > this.sightRadius) {
+    if (Math.abs(otherX - x) > this.sightRadius ||
+        Math.abs(otherY - y) > this.sightRadius) {
           return false; // yeah you like this indentation pattern better
     }
 
-
-
+    // computer FOV and see if coordinates are in there
+    let found = false;
+    this.getMap().getFov(this.getZ()).compute(
+      x, y, this.getSightRadius(),
+      (x, y, radius, visibility) => { // callback function that's called for each visible square that lets you do something for each visible cell that's returned
+        if (x === otherX && y === otherY) { // if any x and y in the callback that are returned match the otherX and otherY that means that other entity's position can be seen as this callback is called for all the positions that this entity can see pretty amazing and lucky to be able to derive all this
+          found = true;
+        }
+      });
+    return found;
   }
 };
 
