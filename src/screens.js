@@ -523,7 +523,7 @@ export const wearScreen = new ItemListScreen({
       const item = selectedItems[keys[0]];
       this.player.unequip(item);
       this.player.wear(item);
-      this.player.sendMessage(this.player, `You are waering ${item.describeA()}`);
+      this.player.sendMessage(this.player, `You are wearing ${item.describeA()}`);
     }
     return true;
   }
