@@ -250,25 +250,14 @@ playScreen.handleEvent = function(e) {
       }
       break;
     case 'D':
-      if (this.game.screens.dropScreen.setup(this.player, this.player.getItems())) {
-        // show the drop screen
-        this.game.screens.dropScreen.setup(this.player, this.player.getItems());
-        this.setSubScreen(this.game.screens.dropScreen);
-      } else {
-        // if the player has no items, send a message and don't take a turn
-        this.player.sendMessage(this.player, "You have nothing to drop lol");
-        this.game.refresh();
-        this.player.clearMessages();
-      }
+      // show the drop screen
+      this.showItemsSubScreen(this.game.screens.dropScreen, this.player.getItems(),
+        `You have nothing to drop lol`);
       break;
     case 'E':
-      if (this.game.screens.eatScreen.setup(this.player, this.player.getItems())) {
-        this.setSubScreen(this.game.screens.eatScreen);
-      } else {
-        this.player.sendMessage(this.player, "You have nothing to eat.");
-        this.game.refresh();
-        this.player.clearMessages();
-      }
+      // show the eat screen
+      this.showItemsSubScreen(this.game.screens.eatScreen, this.player.getItems(),
+        `You have nothing to eat.`);
       break;
   }
 };
