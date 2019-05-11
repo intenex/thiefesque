@@ -207,6 +207,10 @@ EntityMixins.InventoryHolder = {
     return false;
   },
   removeItem(i) {
+    // if you can equip items, make sure the item is unequipped first
+    if (this.items[i] && this.hasMixin(EntityMixins.Equipper)) {
+      this.unequip(this.items[i]);
+    }
     this.items[i] = null; // interesting yeah you don't set things to undefined right only null love it
   },
   canAddItem() {
@@ -352,7 +356,8 @@ EntityMixins.Equipper = {
     // helper function to be called to determine if weapon or armor
     if (this.weapon === item) {
       this.unwield();
-    } else if (this.armor === item) {
+    }
+    if (this.armor === item) { // consider making this an else if --> the only case you don't want this to be an else if is if you can for some reason equip the same item twice as both a weapon and as armor which shouldn't be allowable so make sure not to allow that lol then make this an else if
       this.takeOff();
     }
   }
