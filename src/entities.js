@@ -344,5 +344,6 @@ EntityRepository.define('fungus', {
   character: 'F',
   foreground: 'green',
   maxHP: 6,
+  corpseDropRate: 10,
   mixins: [EntityMixins.FungusActor, EntityMixins.Destructible]
 });
