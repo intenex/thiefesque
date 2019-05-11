@@ -497,5 +497,20 @@ export const wieldScreen = new ItemListScreen({
   hasNoItemOption: true,
   isAcceptable(item) {
     return item && item.hasMixin('Equippable') && item.isWieldable();
+  },
+  ok(selectedItems) {
+    // check if we have selected 'no item', in which case unwield love it okay that's how it works interesting, why not just let them toggle weidling on and off
+    const keys = Object.keys(selectedItems);
+    if (keys.length === 0) {
+      this.player.unwield();
+      this.player.sendMessage(this.player, "You are empty handed.");
+    } else {
+      // make sure to unequip the item first in case it is being used as armor
+      const item = selectedItems[keys[0]];
+      this.player.unequip(item);
+      this.player.wield(item);
+      this.player.sendMessage(this.player, `You are wielding ${item.describeA()}`);
+    }
+    return true;
   }
 });
