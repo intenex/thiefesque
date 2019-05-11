@@ -126,6 +126,10 @@ EntityMixins.Destructible = {
     // if 0 or less HP, remove from map
     if (this.hp <= 0) {
       this.sendMessage(attacker, `You kill the ${this.getName()}`);
+      // if the entity is a corpse dropper, try to drop a corpse
+      if (this.hasMixin(EntityMixins.CorpseDropper)) {
+        this.tryDropCorpse();
+      }
       this.kill("You have been killed to death.");
     }
   }
