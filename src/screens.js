@@ -259,6 +259,16 @@ playScreen.handleEvent = function(e) {
       this.showItemsSubScreen(this.game.screens.eatScreen, this.player.getItems(),
         `You have nothing to eat.`);
       break;
+    case 'W':
+      // show the wield screen
+      this.showItemsSubScreen(this.game.screens.wieldScreen, this.player.getItems(),
+        `You have nothing to wield.`);
+      break;
+    case 'A':
+      // show the armor/wear screen
+      this.showItemsSubScreen(this.game.screens.wearScreen, this.player.getItems(),
+        `You have nothing to wear.`);
+      break;
   }
 };
 
