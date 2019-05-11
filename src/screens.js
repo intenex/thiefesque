@@ -488,3 +488,14 @@ export const eatScreen = new ItemListScreen({
     return true;
   }
 });
+
+export const wieldScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the item you wish to wield',
+  canSelect: true,
+  canSelectionMultipleItems: false,
+  hasNoItemOption: true,
+  isAcceptable(item) {
+    return item && item.hasMixin('Equippable') && item.isWieldable();
+  }
+});
