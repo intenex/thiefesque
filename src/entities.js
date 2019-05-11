@@ -323,7 +323,8 @@ EntityRepository.define('bat', {
   foreground: 'white',
   maxHP: 3,
   attackValue: 2,
-  mixins: [EntityMixins.WanderActor, EntityMixins.Attacker, EntityMixins.Destructible]
+  mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
+  EntityMixins.Attacker, EntityMixins.Destructible]
 });
 
 EntityRepository.define('newt', {
@@ -332,7 +333,8 @@ EntityRepository.define('newt', {
   foreground: 'yellow',
   maxHP: 5,
   attackValue: 2,
-  mixins: [EntityMixins.WanderActor, EntityMixins.Attacker, EntityMixins.Destructible]
+  mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
+  EntityMixins.Attacker, EntityMixins.Destructible]
 });
 
 EntityRepository.define('fungus', {
