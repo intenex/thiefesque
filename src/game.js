@@ -19,7 +19,8 @@ export default class Game {
                          loseScreen: SCREENS.loseScreen,
                          inventoryScreen: SCREENS.inventoryScreen,
                          dropScreen: SCREENS.dropScreen,
-                         pickupScreen: SCREENS.pickupScreen
+                         pickupScreen: SCREENS.pickupScreen,
+                         eatScreen: SCREENS.eatScreen
                        };
 
         this.screens.playScreen.game = this;
