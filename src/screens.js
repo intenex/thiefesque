@@ -169,15 +169,18 @@ playScreen.handleEvent = function(e) {
     this.subScreen.handleEvent(e);
     return;
   }
+  if (this.gameEnded) {
+    switch (e.key) {
+      case 'Escape':
+        this.game.switchScreen(this.game.screens.loseScreen);
+        break;
+    }
+    return;
+  }
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
     case 'Enter':
       this.game.switchScreen(this.game.screens.winScreen);
-      break;
-    case 'Escape':
-      if (this.gameEnded) {
-        this.game.switchScreen(this.game.screens.loseScreen);
-      }
       break;
     case 'o': // man fall through mapping is totally the best
     case 'w':
@@ -324,6 +327,8 @@ export class ItemListScreen {
     this.canSelectItem = template.canSelect;
     // whether or not the user can select multiple items
     this.canSelectMultipleItems = template.canSelectMultipleItems;
+    // whether or not a 'no item' option should appear
+    this.hasNoItemOption = template.hasNoItemOption;
   }
 
   // needs to be separate from the initialization constructor function because these things are passed only later on
