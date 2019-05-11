@@ -120,7 +120,19 @@ EntityMixins.Destructible = {
   },
   getHP() { return this.hp; },
   getMaxHP() { return this.maxHP; },
-  getDefenseValue() { return this.defenseValue; },
+  getDefenseValue() { 
+    let modifier = 0;
+    // if you can equip items, take into consideration weapons and armor
+    if (this.hasMixin(EntityMixins.Equipper)) {
+      if (this.getWeapon()) {
+        modifier += this.getWeapon().getDefenseValue();
+      }
+      if (this.getArmor()) {
+        modifier += this.getArmor().getDefenseValue();
+      }
+    }
+    return this.defenseValue + modifier;
+  },
   takeDamage(attacker, damage) {
     this.hp -= damage;
     // if 0 or less HP, remove from map
