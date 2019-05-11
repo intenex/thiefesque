@@ -17,11 +17,18 @@ export default class Repository {
   }
 
   // create an object based on a given template
-  create(name) {
-    const template = this.templates[name];
-
-    if (!template) {
+  create(name, extraProperties) {
+    if (!this.templates[name]) { // right bracket notation only for variables so great
       throw new Error(`No template named '${name}' in repository '${this.name}'`);
+    }
+
+    // copy the template
+    const template = Object.assign({}, this.templates[name]); // almost positive that this is the create way to copy the template, not Object.create, which sets whatever was passed in as the prototype of the object that is returned, which is always an empty object
+    // apply extra properties
+    if (extraProperties) {
+      for (const key in extraProperties) {
+        template[key] = extraProperties[key];
+      }
     }
 
     // return the newly created object --> do the insane thing where you can literally just pass in the variable name referencing a constructor function to instantiate a new object of that constructor function makes sense I suppose, passing in the template that was found as the argument to the constructor function (currently works for both creating Entity and Item objects from those respective constructor functions)
