@@ -141,7 +141,19 @@ EntityMixins.Attacker = {
   init(template) { // properties are passed in as an argument to the init call, and properties correspond to the Template that's passed in as an argument to the Entity constructor function love it
     this.attackValue = template.attackValue || 1;
   },
-  getAttackValue() { return this.attackValue; },
+  getAttackValue() { 
+    let modifier = 0;
+    // if you can equip items, take into consideration weapons and armor
+    if (this.hasMixin(EntityMixins.Equipper)) {
+      if (this.getWeapon()) {
+        modifier += this.getWeapon().getAttackValue();
+      }
+      if (this.getArmor()) {
+        modifier += this.getArmor().getAttackValue();
+      }
+    }
+    return this.attackValue + modifier;
+  },
   attack(target) {
     // only attack the entity if they are destructible
     if (target.hasMixin('Destructible')) {
