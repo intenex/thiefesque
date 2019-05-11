@@ -18,6 +18,21 @@ EntityMixins.Sight = {
   },
   getSightRadius() {
     return this.sightRadius;
+  },
+  canSee(entity) { // a more efficient way to do this specifically for seeing the player character might be to store all the entities that the player character can see and just iterate over those if everything had the same vision --> but this is much more robust but costly code
+    // if not on the same map or on different floors, then exit early --> oh cool this allows you to have different maps for different dungeons with each map having multiple levels that's really dope
+    if (!entity || this.map !== entity.getMap() || this.z !== entity.getZ()) {
+      return false;
+    }
+    const otherX = entity.getX();
+    const otherY = entity.getY();
+
+    // if not in a square FOV, then won't be in a real FOV either, so this does the rough work of most calculations
+    if ((otherX - this.x) * (otherX - this.x) +
+        (otherY - this.y) * (otherY - this.y) >
+        this.sightRadius * this.sightRadius) {
+          return false;
+    }
   }
 };
 
