@@ -323,6 +323,7 @@ EntityRepository.define('bat', {
   foreground: 'white',
   maxHP: 3,
   attackValue: 2,
+  corpseDropRate: 50,
   mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
   EntityMixins.Attacker, EntityMixins.Destructible]
 });
@@ -333,6 +334,7 @@ EntityRepository.define('newt', {
   foreground: 'yellow',
   maxHP: 5,
   attackValue: 2,
+  corpseDropRate: 75,
   mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
   EntityMixins.Attacker, EntityMixins.Destructible]
 });
