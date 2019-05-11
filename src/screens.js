@@ -359,9 +359,9 @@ export class ItemListScreen {
         // check if item is worn or wielded
         let suffix = '';
         if (this.items[i] === this.player.getArmor()) {
-          suffix = ' (wearing)';
+          suffix = '(wearing)';
         } else if (this.items[i] === this.player.getWeapon()) {
-          suffix = ' (wielding)';
+          suffix = '(wielding)';
         }
         // render at the correct row and add 2 to give a space between the caption
         display.drawText(0, 2 + row, `${letter} ${selectionState} ${this.items[i].describe()} ${suffix}`);
