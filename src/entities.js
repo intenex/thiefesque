@@ -116,7 +116,20 @@ EntityMixins.TaskActor = {
       throw new Error(`Tried to perform undefined task ${task}`);
     }
   },
-  
+  hunt() {
+    const player = this.getMap().getPlayer();
+    // if adjacent to the player, then attack instead of hunting
+    const offsets = Math.abs(player.getX() - this.getX()) +
+      Math.abs(player.getY() - this.getY()); // this should return 1 if adjacent love it
+    if (offsets === 1) {
+      if (this.hasMixin('Attacker')) {
+        this.attack(player);
+        return;
+      }
+    }
+
+    ////// rest of hunt code goes here //////
+  }
 };
 
 EntityMixins.WanderActor = {
