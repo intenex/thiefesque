@@ -330,7 +330,7 @@ export class ItemListScreen {
   setup(player, items) {
     this.player = player;
     // should be called before switching to the screen
-    this.count = 0;
+    let count = 0;
     // iterate over each item, keeping only the acceptable ones and counting each acceptable item
     this.items = items.map(item => {
       if (this.isAcceptableFunction(item)) {
