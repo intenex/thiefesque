@@ -514,3 +514,29 @@ export const wieldScreen = new ItemListScreen({
     return true;
   }
 });
+
+export const wearScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the item you wish to wear',
+  canSelect: true,
+  canSelectMultipleItems: false,
+  hasNoItemOption: true,
+  isAcceptable(item) {
+    return item && item.hasMixin('Equippable') && item.isWearable();
+  },
+  ok(selectedItems) {
+    // check if selected 'no item', i.e. unequip
+    const keys = Object.keys(selectedItems);
+    if (keys.length === 0) {
+      this.player.unwield();
+      this.player.sendMessage(this.player, "You are not wearing anything.");
+    } else {
+      // make sure to unequip the item first in case it's being used as a weapon
+      const item = selectedItems[keys[0]];
+      this.player.unequip(item);
+      this.player.wear(item);
+      this.player.sendMessage(this.player, `You are waering ${item.describeA()}`);
+    }
+    return true;
+  }
+});

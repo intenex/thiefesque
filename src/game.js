@@ -20,7 +20,9 @@ export default class Game {
                          inventoryScreen: SCREENS.inventoryScreen,
                          dropScreen: SCREENS.dropScreen,
                          pickupScreen: SCREENS.pickupScreen,
-                         eatScreen: SCREENS.eatScreen
+                         eatScreen: SCREENS.eatScreen,
+                         wieldScreen: SCREENS.wieldScreen,
+                         wearScreen: SCREENS.wearScreen
                        };
 
         this.screens.playScreen.game = this;
