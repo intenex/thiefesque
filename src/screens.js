@@ -73,6 +73,7 @@ playScreen.move = function(dX, dY, dZ) {
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
   this.player.tryMove(newX, newY, newZ);
   this.game.refresh();
+  this.map.getEngine().unlock();
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
@@ -186,64 +187,48 @@ playScreen.handleEvent = function(e) {
     case 'w':
     case 'ArrowUp':
       this.move(0, -1, 0); // nevermind had a stroke of brilliance using the native currying power of .bind to solve this fantastically love this life so much man // lmao jesus fuck you can't reference itself because you rewrote the this binding lmao OMG I KNOW WHAT TO DO LOL WITH BIND YOU CAN PASS IN YOUR OWN ARGUMENTS BRILLIANT
-      this.map.getEngine().unlock();
       break;
     case 'p':
     case 'e':
       this.move(1, -1, 0);
-      this.map.getEngine().unlock();
       break; // now you understand why break statements are important too so great man adding so much functionality here fucking love it
     case ';':
     case 'd':
     case 'ArrowRight': // damn so fucking smart
       this.move(1, 0, 0);
-      this.map.getEngine().unlock();
       break;
     case '/':
     case 'c':
       this.move(1, 1, 0);
-      this.map.getEngine().unlock();
       break;
     case '.':
     case 'x':
     case 'ArrowDown':
       this.move(0, 1, 0);
-      this.map.getEngine().unlock();
       break;
     case ',':
     case 'z':
       this.move(-1, 1, 0);
-      this.map.getEngine().unlock();
       break;
     case 'k':
     case 'a':
     case 'ArrowLeft':
       this.move(-1, 0, 0);
-      this.map.getEngine().unlock();
       break;
     case 'i':
     case 'q':
       this.move(-1, -1, 0);
-      this.map.getEngine().unlock();
       break;
     case '>':
       this.move(0, 0, 1);
-      this.map.getEngine().unlock();
       break;
     case '<':
       this.move(0, 0, -1);
-      this.map.getEngine().unlock();
       break;
     case 'I':
-      if (this.game.inventoryScreen.setup(this.player, this.player.getItems())) { // this returns count, and if count is 0, this will evaluate to false in JS lol
-        this.setSubScreen(this.game.screens.inventoryScreen);
-      } else {
-        // show the inventory
-        // if the player has no items, send a message and don't take a turn
-        this.player.sendMessage(this.player, "You are not carrying anything!");
-        this.game.refresh();
-        this.player.clearMessages();
-      }
+      // show the inventory screen
+      this.showItemsSubScreen(this.game.screens.inventoryScreen, this.player.getItems(),
+        `You are not carrying anything.`);
       break;
     case 'P':
       const items = this.map.getItemsAt(this.player.getX(), this.player.getY(), this.player.getZ());
