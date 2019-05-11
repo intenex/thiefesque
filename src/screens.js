@@ -232,13 +232,8 @@ playScreen.handleEvent = function(e) {
       break;
     case 'P':
       const items = this.map.getItemsAt(this.player.getX(), this.player.getY(), this.player.getZ());
-      // if there are no items, show a message saying so
-      if (!items) {
-        this.player.sendMessage(this.player, "There is nothing here to pick up.");
-        this.game.refresh(); // try to show the message immediately
-        this.player.clearMessages(); // pretty sure it's because messages are only cleared on the next act not this one that you have to manually clear here otherwise messages will persist twice love it
-      } else if (items.length === 1) {
-        // if only one item, just try to pick it up no need to show a screen
+      // if only one item, just try to pick it up no need to show a screen
+      if (items && items.length === 1) {
         const item = items[0];
         if (this.player.pickupItems([0])) { // this returns true or false depending on if the item was successfully picked up great design // remember this takes an array of indices of items to try to pick up, if there's only one, just specify the first item love it
           this.player.sendMessage(this.player, `You pick up ${item.describeA()}.`);
@@ -250,9 +245,8 @@ playScreen.handleEvent = function(e) {
           this.player.clearMessages();
         }
       } else {
-        // show the pickup screen if there are multiple items
-        this.game.screens.pickupScreen.setup(this.player, items);
-        this.setSubScreen(this.game.screens.pickupScreen);
+        this.showItemsSubScreen(this.game.screens.pickupScreen, items,
+          `There is nothing to pick up here.`);
       }
       break;
     case 'D':
