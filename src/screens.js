@@ -294,6 +294,16 @@ playScreen.handleEvent = function(e) {
   }
 };
 
+playScreen.showItemsSubScreen = function(subScreen, items, emptyMessage) {
+  if (items && (subScreen.setup(this.player, items) > 0)) {
+    this.setSubScreen(subScreen);
+  } else {
+    this.player.sendMessage(this.player, emptyMessage);
+    this.game.refresh();
+    this.player.clearMessages();
+  }
+};
+
 export const winScreen = new Screen("win");
 
 winScreen.render = function(display) {
