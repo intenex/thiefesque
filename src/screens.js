@@ -408,6 +408,10 @@ export class ItemListScreen {
         // handles what should happen when a player presses enter with items selected
         this.executeOkFunction();
       }
+      // handle pressing zero when 'no item' selection is enabled
+    } else if (e.key === '0' && this.canSelectItem && this.hasNoItemOption) {
+      this.selectedIndices = {}; // this will basically clear all items and unequip them all correct? Interesting --> shouldn't it just be toggling the item to unwield it? Look into it more later
+      this.executeOkFunction();
     } else if (this.canSelectItem && alpha.includes(e.key)) {  // if you can select items here and they press a key that corresponds to a letter of the alphabet lol
       // check if the key pressed corresponds to a valid item
       const index = alpha.indexOf(e.key);
