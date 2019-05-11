@@ -33,6 +33,19 @@ ItemRepository.define('melon', {
   mixins: [ItemMixins.Edible]
 });
 
+ItemRepository.define('pumpkin', {
+  name: 'pumpkin of power',
+  character: '%',
+  foreground: 'orange',
+  foodValue: 50,
+  consumptions: 5,
+  attackValue: 1,
+  defenseValue: 1,
+  wearable: true,
+  wieldable: true,
+  mixins: [ItemMixins.Edible, ItemMixins.Equippable]
+});
+
 // weapons
 
 ItemRepository.define('dagger', {
