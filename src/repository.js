@@ -8,12 +8,18 @@ export default class Repository {
   constructor(name, ctor) {
     this.name = name;
     this.templates = {};
+    this.randomTemplates = {};
     this.ctor = ctor;
   }
 
   // define a new named template
-  define(name, template) {
+  define(name, template, options) {
     this.templates[name] = template;
+    // apply any options
+    const disableRandomCreation = options && options.disableRandomCreation; // lazy evaluation to ensure options exists at all to check the second option
+    if (!disableRandomCreation) { // if disableRandomCreation returns false, then it's not disabled, and put this in the randomTemplates
+      this.randomTemplates[name] = template;
+    }
   }
 
   // create an object based on a given template
@@ -38,7 +44,7 @@ export default class Repository {
   // create an object based on a random template
   createRandom() {
     // pick a random key and create an object based off of it
-    const keys = Object.keys(this.templates); // this gets an array of strings that are all the key values of the templates which correspond to the name of each template
+    const keys = Object.keys(this.randomTemplates); // this gets an array of strings that are all the key values of the templates which correspond to the name of each template
     return this.create(keys[Math.floor(Math.random() * keys.length)]);
   }
 }
