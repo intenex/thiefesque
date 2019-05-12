@@ -411,6 +411,55 @@ EntityMixins.ExperienceGainer = {
     if (this.hasMixin('Sight')) {
       this.statOptions.push(['Increase sight range', this.increaseSightRadius]);
     }
+  },
+  getLevel() {
+    return this.level;
+  },
+  getExperience() {
+    return this.experience;
+  },
+  getNextLevelExperience() {
+    return (this.level * this.level) * 10; // the square of the level * 10 lol
+  },
+  getStatPoints() {
+    return this.statPoints;
+  },
+  setStatPoints(statPoints) {
+    this.statPoints = statPoints;
+  },
+  getStatOptions() {
+    return this.statOptions;
+  },
+  giveExperience(points) {
+    let statPointsGained = 0;
+    let levelsGained = 0;
+    // Loop until all points have been allocated
+    while (points > 0) {
+      // check if adding in the points will pass the level threshold
+      if (this.experience + points >= this.getNextLevelExperience()) {
+        // fill experience until the next threshold
+        const usedPoints = this.getNextLevelExperience() - this.experience;
+        points -= usedPoints;
+        this.experience += usedPoints;
+        // level up the entity!
+        this.level++;
+        levelsGained++;
+        this.statPoints += this.statPointsPerLevel;
+        statPointsGained += this.statPointsPerLevel;
+      } else {
+        this.experience += points;
+        points = 0;
+      }
+    }
+    // check if at least one level gained
+    if (levelsGained > 0) {
+      this.sendMessage(this, `You advance to level ${this.level}.`);
+      // heal entity if it has HP
+      if (this.hasMixin('Destructible')) {
+        this.setHP(this.getMaxHP());
+      }
+      // TODO --> actually increase stats lol
+    }
   }
 };
 
