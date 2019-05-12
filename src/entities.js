@@ -392,6 +392,28 @@ EntityMixins.MessageRecipient = {
   }
 };
 
+EntityMixins.ExperienceGainer = {
+  name: 'ExperienceGainer',
+  init(template) {
+    this.level = template.level || 1;
+    this.experience = template.experience || 0;
+    this.statPointsPerLevel = template.statPointsPerLevel || 1;
+    this.statPoints = 0;
+    // which stats can be leveled
+    this.statOptions = [];
+    if (this.hasMixin('Attacker')) {
+      this.statOptions.push(['Increase attack value', this.increaseAttackValue]);
+    }
+    if (this.hasMixin('Destructible')) {
+      this.statOptions.push(['Increase defense value', this.increaseDefenseValue]);
+      this.statOptions.push(['Increase max health', this.increaseMaxHP]);
+    }
+    if (this.hasMixin('Sight')) {
+      this.statOptions.push(['Increase sight range', this.increaseSightRadius]);
+    }
+  }
+};
+
 EntityMixins.FoodConsumer = {
   name: 'FoodConsumer',
   init(template) {
