@@ -219,7 +219,14 @@ EntityMixins.Destructible = {
     this.defenseValue = template.defenseValue || 0;
   },
   getHP() { return this.hp; },
+  setHP(hp) { this.hp = hp; },
   getMaxHP() { return this.maxHP; },
+  increaseMaxHP(value = 10) {
+    // add to both max HP and current HP
+    this.maxHP += value;
+    this.hp += value;
+    this.sendMessage(this, "You look healthier!");
+  },
   getDefenseValue() { 
     let modifier = 0;
     // if you can equip items, take into consideration weapons and armor
@@ -232,6 +239,11 @@ EntityMixins.Destructible = {
       }
     }
     return this.defenseValue + modifier;
+  },
+  increaseDefenseValue(value = 2) {
+    // add to the defense value.
+    this.defenseValue += value;
+    this.sendMessage(this, "You look tougher!");
   },
   takeDamage(attacker, damage) {
     this.hp -= damage;
@@ -265,6 +277,11 @@ EntityMixins.Attacker = {
       }
     }
     return this.attackValue + modifier;
+  },
+  increaseAttackValue(value = 2) {
+    // add to the attack value
+    this.attackValue += value;
+    this.sendMessage(this, "You look stronger!");
   },
   attack(target) {
     // only attack the entity if they are destructible
