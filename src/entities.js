@@ -93,18 +93,15 @@ EntityMixins.TaskActor = {
     this.tasks = template.tasks || ['wander']; // if no tasks, then only task is to wander lol
   },
   act() {
-    // iterate through all the tasks and do the first one that can be done
-    // tasks.forEach(task => {
-    //   if (this.canDoTask(task)) {
-    //     this[task]();
-    //     return; // damn nope doesn't break out of a forEach because it's a callback shit ah well do it the other way then // make sure this is working later but it almost certianly should be unless this being a callback fucks with that // break out of the whole function, works fine for forEaches just can't break out of a forEach function like you can for a for loop right good to learn all the differences go back and refactor to use forEaches where possible you've been forgetting about it interesting
-    //   }
-    // });
+    // don't do anything if not on the same level as the player
+    if (this.getZ() !== this.map.currentZ) {
+      return false;
+    }
     for (let i = 0; i < this.tasks.length; i++) {
       if (this.canDoTask(this.tasks[i])) {
         // if you can perform the task, execute the function for it
         this[this.tasks[i]]();
-        return; // end the entire function love it since this is just a for loop it'll break the function, break; is to end just the loop
+        return true; // end the entire function love it since this is just a for loop it'll break the function, break; is to end just the loop
       }
     }
   },
@@ -149,24 +146,15 @@ EntityMixins.TaskActor = {
     // const path = [];
     path.computer(x, y, (pathX, pathY) => {
       if (count === 1) {
-        this.tryMove(pathX, pathY, z);
+        this.tryMove(pathX, pathY);
         // path.push([pathX, pathY]);
       }
       count++;
     });
     // path.shift();
     // this.tryMove(path[0][0], path[0][1], z);
-  }
-};
-
-EntityMixins.WanderActor = {
-  name: 'WanderActor',
-  groupName: 'Actor',
-  act() {
-    // don't do anything if not on the same level as the player
-    if (this.getZ() !== this.map.currentZ) {
-      return false;
-    }
+  },
+  wander() {
     // randomly decide if moving forwards or backwards
     const moveOffset = (Math.random() >= 0.5) ? 1 : -1; // love improving on code while you do it
     // randomly decide if moving x or y
