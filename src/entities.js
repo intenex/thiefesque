@@ -119,9 +119,14 @@ EntityMixins.TaskActor = {
   },
   hunt() {
     const player = this.getMap().getPlayer();
+    const x = this.getX();
+    const y = this.getY();
+    const z = this.getZ();
+    const playerY = player.getY();
+    const playerX = player.getX();
     // if adjacent to the player, then attack instead of hunting
-    const offsets = Math.abs(player.getX() - this.getX()) +
-      Math.abs(player.getY() - this.getY()); // this should return 1 if adjacent love it
+    const offsets = Math.abs(playerX - x) +
+      Math.abs(playerY - y); // this should return 1 if adjacent love it
     if (offsets === 1) {
       if (this.hasMixin('Attacker')) {
         this.attack(player);
@@ -129,9 +134,8 @@ EntityMixins.TaskActor = {
       }
     }
 
-    // generate the path to the player (or in the future make this code hunt other entities too) and then move to the firs ttile in the path
-    const z = this.getZ();
-    const path = new ROT.Path.AStar(player.getX(), player.getY(), (x, y) => {
+    // generate the path to the player (or in the future make this code hunt other entities too) and then move to the first tile in the path (actually the second tile since the first is where we are right now)
+    const path = new ROT.Path.AStar(playerX, playerY, (x, y) => {
       // if an entity is present at the tile or if the tile isn't walkable, can't move there so return false for those tiles, else return true, to generate this path on each turn love it
       const entity = this.getMap().getEntityAt(x, y, z); // a closure callback capturing z from the outside function as well as this from the outside scope thanks to this being a fat arrow function
       if (entity && entity !== player && entity !== this) {
@@ -139,6 +143,19 @@ EntityMixins.TaskActor = {
       }
       return this.getMap().getTile(x, y, z).isWalkable();
     }, {topology: 4});
+    // move to the second tile that's passed into the callback function (the first is the entity's starting position)
+    let count = 0;
+    // alternatively push the entire path into an array like so:
+    // const path = [];
+    path.computer(x, y, (pathX, pathY) => {
+      if (count === 1) {
+        this.tryMove(pathX, pathY, z);
+        // path.push([pathX, pathY]);
+      }
+      count++;
+    });
+    // path.shift();
+    // this.tryMove(path[0][0], path[0][1], z);
   }
 };
 
