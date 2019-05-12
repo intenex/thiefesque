@@ -144,7 +144,7 @@ EntityMixins.TaskActor = {
     let count = 0;
     // alternatively push the entire path into an array like so:
     // const path = [];
-    path.computer(x, y, (pathX, pathY) => {
+    path.compute(x, y, (pathX, pathY) => {
       if (count === 1) {
         this.tryMove(pathX, pathY);
         // path.push([pathX, pathY]);
