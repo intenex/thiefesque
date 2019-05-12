@@ -506,7 +506,7 @@ EntityRepository.define('kobold', {
   name: 'kobold',
   character: 'k',
   foreground: 'white',
-  maxHp: 6,
+  maxHP: 6,
   attackValue: 4,
   sightRadius: 5,
   tasks: ['hunt', 'wander'],
