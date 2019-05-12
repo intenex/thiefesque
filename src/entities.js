@@ -487,7 +487,7 @@ EntityRepository.define('bat', {
   speed: 2000,
   attackValue: 2,
   corpseDropRate: 50,
-  mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
+  mixins: [EntityMixins.TaskActor, EntityMixins.CorpseDropper,
   EntityMixins.Attacker, EntityMixins.Destructible]
 });
 
@@ -498,8 +498,21 @@ EntityRepository.define('newt', {
   maxHP: 5,
   attackValue: 2,
   corpseDropRate: 75,
-  mixins: [EntityMixins.WanderActor, EntityMixins.CorpseDropper,
+  mixins: [EntityMixins.TaskActor, EntityMixins.CorpseDropper,
   EntityMixins.Attacker, EntityMixins.Destructible]
+});
+
+EntityRepository.define('kobold', {
+  name: 'kobold',
+  character: 'k',
+  foreground: 'white',
+  maxHp: 6,
+  attackValue: 4,
+  sightRadius: 5,
+  tasks: ['hunt', 'wander'],
+  mixins: [EntityMixins.TaskActor, EntityMixins.Sight,
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.CorpseDropper]
 });
 
 EntityRepository.define('fungus', {
