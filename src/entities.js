@@ -1,3 +1,4 @@
+import * as ROT from 'rot-js';
 import Entity from './entity';
 import Repository from './repository';
 import ItemRepository from './items';
@@ -128,7 +129,9 @@ EntityMixins.TaskActor = {
       }
     }
 
-    ////// rest of hunt code goes here //////
+    // generate the path to the player (or in the future make this code hunt other entities too) and then move to the firs ttile in the path
+    const z = this.getZ();
+    const path = new ROT
   }
 };
 
