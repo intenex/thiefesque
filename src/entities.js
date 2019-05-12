@@ -106,7 +106,7 @@ EntityMixins.TaskActor = {
     }
   },
   canDoTask(task) {
-    if (task === 'hunt') {
+    if (task === 'hunt') { // make hunting more complex in the future where even if it can't see the player it'll still try hunting to the last seen spot --> it'll just continue on the last path it had where it last saw the entity and unless it sees the entity again during the time it continues to that spot it'll stop there, but if it picks up the trail again it'll start hunting actively
       return this.hasMixin('Sight') && this.canSee(this.getMap().getPlayer());
     } else if (task === 'wander') {
       return true;
