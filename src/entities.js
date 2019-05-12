@@ -131,7 +131,14 @@ EntityMixins.TaskActor = {
 
     // generate the path to the player (or in the future make this code hunt other entities too) and then move to the firs ttile in the path
     const z = this.getZ();
-    const path = new ROT
+    const path = new ROT.Path.AStar(player.getX(), player.getY(), (x, y) => {
+      // if an entity is present at the tile or if the tile isn't walkable, can't move there so return false for those tiles, else return true, to generate this path on each turn love it
+      const entity = this.getMap().getEntityAt(x, y, z); // a closure callback capturing z from the outside function as well as this from the outside scope thanks to this being a fat arrow function
+      if (entity && entity !== player && entity !== this) {
+        return false;
+      }
+      return this.getMap().getTile(x, y, z).isWalkable();
+    }, {topology: 4});
   }
 };
 
