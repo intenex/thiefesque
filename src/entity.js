@@ -30,12 +30,17 @@ export default class Entity extends DynamicGlyph {
     // if same map, do nothing
     if (newMap === this.getMap()) { return; }
     this.getMap().destroyEntity(this);
-    // clear the position
-    this.x = 0; // ah okay this works then dope
-    this.y = 0;
-    this.z = 0;
+    // this code should only run if it is the player entity changing maps, but that should be the case, very unlikely edge case behavior that you'll want monsters that can follow you out of maps lol almost no game ever has that though it would be dope if yours did eventually lol man design decisions truly are the hardest
+    this.getMap().getEngine().stop(); // stop the engine for the last map
+    // remove current map
+    this.setMap(undefined);
+    // get a new random position on the new map, this can be overwritten later if desired but good to get an actual walkable position here for now for sure
+    const newPos = newMap.getRandomFloorPosition(0);
+    this.setPosition(newPos.x, newPos.y, 0);
     // add to the new map
     newMap.addEntity(this);
+    // start the engine for the new map
+    newMap.getEngine().start();
   }
 
   setSpeed(speed) {
