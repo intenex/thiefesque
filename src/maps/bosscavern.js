@@ -48,13 +48,23 @@ export default class BossCavern extends Map {
       }
     }
 
-    // determine radius of the cave to carve it out
+    // determine radius of the cavern to carve it out
     const radius = (Math.min(width, height) - 2) / 2; // unclear on the -2 thing but whatever lol, ofc you want to halve it as the radius and not the diameter though, -2 just to give some edging between the outside of the wall and the cave floor right
     this.fillCircle(tiles, width / 2, height / 2,radius, TILES.floorTile);
 
-    // randomly create 3-6 lakes
-    const lakes = Math.round(Math.random() * 3) + 3;
-    
-
+    // randomly create 5-10 lakes
+    const numLakes = Math.round(Math.random() * 5) + 5;
+    const maxRadius = 3;
+    for (let i = 0; i < numLakes; i++) {
+      // random position within the whole rectangle of this cavern map, taking into consideration radius to ensure within bounds
+      const centerX = Math.floor(Math.random() * (width - maxRadius)); // subtract the radius of the circle from the total width of the map (not the larger circle, just the whole map), can do a little more math to ensure it's actually within the floor of the cavern but this is good for now
+      const centerY = Math.floor(Math.random() * (height - maxRadius));
+      // random radius
+      const radius = Math.floor(Math.random() * maxRadius) + 1;
+      // fill in the lake
+      this.fillCircle(tiles, centerX, centerY, radius, TILES.waterTile);
+    }
+    // return the tiles in an array to represent a single depth level
+    return [tiles];
   }
 }
