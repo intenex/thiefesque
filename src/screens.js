@@ -74,7 +74,7 @@ playScreen.move = function(dX, dY, dZ) {
   // try to move to the new cell -- this function is what updates the player's x and y position now as it should be
   this.player.tryMove(newX, newY, newZ);
   this.game.refresh();
-  this.map.getEngine().unlock();
+  this.player.getMap().getEngine().unlock();
 };
 
 playScreen.render = function(display) { // amazing that most 'variables' are in fact constants and not variable at all lol
@@ -83,48 +83,49 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
     this.subScreen.render(display);
     return;
   }
+  const map = this.player.getMap();
   const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
   const screenHeight = this.game.getScreenHeight();
   // make sure the x-axis doesn't go out of bounds
   let topLeftX = Math.max(0, this.player.getX() - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
   // make sure you can still fit the entire game screen
-  topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
+  topLeftX = Math.min(topLeftX, map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
   let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
-  topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
+  topLeftY = Math.min(topLeftY, map.getHeight() - screenHeight);
   const currentZ = this.player.getZ();
 
   // keep track of all visible map cells
   const visibleCells = {};
   // find all visible cells and add them to visibleCells
-  this.map.getFov(currentZ).compute(
+  map.getFov(currentZ).compute(
     this.player.getX(), this.player.getY(),
     this.player.getSightRadius(),
     (x, y, radius, visibility) => { // radius and visibility are never used thus far, but they are passed in here as arguments such that you could access them later, though not sure where you're passing in visibility from rn (maybe it has a default value unlcear how that would work though)
       visibleCells[`${x},${y}`] = true;
-      this.map.setExplored(x, y, currentZ, true);
+      map.setExplored(x, y, currentZ, true);
     }
   );
   
   // Render all map cells
   for (let x = topLeftX; x < topLeftX + screenWidth; x++) { // yeah makes sense topleftX is the leftmost square to display -- display screenWidth worth of squares since that'll fill up the entire visual display love it
     for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
-      if (this.map.isExplored(x, y, currentZ)) { // only render the cell if it's in the array of all explored tiles
+      if (map.isExplored(x, y, currentZ)) { // only render the cell if it's in the array of all explored tiles
         // Fetch the glyph for the tile and render it to the screen so fucking great
         // technically a tile object right now but you're just using the glyph methods so calling it all a glyph for now
-        let glyph = this.map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
+        let glyph = map.getTile(x, y, currentZ); // right this gets a Tile object and each of those has a getGlyph method amazing
         // only render the cell in its original color (otherwise render in a faded darkGray) if it's defined as true in the visibleCells object and not undefined --> on every rendering this updates anew which is great damn supercomputers are insane this would be totally unfeasible on anything less than a supercomputer absolutely unbelievable that we don't have to be too conscientious about performance with all this shit kind of nice actually thinking about having to optimize with scarcity of resources for everything instead of this insane fast and loose code man
         let foreground = glyph.getForeground();
         // if the cell is in the FOV, check if there are items or entities to display
         if (visibleCells[`${x},${y}`]) {
           // check for items first, since entities should overwrite tiles if there are both items and items love it
-          const items = this.map.getItemsAt(x, y, currentZ);
+          const items = map.getItemsAt(x, y, currentZ);
           // if there's an items array, render the top most item, aka the last item put on the stack
           if (items) {
             glyph = items[items.length - 1];
           }
           // check if there's an entity at the given position
-          if (this.map.getEntityAt(x, y, currentZ)) {
-            glyph = this.map.getEntityAt(x, y, currentZ);
+          if (map.getEntityAt(x, y, currentZ)) {
+            glyph = map.getEntityAt(x, y, currentZ);
           }
           foreground = glyph.getForeground();
         } else {
@@ -235,7 +236,7 @@ playScreen.handleEvent = function(e) {
         `You are not carrying anything.`);
       break;
     case 'P':
-      const items = this.map.getItemsAt(this.player.getX(), this.player.getY(), this.player.getZ());
+      const items = this.player.getMap().getItemsAt(this.player.getX(), this.player.getY(), this.player.getZ());
       // if only one item, just try to pick it up no need to show a screen
       if (items && items.length === 1) {
         const item = items[0];

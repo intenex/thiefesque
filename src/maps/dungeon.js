@@ -1,7 +1,7 @@
-import Map from './../map'; // from the current directory go up a directory then find map.js, can you just do '../map'? look into it later
-import { EntityRepository } from './../entities';
-import ItemRepository from './../items';
-import * as TILES from './..tiles';
+import Map from '../map'; // alternatively './../map' from the current directory go up a directory then find map.js, can you just do '../map'? look into it later
+import { EntityRepository } from '../entities';
+import ItemRepository from '../items';
+import * as TILES from '../tile'; // up one directory, find the tile file love it
 
 export default class Dungeon extends Map {
   constructor(tiles, player, upstairPos, downstairPos) {

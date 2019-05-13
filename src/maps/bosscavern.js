@@ -1,5 +1,5 @@
-import Map from './../map';
-import * as TILES from './../tile';
+import Map from '../map';
+import * as TILES from '../tile';
 
 export default class BossCavern extends Map {
   constructor() {
