@@ -28,14 +28,14 @@ export default class Entity extends DynamicGlyph {
 
   switchMap(newMap) {
     // if same map, do nothing
-    if (newMap === this.getMap()) {
-      return;
-    }
+    if (newMap === this.getMap()) { return; }
     this.getMap().destroyEntity(this);
     // clear the position
     this.x = 0; // ah okay this works then dope
     this.y = 0;
     this.z = 0;
+    // add to the new map
+    newMap.addEntity(this);
   }
 
   setSpeed(speed) {
