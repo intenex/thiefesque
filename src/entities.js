@@ -671,3 +671,20 @@ EntityRepository.define('fungus', {
   EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer,
   EntityMixins.CorpseDropper]
 });
+
+EntityRepository.define('giant zombie', {
+  name: 'giant zombie',
+  character: 'Z',
+  foreground: 'teal',
+  maxHP: 30,
+  attackValue: 8,
+  defenseValue: 5,
+  level: 5,
+  sightRadius: 6,
+  mixins: [EntityMixins.GiantZombieActor, EntityMixins.Sight,
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.CorpseDropper, EntityMixins.ExperienceGainer]
+}, {
+  disableRandomCreation: true
+});
+
