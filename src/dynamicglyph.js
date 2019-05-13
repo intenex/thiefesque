@@ -21,13 +21,13 @@ export default class DynamicGlyph extends Glyph {
       }
       // add all the listeners
       if (mixin.listeners) {
-        for (const key in mixin.listeners) { // gets all the keys in an object love it
+        for (const event in mixin.listeners) { // gets all the keys in an object love it
           // if don't already have a key for the event in the listeners array, add it --> note came really close to being able to use defaults here but doesn't actually quite work since you need it to push each listener into an array from multiple mixins --> likely some other lodash or utility helper library that can help with all this stuff, def read through all those later and refactor if possible where you can great learning exercise all around
-          if (!this.listeners[key]) {
-            this.listeners[key] = [];
+          if (!this.listeners[event]) {
+            this.listeners[event] = [];
           }
-          // add the listener for this mixin for this specific event type/key
-          this.listeners[key].push(mixin.listeners[key]);
+          // add the listener for this mixin for this specific event type
+          this.listeners[event].push(mixin.listeners[event]);
         }
       }
       if (mixin.init) {
@@ -70,5 +70,15 @@ export default class DynamicGlyph extends Glyph {
   describeThe(capitalize = false) {
     const prefix = capitalize ? 'The' : 'the';
     return `${prefix} ${this.describe()}`; // yeah nope you can definitely call functions with this syntax so confusing hmm
+  }
+
+  // called on specific events that can have subscribed listener callback functions that will be called when this event occurs
+  raiseEvent(event, ...args) { // amazing ES6 rest operator collects all the rest of the arguments up into one array called args love it so lucky to remember all this --> and this is a real array object I believe, not an array-like object
+    // make sure there's at least one listener for this event
+    if (!this.listeners[event]) { return; }
+    // invoke each listener, pussing this entity as the context and passing in all the arguments - remember that apply lets you pass in an array of arguments, and call lets you pass in each argument separately but otherwise they do the same things, and you could use call here all the same with ...args instead
+    listeners[event].forEach(listener => {
+      listener.apply(this, args); // amazing closure callback here
+    });
   }
 }
