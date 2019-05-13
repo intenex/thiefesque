@@ -50,3 +50,15 @@ export const stairsDownTile = new Tile({
   walkable: true,
   blocksLight: false
 });
+export const waterTile = new Tile({
+  character: '~',
+  foreground: 'blue',
+  walkable: false,
+  blocksLight: false
+});
+export const holeTile = new Tile({
+  character: 'O',
+  foreground: 'white',
+  walkable: true,
+  blocksLight: false
+});
