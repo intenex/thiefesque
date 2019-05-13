@@ -149,7 +149,9 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
   });
 
   // render player stats
-  const stats = `%c{white}%b{black}HP: ${this.player.getHP()}/${this.player.getMaxHP()}`;
+  let stats = `%c{white}%b{black}`;
+  stats += `HP: ${this.player.getHP()}/${this.player.getMaxHP()} `;
+  stats += `L: ${this.player.getLevel()} XP: ${this.player.getExperience()}`;
   display.drawText(0, screenHeight, stats);
 
   // render hunger state
