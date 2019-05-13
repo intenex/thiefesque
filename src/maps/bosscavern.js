@@ -69,11 +69,11 @@ export default class BossCavern extends Map {
   }
 
   addEntity(entity) {
+    super(entity); // call the Map's addEntity method. Note that this calls Map.updateEntityPosition which will throw an error if the position isn't set correctly so really you should set their position first lol
     if (this.getPlayer() === entity) {
       const position = this.getRandomFloorPosition(0);
-      entity.setPosition(position.x, position,y, 0);
-    }
-    super(entity); // call the Map's addEntity method. Note that this calls Map.updateEntityPosition which will throw an error if the position isn't set correctly so really you should set their position first lol
-    if (this.getPlayer() === entity) { this.getEngine().start(); } // you can try the one if statement later but this feels most correct to you to set the position first --> this is correct for now *unless* later when you pass in the player with addEntity you change their starting position there already, but we'll see
-  }
+      entity.setPosition(position.x, position, y, 0);
+      this.getEngine().start();
+    } // update ah yep okay cool position is reset to 0,0,0 in Entity.switchMap when switching maps still not ideal but works fine since updateEntityPosition only checks if inside bounds of the map and not on top of any other entity, doesn't check if it's a walkable tile which is probably an error tbh but works for now sigh lol this may lead to bugs later though hard to just remember hopefully these comments help if you ever get there // you can try the one if statement later but this feels most correct to you to set the position first --> this is correct for now *unless* later when you pass in the player with addEntity you change their starting position there already, but we'll see
+  } 
 }
