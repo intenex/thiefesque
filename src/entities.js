@@ -222,6 +222,12 @@ EntityMixins.Destructible = {
     this.hp = template.hp || this.maxHP;
     this.defenseValue = template.defenseValue || 0;
   },
+  listeners: {
+    onGainLevel() {
+      // heal the entity
+      this.setHP(this.getMaxHP());
+    }
+  },
   getHP() { return this.hp; },
   setHP(hp) { this.hp = hp; },
   getMaxHP() { return this.maxHP; },
@@ -523,23 +529,27 @@ EntityMixins.FoodConsumer = {
 EntityMixins.PlayerStatGainer = {
   name: 'PlayerStatGainer',
   groupName: 'StatGainer',
-  onGainLevel() {
-    // setup the gain stat screen and show it lol
-    this.game.screens.gainStatScreen.setup(this);
-    this.game.screens.playScreen.setSubScreen(this.game.screens.gainStatScreen);
+  listeners: {
+    onGainLevel() {
+      // setup the gain stat screen and show it lol
+      this.game.screens.gainStatScreen.setup(this);
+      this.game.screens.playScreen.setSubScreen(this.game.screens.gainStatScreen);
+    }
   }
 };
 
 EntityMixins.RandomStatGainer = {
   name: 'RandomStatGainer',
   groupName: 'StatGainer',
-  onGainLevel() {
-    const statOptions = this.getStatOptions();
-    // randomly select a stat option and execute the callback for each stat point
-    while (this.getStatPoints() > 0) {
-      // call a random stat increasing function
-      statOptions[Math.floor(Math.random() * statOptions.length)][1]();
-      this.setStatPoints(this.getStatPoints() - 1);
+  listeners: {
+    onGainLevel() {
+      const statOptions = this.getStatOptions();
+      // randomly select a stat option and execute the callback for each stat point
+      while (this.getStatPoints() > 0) {
+        // call a random stat increasing function
+        statOptions[Math.floor(Math.random() * statOptions.length)][1]();
+        this.setStatPoints(this.getStatPoints() - 1);
+      }
     }
   }
 };

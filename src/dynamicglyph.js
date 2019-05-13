@@ -75,7 +75,7 @@ export default class DynamicGlyph extends Glyph {
   // called on specific events that can have subscribed listener callback functions that will be called when this event occurs
   raiseEvent(event, ...args) { // amazing ES6 rest operator collects all the rest of the arguments up into one array called args love it so lucky to remember all this --> and this is a real array object I believe, not an array-like object
     // make sure there's at least one listener for this event
-    if (!this.listeners[event]) { return; }
+    if (!this.listeners[event]) { return; } // jesus christ you can literally just write this syntax as this.listeners[event] && this.listeners[event].forEach()...webpack literally condenses it to that so insane can learn the shortest way to do things from webpack automagically so nuts lol
     // invoke each listener, pussing this entity as the context and passing in all the arguments - remember that apply lets you pass in an array of arguments, and call lets you pass in each argument separately but otherwise they do the same things, and you could use call here all the same with ...args instead
     this.listeners[event].forEach(listener => listener(...args)); // good use of the spread operator - now that you've pre-emptively bound listener you can just invoke it directly here I believe in this crazy shorthand no semicolons even syntactic sugar for fat arrow callback functions so nuts lol // listener.apply(this, args); // amazing closure callback here
   }
