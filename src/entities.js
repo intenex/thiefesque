@@ -549,14 +549,17 @@ EntityMixins.CorpseDropper = {
     // chance of droppping a corpse out of 100
     this.corpseDropRate = template.corpseDropRate || 100;
   },
-  tryDropCorpse() {
-    if (Math.round(Math.random() * 100) <= this.corpseDropRate) {
-      // create a new corpse item and drop it
-      this.map.addItem(this.getX(), this.getY(), this.getZ(),
+  listeners: {
+    onDeath(attacker) {
+      // see if we should drop a corpse
+      if (Math.round(Math.random() * 100) <= this.corpseDropRate) {
+        // create a new corpse item and drop it
+        this.map.addItem(this.getX(), this.getY(), this.getZ(),
           ItemRepository.create('corpse', {
             name: `${this.name} corpse`,
             foreground: this.foreground // nice have the corpse inherit the color of the monster love it
           }));
+      }
     }
   }
 };
