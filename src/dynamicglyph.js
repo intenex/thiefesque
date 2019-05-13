@@ -77,6 +77,6 @@ export default class DynamicGlyph extends Glyph {
     // make sure there's at least one listener for this event
     if (!this.listeners[event]) { return; }
     // invoke each listener, pussing this entity as the context and passing in all the arguments - remember that apply lets you pass in an array of arguments, and call lets you pass in each argument separately but otherwise they do the same things, and you could use call here all the same with ...args instead
-    listeners[event].forEach(listener => listener(...args)); // good use of the spread operator - now that you've pre-emptively bound listener you can just invoke it directly here I believe in this crazy shorthand no semicolons even syntactic sugar for fat arrow callback functions so nuts lol // listener.apply(this, args); // amazing closure callback here
+    this.listeners[event].forEach(listener => listener(...args)); // good use of the spread operator - now that you've pre-emptively bound listener you can just invoke it directly here I believe in this crazy shorthand no semicolons even syntactic sugar for fat arrow callback functions so nuts lol // listener.apply(this, args); // amazing closure callback here
   }
 }
