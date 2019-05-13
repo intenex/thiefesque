@@ -502,6 +502,16 @@ EntityMixins.FoodConsumer = {
   }
 };
 
+EntityMixins.PlayerStatGainer = {
+  name: 'PlayerStatGainer',
+  groupName: 'StatGainer',
+  onGainLevel() {
+    // setup the gain stat screen and show it lol
+    this.game.screens.gainStatScreen.setup(this);
+    this.game.screens.playScreen.setSubScreen(this.game.screens.gainStatScreen);
+  }
+};
+
 EntityMixins.RandomStatGainer = {
   name: 'RandomStatGainer',
   groupName: 'StatGainer',
