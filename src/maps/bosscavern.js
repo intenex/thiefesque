@@ -67,4 +67,13 @@ export default class BossCavern extends Map {
     // return the tiles in an array to represent a single depth level
     return [tiles];
   }
+
+  addEntity(entity) {
+    if (this.getPlayer() === entity) {
+      const position = this.getRandomFloorPosition(0);
+      entity.setPosition(position.x, position,y, 0);
+    }
+    super(entity); // call the Map's addEntity method. Note that this calls Map.updateEntityPosition which will throw an error if the position isn't set correctly so really you should set their position first lol
+    if (this.getPlayer() === entity) { this.getEngine().start(); } // you can try the one if statement later but this feels most correct to you to set the position first --> this is correct for now *unless* later when you pass in the player with addEntity you change their starting position there already, but we'll see
+  }
 }
