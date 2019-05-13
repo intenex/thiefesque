@@ -22,7 +22,8 @@ export default class Game {
                          pickupScreen: SCREENS.pickupScreen,
                          eatScreen: SCREENS.eatScreen,
                          wieldScreen: SCREENS.wieldScreen,
-                         wearScreen: SCREENS.wearScreen
+                         wearScreen: SCREENS.wearScreen,
+                         gainStatScreen: SCREENS.gainStatScreen
                        };
 
         this.screens.playScreen.game = this;
