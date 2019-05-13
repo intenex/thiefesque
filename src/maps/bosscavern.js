@@ -42,10 +42,19 @@ export default class BossCavern extends Map {
     // create the array of wall tiles
     const tiles = [];
     for (let x = 0; x < width; x++) {
-      tiles[x] = [];
+      tiles[x] = []; // or tiles.push([]);
       for (let y = 0; y < height; y++) {
-        tiles[x][y] = TILES.wallTile;
+        tiles[x][y] = TILES.wallTile; // or tiles[x].push(TILES.wallTile);
       }
     }
+
+    // determine radius of the cave to carve it out
+    const radius = (Math.min(width, height) - 2) / 2; // unclear on the -2 thing but whatever lol, ofc you want to halve it as the radius and not the diameter though, -2 just to give some edging between the outside of the wall and the cave floor right
+    this.fillCircle(tiles, width / 2, height / 2,radius, TILES.floorTile);
+
+    // randomly create 3-6 lakes
+    const lakes = Math.round(Math.random() * 3) + 3;
+    
+
   }
 }
