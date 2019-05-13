@@ -688,3 +688,16 @@ EntityRepository.define('giant zombie', {
   disableRandomCreation: true
 });
 
+EntityRepository.define('slime', {
+  name: 'slime',
+  character: 's',
+  foreground: 'lightGreen',
+  maxHP: 10,
+  attackValue: 5,
+  sightRadius: 3,
+  tasks: ['hunt', 'wander'],
+  mixins: [EntityMixins.TaskActor, EntityMixins.Sight,
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer,
+  EntityMixins.CorpseDropper]
+});
