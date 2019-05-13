@@ -528,3 +528,25 @@ export const wearScreen = new ItemListScreen({
     return true;
   }
 });
+
+export class gainStatScreen {
+  setup(entity) {
+    // must be called before rendering
+    this.entity = entity;
+    this.options = entity.getStatOptions();
+  }
+  render(display) {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    display.drawText(0, 0, 'Choose a stat to increase: ');
+
+    // iterate through all the options
+    options.forEach((option, idx) => {
+      display.drawText(0, idx + 2,
+        `${letters.substring(idx, idx+1)} - ${option[0]}`); // right options are an array of two values, the first being the string text, and the second being the function to invoke for that string text
+    });
+
+    // render remaining stat points
+    display.drawText(0, 4 + this.options.length,
+      `Remaining points: ${this.entity.getStatPoints()}`);
+  }
+}
