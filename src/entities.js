@@ -217,7 +217,31 @@ EntityMixins.FungusActor = {
 
 // throw in all the extra stuff to overwrite in the third object passed here, and this will set it equal to the first empty object that will have all the merged properties so great have to do it this way since merge is mutative
 EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
-
+  init(template) {
+    // call the task actor init with the right tasks lol
+    EntityMixins.TaskActor.init.call(this, template);
+    // only grow the arm once
+    this.hasGrownArm = false;
+  },
+  canDoTask(task) {
+    // if haven't already grown an arm and HP <= 20, then grow the arm as the first priority task
+    if (task === 'growArm') {
+      return this.getHP() <= 20 && !this.hasGrownArm;
+    } else if (task === 'spawnSlime') {
+      // only spawn a slime 10% of the time
+      return Math.random() <= 0.1;
+    } else {
+      // the parent canDoTask can handle all the generic tasks (i.e., hunt and wander)
+      return EntityMixins.TaskActor.canDoTask.call(this, task);
+    }
+  },
+  growArm() {
+    this.hasGrownArm = true;
+    this.increaseAttackValue(5);
+    // send a message notifying everyone that the zombie has grown an arm
+    this.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this,getZ(),
+      `The giant zombie has grown an extra arm!`);
+  }
 });
 
 EntityMixins.Destructible = {
@@ -687,6 +711,7 @@ EntityRepository.define('giant zombie', {
   defenseValue: 5,
   level: 5,
   sightRadius: 6,
+  tasks: ['growArm', 'spawnSlime', 'hunt', 'wander'],
   mixins: [EntityMixins.GiantZombieActor, EntityMixins.Sight,
   EntityMixins.Attacker, EntityMixins.Destructible,
   EntityMixins.CorpseDropper, EntityMixins.ExperienceGainer]
