@@ -1,8 +1,4 @@
 import * as ROT from 'rot-js';
-import Builder from './builder';
-import Entity from './entity';
-import { PlayerTemplate } from './entities';
-import Dungeon from './maps/dungeon';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -52,19 +48,8 @@ playScreen.setGameEnded = function(gameEnded) {
 
 // insane how easy it is to put together a fully functioning game now and how powerful some libraries are man
 playScreen.enter = function() {
-  // Create a map based on these size parameters fuck yeah
-  const width = 100;
-  const height = 100;
-  const depth = 6;
-  // create map from the tiles from the Builder
-  const builder = new Builder(width, height, depth);
-  const tiles = builder.getTiles();
-  const upstairPos = builder.getAllUpstairPos();
-  const downstairPos = builder.getAllDownstairPos();
-  this.player = new Entity(PlayerTemplate, this.game);
-  const map = new Dungeon(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
-  // start the initial map's engine -- later stops and starts are all handled in the Entity.switchMap() function
-  map.getEngine().start();
+  // start the initial map (the dungeon)'s engine -- later stops and starts are all handled in the Entity.switchMap() function
+  this.game.maps.dungeon.getEngine().start();
 };
 
 playScreen.move = function(dX, dY, dZ) {

@@ -1,7 +1,5 @@
 import * as TILES from './tile';
 import DynamicGlyph from './dynamicglyph';
-import { EntityMixins } from './entities';
-import BossCavern from './maps/bosscavern'; // love this auto-behavior so great lol
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -102,7 +100,7 @@ export default class Entity extends DynamicGlyph {
     this.alive = false;
     this.sendMessage(this, message);
     // check if it was the player who died and if so call their act method to prompt the user
-    if (this.hasMixin(EntityMixins.PlayerActor)) {
+    if (this.hasMixin('PlayerActor')) {
       this.act();
     } else {
       this.getMap().destroyEntity(this);
@@ -137,8 +135,8 @@ export default class Entity extends DynamicGlyph {
       }
     } else if (z > this.getZ()) {
       if (tile === TILES.holeTile && this.hasMixin('PlayerActor')) {
-        // switch the player to the boss cavern map
-        this.switchMap(new BossCavern());
+        // switch the player to the boss cavern map, currently stored on the player entity lol because no better place to keep it sigh, can't instantiate it here 
+        this.switchMap(this.game.maps.bossCavern);
       } else if (tile !== TILES.stairsDownTile) {
         this.sendMessage(this, `You can't go down here!`);
       } else if (z >= map.depth) {
@@ -165,8 +163,8 @@ export default class Entity extends DynamicGlyph {
       // other entities that act on their turns. have monsters attack each other in your game
       // for sure, would be amazing to have all out brawls that happen between different
       // races that patrol the dungeons and things like that
-      if (this.hasMixin('Attacker') && this.hasMixin(EntityMixins.PlayerActor) ||
-          target.hasMixin(EntityMixins.PlayerActor)) { // only allow for an attack if it is the player attacking or if the target of the entity is the player
+      if (this.hasMixin('Attacker') && this.hasMixin('PlayerActor') ||
+          target.hasMixin('PlayerActor')) { // only allow for an attack if it is the player attacking or if the target of the entity is the player
         this.attack(target);
         return true;
       } else {
@@ -187,7 +185,7 @@ export default class Entity extends DynamicGlyph {
       }
       return true;
       // check if the tile is diggable and if so, try to dig it --> but only if it's the player character trying to dig
-    } else if (tile.isDiggable() && this.hasMixin(EntityMixins.PlayerActor)) {
+    } else if (tile.isDiggable() && this.hasMixin('PlayerActor')) {
       map.dig(x, y, z);
       return true;
     }
@@ -196,7 +194,7 @@ export default class Entity extends DynamicGlyph {
 
   sendMessage(recipient, message) {
     // ensure the recipient can actually receive the message
-    if (recipient.hasMixin(EntityMixins.MessageRecipient)) {
+    if (recipient.hasMixin('MessageRecipient')) {
       recipient.receiveMessage(message);
     }
   }
@@ -205,7 +203,7 @@ export default class Entity extends DynamicGlyph {
     const entities = map.getEntitiesWithinRadius(centerX, centerY, currentZ, 5); // every entity should have an associated map already but nice to make functions more pure wherever possible anyway
     // Iterate through nearby entities, sending the message if they can receive it
     entities.forEach(entity => {
-      if (entity.hasMixin(EntityMixins.MessageRecipient)) {
+      if (entity.hasMixin('MessageRecipient')) {
         entity.receiveMessage(message);
       }
     });

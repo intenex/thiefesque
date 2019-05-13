@@ -4,12 +4,10 @@ import ItemRepository from '../items';
 import * as TILES from '../tile'; // up one directory, find the tile file love it
 
 export default class Dungeon extends Map {
-  constructor(tiles, player, upstairPos, downstairPos) {
+  constructor(tiles, upstairPos, downstairPos) {
     super(tiles);
     this.upstairPos = upstairPos;
     this.downstairPos = downstairPos;
-    // add the player
-    this.addEntityAtRandomPosition(player, this.currentZ);
     // add random entities and items to each floor of the dungeon
     for (let z = 0; z < this.depth; z++) {
       // add 25 random monsters on every level

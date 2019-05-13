@@ -3,10 +3,30 @@
 // const ROT = require('rot-js'); // old deprecated syntax love it
 import * as ROT from 'rot-js'; // right make sense you forgot the aliasing that is necessary if things aren't named and there are multiple exports you have to name it yourself as an alias lucky to be able to just figure all this out as you go though for sure keep pushing at all of this for sure let's do this thing
 import * as SCREENS from './screens';
+import Entity from './entity';
+import { PlayerTemplate } from './entities';
+import Builder from './builder';
+import Dungeon from './maps/dungeon';
+import BossCavern from './maps/bosscavern';
 
 export default class Game {
     constructor() {
-        this.map = {}; // this is just the POJO that will store all the map data insane damn Rot.JS is powerful amazing
+        // Create a map based on these size parameters fuck yeah
+        const width = 100;
+        const height = 100;
+        const depth = 6;
+        // create initial dungeon map from the tiles from the Builder
+        const builder = new Builder(width, height, depth);
+        const tiles = builder.getTiles();
+        const upstairPos = builder.getAllUpstairPos();
+        const downstairPos = builder.getAllDownstairPos();
+        this.player = new Entity(PlayerTemplate, this);
+        this.maps = {
+            dungeon: new Dungeon(tiles, upstairPos, downstairPos), // this still refers to the playScreen object at this point in time since it'll be called method style
+            // bossCavern: new BossCavern(),
+        };
+        // add the player initially to the start map here, in this case the dungeon currently, this is solid refactoring to allow you to easily change the start map later and to not have the start map add the player itself, but to have it done here explicitly
+        this.maps.dungeon.addEntityAtRandomPosition(this.player, 0);
         this.screenWidth = 80;
         this.screenHeight = 40;
         this.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight + 1 }); // make sure to keep one extra line at the bottom of the screen for displaying player stats
@@ -26,6 +46,7 @@ export default class Game {
                          gainStatScreen: SCREENS.gainStatScreen
                        };
 
+        this.screens.playScreen.player = this.player;
         this.screens.playScreen.game = this;
         this.screens.startScreen.game = this;
         this.screens.startScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this.screens.startScreen); // fucking love it right pass in this as a first curried argument to the game object fucking love it and keep the this to the object itself this is better design // oh god damn it I think it's because they're fucking arrow functions lol // damn why doesn't this work hmmm
