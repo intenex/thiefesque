@@ -263,7 +263,7 @@ EntityMixins.Destructible = {
       if (attacker.hasMixin('ExperienceGainer')) {
         let exp = this.getMaxHP() + this.getDefenseValue();
         if (this.hasMixin('Attacker')) {
-          exp += this.getAttackValue(); // basic EXP equivalent to attack value
+          exp += this.getAttackValue();
         }
         // account for level differences
         if (this.hasMixin('ExperienceGainer')) {
@@ -607,7 +607,8 @@ export const PlayerTemplate = {
   mixins: [EntityMixins.PlayerActor, EntityMixins.Sight,
   EntityMixins.Attacker, EntityMixins.Destructible,
   EntityMixins.MessageRecipient, EntityMixins.InventoryHolder,
-  EntityMixins.FoodConsumer, EntityMixins.Equipper]
+  EntityMixins.FoodConsumer, EntityMixins.Equipper,
+  EntityMixins.ExperienceGainer, EntityMixins.PlayerStatGainer]
 };
 
 export const EntityRepository = new Repository('entities', Entity); // insane that you can really pass constructor functions like this as variable names man I guess they're just objects like everything else so you should be able to do this in Ruby too no?
@@ -621,7 +622,8 @@ EntityRepository.define('bat', {
   attackValue: 2,
   corpseDropRate: 50,
   mixins: [EntityMixins.TaskActor, EntityMixins.CorpseDropper,
-  EntityMixins.Attacker, EntityMixins.Destructible]
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer]
 });
 
 EntityRepository.define('newt', {
@@ -632,7 +634,8 @@ EntityRepository.define('newt', {
   attackValue: 2,
   corpseDropRate: 75,
   mixins: [EntityMixins.TaskActor, EntityMixins.CorpseDropper,
-  EntityMixins.Attacker, EntityMixins.Destructible]
+  EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer]
 });
 
 EntityRepository.define('kobold', {
@@ -645,6 +648,7 @@ EntityRepository.define('kobold', {
   tasks: ['hunt', 'wander'],
   mixins: [EntityMixins.TaskActor, EntityMixins.Sight,
   EntityMixins.Attacker, EntityMixins.Destructible,
+  EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer,
   EntityMixins.CorpseDropper]
 });
 
@@ -656,5 +660,6 @@ EntityRepository.define('fungus', {
   maxHP: 6,
   corpseDropRate: 10,
   mixins: [EntityMixins.FungusActor, EntityMixins.Destructible,
+  EntityMixins.ExperienceGainer, EntityMixins.RandomStatGainer,
   EntityMixins.CorpseDropper]
 });
