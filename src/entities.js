@@ -261,21 +261,6 @@ EntityMixins.Destructible = {
       this.raiseEvent('onDeath', attacker); // the attacking entity is passed in as an argument here
       attacker.raiseEvent('onKill', this);
       this.kill("You have been killed to death.");
-      // give attacker experience points
-      if (attacker.hasMixin('ExperienceGainer')) {
-        let exp = this.getMaxHP() + this.getDefenseValue();
-        if (this.hasMixin('Attacker')) {
-          exp += this.getAttackValue();
-        }
-        // account for level differences
-        if (this.hasMixin('ExperienceGainer')) {
-          exp -= (attacker.getLevel() - this.getLevel()) * 3; // if this entity's level is higher than the attacker this will be negative, hence will be an addition
-        }
-        // only give exp if greater than 0
-        if (exp > 0) {
-          attacker.giveExperience(exp);
-        }
-      }
     }
   }
 };
@@ -427,6 +412,23 @@ EntityMixins.ExperienceGainer = {
     }
     if (this.hasMixin('Sight')) {
       this.statOptions.push(['Increase sight range', this.increaseSightRadius.bind(this), this.getSightRadius.bind(this)]);
+    }
+  },
+  listeners: {
+    onKill(victim) {
+      // give attacker experience points
+      let exp = victim.getMaxHP() + victim.getDefenseValue();
+      if (victim.hasMixin('Attacker')) {
+        exp += victim.getAttackValue();
+      }
+      // account for level differences
+      if (victim.hasMixin('ExperienceGainer')) {
+        exp -= (this.getLevel() - victim.getLevel()) * 3; // if this entity's level is higher than the attacker this will be negative, hence will be an addition
+      }
+      // only give exp if greater than 0
+      if (exp > 0) {
+        this.giveExperience(exp);
+      }
     }
   },
   getLevel() {
