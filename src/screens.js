@@ -1,8 +1,8 @@
 import * as ROT from 'rot-js';
 import Builder from './builder';
-import Map from './map';
 import Entity from './entity';
 import { PlayerTemplate } from './entities';
+import Dungeon from './maps/dungeon';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -62,8 +62,9 @@ playScreen.enter = function() {
   const upstairPos = builder.getAllUpstairPos();
   const downstairPos = builder.getAllDownstairPos();
   this.player = new Entity(PlayerTemplate, this.game);
-  this.map = new Map(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
-  this.map.getEngine().start();
+  const map = new Dungeon(tiles, this.player, upstairPos, downstairPos); // this still refers to the playScreen object at this point in time since it'll be called method style
+  // start the initial map's engine -- later stops and starts are all handled in the Entity.switchMap() function
+  map.getEngine().start();
 };
 
 playScreen.move = function(dX, dY, dZ) {
