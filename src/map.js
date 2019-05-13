@@ -37,8 +37,15 @@ export default class Map {
     for (let z = 0; z < this.depth; z++) {
       // add 25 random monsters on every level
       for (let i = 0; i < 25; i++) {
-        // randomly select a template
-        this.addEntityAtRandomPosition(EntityRepository.createRandom(), z);
+        // randomly select a template for a monster
+        const entity = EntityRepository.createRandom();
+        this.addEntityAtRandomPosition(entity, z);
+        // level up the entity based on the floor of the dungeon so great
+        if (entity.hasMixin('ExperienceGainer')) {
+          for (let level = 0; level < z; level++) {
+            entity.giveExperience(entity.getNextLevelExperience() - entity.getExperience());
+          }
+        }
       }
       // ten random items per floor
       for (let i = 0; i < 10; i++) {
