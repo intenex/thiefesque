@@ -241,6 +241,35 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
     // send a message notifying everyone that the zombie has grown an arm
     this.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this,getZ(),
       `The giant zombie has grown an extra arm!`);
+  },
+  spawnSlime() {
+    // generate random position nearby, up to 2 squares away by x and y
+    const x = this.getX();
+    const y = this.getY();
+    const z = this.getZ();
+    let xOffset = Math.floor(Math.random() * 3) - 1;
+    let yOffset = Math.floor(Math.random() * 3) - 1;
+    let spawnTries = 0;
+    // check if an entity can be spawned at that position - if not, try 10 more random positions before giving up lol
+    while (spawnTries < 10 && !this.getMap().isEmptyFloor(x + xOffset, y + yOffset, z)) {
+      xOffset = Math.floor(Math.random() * 3) - 1;
+      yOffset = Math.floor(Math.random() * 3) -1;
+      spawnTries++;
+    }
+    // check if an entity can be spawned now - if still not, then just give up and hunt instead, definitely don't just do nothing and waste a turn lol
+    if (!this.getMap().isEmptyFloor(x + xOffset, y + yOffset, z)) {
+        if (canDoTask('hunt')) {
+          this.hunt();
+          return;
+        } else {
+          this.wander();
+          return;
+        }
+    }
+    // create the slime if all is well
+    const slime = EntityRepository.create('slime');
+    slime.setPosition(x + xOffset, y + yOffset, z);
+    this.getMap().addEntity(slime);
   }
 });
 
