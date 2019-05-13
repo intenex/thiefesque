@@ -10,6 +10,7 @@ export default class Map {
     this.depth = tiles.length;
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
     this.height = tiles[0][0].length; // a single column of all the rows
+    this.currentZ = 0; // so you can reference this in act methods
     // setup the field of vision for the player
     this.fov = [];
     this.setupFov();
@@ -27,7 +28,6 @@ export default class Map {
     for (let z = 0; z < this.depth; z++) { // treat items just like entities namespace them by level
       this.items[z] = {};
     }
-    this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
   }
@@ -129,6 +129,9 @@ export default class Map {
     if (entity.hasMixin('Actor')) {
       this.scheduler.remove(entity);
     }
+    if (entity.hasMixin('PlayerActor')) {
+      this.player = undefined;
+    }
   }
 
   // a method to just remove the entity without removing it from the scheduler, useful currently for having the player move between levels without removing them inadvertently from the scheduler
@@ -139,9 +142,6 @@ export default class Map {
     const z = entity.getZ();
     if (this.entities[z][key] === entity) {
       delete this.entities[z][key];
-    }
-    if (entity.hasMixin('PlayerActor')) {
-      this.player = undefined;
     }
   }
 
