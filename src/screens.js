@@ -529,13 +529,17 @@ export const wearScreen = new ItemListScreen({
   }
 });
 
-export class gainStatScreen {
-  setup(entity) {
+export const gainStatScreen = new Screen('stat');
+
+gainStatScreen.parentScreen = playScreen; // should be able to just reference directly in here without setting this tbh but whatever - do try that later though
+
+gainStatScreen.setup = function(entity) {
     // must be called before rendering
     this.entity = entity;
     this.options = entity.getStatOptions();
-  }
-  render(display) {
+  };
+  
+gainStatScreen.render = function(display) {
     const letters = 'abcdefghijklmnopqrstuvwxyz';
     display.drawText(0, 0, 'Choose a stat to increase: ');
 
@@ -548,5 +552,26 @@ export class gainStatScreen {
     // render remaining stat points
     display.drawText(0, 4 + this.options.length,
       `Remaining points: ${this.entity.getStatPoints()}`);
+};
+
+gainStatScreen.handleEvent = function(e) {
+  const alpha = 'abcdefghijklmnopqrstuvwxyz';
+  // if a valid letter is pressed
+  if (alpha.includes(e.key)) {
+    // get the index that corresponds to that letter
+    const index = alpha.indexOf(e.key);
+    // get that option if it exists
+    if (this.options[index]) {
+      // call the stat increasing function part of that subarray element in the options array
+      this.options[index][1].call(this.entity);
+      // decrease stat points
+      this.entity.setStatPoints(this.entity.getStatPoints() -1);
+      // if no stat points left, exit screen, otherwise refresh and keep going
+      if (this.entity.getStatPoints() === 0) {
+        this.parentScreen.setSubScreen(undefined);
+      } else {
+        this.parentScreen.game.refresh();
+      }
+    }
   }
-}
+};
