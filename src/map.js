@@ -228,7 +228,7 @@ export default class Map {
     for (let z = 0; z < this.depth; z++) { // conditional blocks don't create their own scope so this with an arrow function should be fine in here but let's see // in fact may not need the secondary scope at all because const and let are block scoped and not function scoped for this exact reason ah yes that makes sense right you don't want the variable hoisted out of the loop because you want to make it anew every time love it brilliant heh so no need of any of that workaround stuff in ES5 this is a perfect shining example of ES6 crushing it this guy does know his JS so great
       this.fov.push(new ROT.FOV.DiscreteShadowcasting((x, y) => {
         return !this.getTile(x, y, z).isBlockingLight();
-      }, {topology: 4})); // clear what topology does, but note that this is not the sight radius, more likely 4 levels of grading of how far a given tile can let you see (e.g. 4 for top of a mountain, and 1 for like being in a valley or something) // and for each tile if the tile returns true for blocking light then return false so that that tile is not visible and does not project light farther, love it, and if it is false and does not block light then return true for light passes through it
+      }, {topology: 8})); // clear what topology does, but note that this is not the sight radius, more likely 4 levels of grading of how far a given tile can let you see (e.g. 4 for top of a mountain, and 1 for like being in a valley or something) // and for each tile if the tile returns true for blocking light then return false so that that tile is not visible and does not project light farther, love it, and if it is false and does not block light then return true for light passes through it
     }
   }
 

@@ -143,7 +143,7 @@ EntityMixins.TaskActor = {
         return false;
       }
       return this.getMap().getTile(x, y, z).isWalkable();
-    }, {topology: 4});
+    }, {topology: 8});
     // move to the second tile that's passed into the callback function (the first is the entity's starting position)
     let count = 0;
     // alternatively push the entire path into an array like so:
