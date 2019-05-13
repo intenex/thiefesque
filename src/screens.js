@@ -170,9 +170,6 @@ playScreen.handleEvent = function(e) {
   }
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
     case ' ':
-    case 'Enter':
-      this.game.switchScreen(this.game.screens.winScreen);
-      break;
     case 'o': // man fall through mapping is totally the best
     case 'w':
     case 'ArrowUp':
