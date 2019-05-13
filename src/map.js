@@ -1,10 +1,8 @@
 import * as ROT from 'rot-js';
 import * as TILES from './tile';
-import { EntityRepository } from './entities';
-import ItemRepository from './items';
 
 export default class Map {
-  constructor(tiles, player, upstairPos, downstairPos) {
+  constructor(tiles, upstairPos, downstairPos) {
     this.tiles = tiles;
     this.upstairPos = upstairPos;
     this.downstairPos = downstairPos;
@@ -32,33 +30,6 @@ export default class Map {
     this.currentZ = 0; // so you can reference this in act methods
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
-    this.player = player;
-    this.addEntityAtRandomPosition(player, this.currentZ); // have a single source of truth for all these numbers 
-    for (let z = 0; z < this.depth; z++) {
-      // add 25 random monsters on every level
-      for (let i = 0; i < 25; i++) {
-        // randomly select a template for a monster
-        const entity = EntityRepository.createRandom();
-        this.addEntityAtRandomPosition(entity, z);
-        // level up the entity based on the floor of the dungeon so great
-        if (entity.hasMixin('ExperienceGainer')) {
-          for (let level = 0; level < z; level++) {
-            entity.giveExperience(entity.getNextLevelExperience() - entity.getExperience());
-          }
-        }
-      }
-      // ten random items per floor
-      for (let i = 0; i < 10; i++) {
-        // add a random item
-        this.addItemAtRandomPosition(ItemRepository.createRandom(), z);
-      }
-    }
-    // add weapons and armor to the map in random positions, one of each unique to the entire dungeon across all levels lol
-    const templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'platemail'];
-    for (let i = 0; i < templates.length; i++) {
-      this.addItemAtRandomPosition(ItemRepository.create(templates[i]),
-        Math.floor(this.depth * Math.random()));
-    }
   }
 
   getEngine() {
