@@ -27,9 +27,6 @@ export default class Dungeon extends Map {
         // add a random item
         this.addItemAtRandomPosition(ItemRepository.createRandom(), z);
       }
-      // add final boss hole here lol
-      const holePosition = this.getRandomFloorPosition(this.depth - 1);
-      this.tiles[this.depth - 1][holePosition.x][holePosition.y] = TILES.holeTile;
     }
     // add weapons and armor to the map in random positions, one of each unique to the entire dungeon across all levels lol
     const templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'platemail'];
@@ -37,5 +34,8 @@ export default class Dungeon extends Map {
       this.addItemAtRandomPosition(ItemRepository.create(templates[i]),
         Math.floor(this.depth * Math.random()));
     }
+    // add final boss hole here lol
+    const holePosition = this.getRandomFloorPosition(this.depth - 1);
+    this.tiles[this.depth - 1][holePosition.x][holePosition.y] = TILES.holeTile;
   }
 }
