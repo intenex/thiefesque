@@ -1,6 +1,7 @@
 import * as TILES from './tile';
 import DynamicGlyph from './dynamicglyph';
 import { EntityMixins } from './entities';
+import BossCavern from './maps/bosscavern'; // love this auto-behavior so great lol
 
 // the basic prototype for everything in the game, from creatures to the player to items
 // consists of a glyph and a position and a name, the basic building blocks for representation
@@ -135,7 +136,10 @@ export default class Entity extends DynamicGlyph {
         map.currentZ = z;
       }
     } else if (z > this.getZ()) {
-      if (tile !== TILES.stairsDownTile) {
+      if (tile === TILES.holeTile && this.hasMixin('PlayerActor')) {
+        // switch the player to the boss cavern map
+        this.switchMap(new BossCavern());
+      } else if (tile !== TILES.stairsDownTile) {
         this.sendMessage(this, `You can't go down here!`);
       } else if (z >= map.depth) {
         this.sendMessage(this, `Sorry, these are fake stairs. No lower level.`);
