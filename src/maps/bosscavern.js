@@ -1,9 +1,11 @@
 import Map from '../map';
 import * as TILES from '../tile';
+import { EntityRepository } from '../entities';
 
 export default class BossCavern extends Map {
   constructor() {
     super(this.generateTiles(80, 40));
+    this.addEntityAtRandomPosition(EntityRepository.create('giant zombie'), 0);
   }
 
   fillCircle(tiles, centerX, centerY, radius, tile) {
