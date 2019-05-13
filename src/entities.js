@@ -458,7 +458,9 @@ EntityMixins.ExperienceGainer = {
       if (this.hasMixin('Destructible')) {
         this.setHP(this.getMaxHP());
       }
-      // TODO --> actually increase stats lol
+      if (this.hasMixin('StatGainer')) {
+        this.onGainLevel();
+      }
     }
   }
 };
