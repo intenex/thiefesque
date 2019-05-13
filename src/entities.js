@@ -223,6 +223,12 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
     // only grow the arm once
     this.hasGrownArm = false;
   },
+  listeners: {
+    onDeath(attacker) {
+      // Switch to win screen when killed
+      this.game.switchScreen(this.game.screens.winScreen);
+    }
+  },
   canDoTask(task) {
     // if haven't already grown an arm and HP <= 20, then grow the arm as the first priority task
     if (task === 'growArm') {
