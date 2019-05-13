@@ -476,13 +476,7 @@ EntityMixins.ExperienceGainer = {
     // check if at least one level gained
     if (levelsGained > 0) {
       this.sendMessage(this, `You advance to level ${this.level}.`);
-      // heal entity if it has HP
-      if (this.hasMixin('Destructible')) {
-        this.setHP(this.getMaxHP());
-      }
-      if (this.hasMixin('StatGainer')) {
-        this.onGainLevel();
-      }
+      this.raiseEvent('onGainLevel');
     }
   }
 };

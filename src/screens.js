@@ -519,12 +519,12 @@ export const wearScreen = new ItemListScreen({
     // check if selected 'no item', i.e. unequip
     const keys = Object.keys(selectedItems);
     if (keys.length === 0) {
-      this.player.unwield();
+      this.player.unequip();
       this.player.sendMessage(this.player, "You are not wearing anything.");
     } else {
-      // make sure to unequip the item first in case it's being used as a weapon
+      // make sure to unwield the item first in case it's being used as a weapon
       const item = selectedItems[keys[0]];
-      this.player.unequip(item);
+      this.player.unwield(item);
       this.player.wear(item);
       this.player.sendMessage(this.player, `You are wearing ${item.describeA()}`);
     }
