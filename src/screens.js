@@ -151,7 +151,8 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
   // render player stats
   let stats = `%c{white}%b{black}`;
   stats += `HP: ${this.player.getHP()}/${this.player.getMaxHP()} `;
-  stats += `L: ${this.player.getLevel()} XP: ${this.player.getExperience()}`;
+  stats += `L: ${this.player.getLevel()} `;
+  stats += `XP TO LVL: ${this.player.getNextLevelExperience() - this.player.getExperience()}`;
   display.drawText(0, screenHeight, stats);
 
   // render hunger state
@@ -387,7 +388,7 @@ export class ItemListScreen {
   }
 
   handleEvent(e) {
-    const alpha = 'abcdefghijklmnopqrztuvwxyz';
+    const alpha = 'abcdefghijklmnopqrstuvwxyz';
     if (e.key === 'Escape') {
       this.parentScreen.setSubScreen(undefined);
     } else if (e.key === 'Enter') {

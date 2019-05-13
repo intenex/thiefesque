@@ -417,14 +417,14 @@ EntityMixins.ExperienceGainer = {
     // which stats can be leveled
     this.statOptions = [];
     if (this.hasMixin('Attacker')) {
-      this.statOptions.push(['Increase attack value', this.increaseAttackValue.bind(this)]); // bind these to the right entity object instance 'this' here so you don't have to bind every time you call these in the future
+      this.statOptions.push(['Increase attack value', this.increaseAttackValue.bind(this), this.getAttackValue.bind(this)]); // bind these to the right entity object instance 'this' here so you don't have to bind every time you call these in the future
     }
     if (this.hasMixin('Destructible')) {
-      this.statOptions.push(['Increase defense value', this.increaseDefenseValue.bind(this)]);
-      this.statOptions.push(['Increase max health', this.increaseMaxHP.bind(this)]);
+      this.statOptions.push(['Increase defense value', this.increaseDefenseValue.bind(this), this.getDefenseValue.bind(this)]);
+      this.statOptions.push(['Increase max health', this.increaseMaxHP.bind(this), this.getMaxHP.bind(this)]);
     }
     if (this.hasMixin('Sight')) {
-      this.statOptions.push(['Increase sight range', this.increaseSightRadius.bind(this)]);
+      this.statOptions.push(['Increase sight range', this.increaseSightRadius.bind(this), this.getSightRadius.bind(this)]);
     }
   },
   getLevel() {
