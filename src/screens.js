@@ -549,7 +549,7 @@ gainStatScreen.render = function(display) {
     // iterate through all the options
     this.options.forEach((option, idx) => {
       display.drawText(0, idx + 2,
-        `${letters.substring(idx, idx+1)} - ${option[0]}`); // right options are an array of two values, the first being the string text, and the second being the function to invoke for that string text
+        `${letters.substring(idx, idx+1)} - ${option[0]} | Current value: ${option[2]()}`); // right options are an array of two values, the first being the string text, and the second being the function to invoke for that string text
     });
 
     // render remaining stat points
