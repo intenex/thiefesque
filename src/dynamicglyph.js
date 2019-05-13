@@ -9,6 +9,9 @@ export default class DynamicGlyph extends Glyph {
     // allow for some mixin functionality
     this.attachedMixins = {}; // right these object attributes are actually stored as just strings or symbols and can be associated with p much any type of value
     this.attachedMixinGroups = {}; // specifies having some general class of functionality like movement of some sort, regardless of the specific type of movement implemented
+    // set up an object for listeners
+    this.listeners = {};
+    this.init = {}; // just an empty object to make sure that this object doesn't get a mixin's init function written as its init function randomly when copying over defaults later on lol, otherwise useless not used
     const mixins = properties.mixins || []; // get all the mixins if any
     mixins.forEach(function (mixin) {
       defaults(this, mixin); // add all the properties of each mixin into the object at hand but use lodash's defaults which doesn't overwrite any existing properties which is a big no no here
