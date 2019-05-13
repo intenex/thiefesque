@@ -402,14 +402,14 @@ EntityMixins.ExperienceGainer = {
     // which stats can be leveled
     this.statOptions = [];
     if (this.hasMixin('Attacker')) {
-      this.statOptions.push(['Increase attack value', this.increaseAttackValue]);
+      this.statOptions.push(['Increase attack value', this.increaseAttackValue.bind(this)]); // bind these to the right entity object instance 'this' here so you don't have to bind every time you call these in the future
     }
     if (this.hasMixin('Destructible')) {
-      this.statOptions.push(['Increase defense value', this.increaseDefenseValue]);
-      this.statOptions.push(['Increase max health', this.increaseMaxHP]);
+      this.statOptions.push(['Increase defense value', this.increaseDefenseValue.bind(this)]);
+      this.statOptions.push(['Increase max health', this.increaseMaxHP.bind(this)]);
     }
     if (this.hasMixin('Sight')) {
-      this.statOptions.push(['Increase sight range', this.increaseSightRadius]);
+      this.statOptions.push(['Increase sight range', this.increaseSightRadius.bind(this)]);
     }
   },
   getLevel() {
@@ -498,6 +498,20 @@ EntityMixins.FoodConsumer = {
       return 'Full';
     } else {
       return 'Not Hungry';
+    }
+  }
+};
+
+EntityMixins.RandomStatGainer = {
+  name: 'RandomStatGainer',
+  groupName: 'StatGainer',
+  onGainLevel() {
+    const statOptions = this.getStatOptions();
+    // randomly select a stat option and execute the callback for each stat point
+    while (this.getStatPoints() > 0) {
+      // call a random stat increasing function
+      statOptions[Math.floor(Math.random() * statOptions.length)][1]();
+      this.setStatPoints(this.getStatPoints() - 1);
     }
   }
 };

@@ -554,6 +554,7 @@ gainStatScreen.render = function(display) {
       `Remaining points: ${this.entity.getStatPoints()}`);
 };
 
+// consider letting them do stats later and not have to level up stats immediately as they level up and to be able to access this screen by pressing S or something
 gainStatScreen.handleEvent = function(e) {
   const alpha = 'abcdefghijklmnopqrstuvwxyz';
   // if a valid letter is pressed
@@ -563,7 +564,7 @@ gainStatScreen.handleEvent = function(e) {
     // get that option if it exists
     if (this.options[index]) {
       // call the stat increasing function part of that subarray element in the options array
-      this.options[index][1].call(this.entity);
+      this.options[index][1]();
       // decrease stat points
       this.entity.setStatPoints(this.entity.getStatPoints() -1);
       // if no stat points left, exit screen, otherwise refresh and keep going
