@@ -259,6 +259,21 @@ EntityMixins.Destructible = {
         this.tryDropCorpse();
       }
       this.kill("You have been killed to death.");
+      // give attacker experience points
+      if (attacker.hasMixin('ExperienceGainer')) {
+        let exp = this.getMaxHP() + this.getDefenseValue();
+        if (this.hasMixin('Attacker')) {
+          exp += this.getAttackValue(); // basic EXP equivalent to attack value
+        }
+        // account for level differences
+        if (this.hasMixin('ExperienceGainer')) {
+          exp -= (attacker.getLevel() - this.getLevel()) * 3; // if this entity's level is higher than the attacker this will be negative, hence will be an addition
+        }
+        // only give exp if greater than 0
+        if (exp > 0) {
+          attacker.giveExperience(exp);
+        }
+      }
     }
   }
 };
