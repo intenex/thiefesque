@@ -5,7 +5,9 @@ import * as TILES from './..tiles';
 
 export default class Dungeon extends Map {
   constructor(tiles, player, upstairPos, downstairPos) {
-    super(tiles, upstairPos, downstairPos);
+    super(tiles);
+    this.upstairPos = upstairPos;
+    this.downstairPos = downstairPos;
     // add the player
     this.addEntityAtRandomPosition(player, this.currentZ);
     // add random entities and items to each floor of the dungeon
@@ -38,4 +40,13 @@ export default class Dungeon extends Map {
     const holePosition = this.getRandomFloorPosition(this.depth - 1);
     this.tiles[this.depth - 1][holePosition.x][holePosition.y] = TILES.holeTile;
   }
+
+  getUpstairPos() {
+    return this.upstairPos;
+  }
+
+  getDownstairPos() {
+    return this.downstairPos;
+  }
 }
+

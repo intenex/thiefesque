@@ -2,10 +2,8 @@ import * as ROT from 'rot-js';
 import * as TILES from './tile';
 
 export default class Map {
-  constructor(tiles, upstairPos, downstairPos) {
+  constructor(tiles) {
     this.tiles = tiles;
-    this.upstairPos = upstairPos;
-    this.downstairPos = downstairPos;
     // cache dimensions
     this.depth = tiles.length;
     this.width = tiles[0].length; // ah right all the columns makes sense dope a 2D array of tiles
@@ -43,15 +41,7 @@ export default class Map {
   getEntities() {
     return this.entities;
   }
-
-  getUpstairPos() {
-    return this.upstairPos;
-  }
-
-  getDownstairPos() {
-    return this.downstairPos;
-  }
-
+  
   getEntityAt(x, y, z) {
     if (!this.entities[z]) {
       return false;
