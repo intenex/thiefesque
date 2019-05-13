@@ -20,7 +20,16 @@ export default class DynamicGlyph extends Glyph {
         this.attachedMixinGroups[mixin.groupName] = true;
       }
       // add all the listeners
-      if (mixin.listeners)
+      if (mixin.listeners) {
+        for (const key in mixin.listeners) { // gets all the keys in an object love it
+          // if don't already have a key for the event in the listeners array, add it --> note came really close to being able to use defaults here but doesn't actually quite work since you need it to push each listener into an array from multiple mixins --> likely some other lodash or utility helper library that can help with all this stuff, def read through all those later and refactor if possible where you can great learning exercise all around
+          if (!this.listeners[key]) {
+            this.listeners[key] = [];
+          }
+          // add the listener for this mixin for this specific event type/key
+          this.listeners[key].push(mixin.listeners[key]);
+        }
+      }
       if (mixin.init) {
         mixin.init.call(this, properties); // hopefully this has access to properties in scope let's find out otherwise just do a normal for loop or define this function elsewhere separately, almost certain it should have access though since the function is defined here in the right scope even if passed in as a callback later that's how closures should work // call is just an immediate bind (or a bind is an immediate call), you pass in the object the 'this' scope should be and then the arguments to pass in to the call function so awesome
       }
