@@ -139,6 +139,9 @@ export default class Map {
     if (entity.hasMixin('Actor')) {
       this.scheduler.add(entity, true); // true I believe readds them again after they act or something like that look into it again so they're not just one time
     }
+    if (entity.hasMixin('PlayerActor')) {
+      this.player = entity;
+    }
   }
 
   addEntityAtRandomPosition(entity, z) {
@@ -165,6 +168,9 @@ export default class Map {
     const z = entity.getZ();
     if (this.entities[z][key] === entity) {
       delete this.entities[z][key];
+    }
+    if (entity.hasMixin('PlayerActor')) {
+      this.player = undefined;
     }
   }
 
