@@ -1,3 +1,4 @@
+import merge from 'lodash/merge';
 import * as ROT from 'rot-js';
 import Entity from './entity';
 import Repository from './repository';
@@ -213,6 +214,11 @@ EntityMixins.FungusActor = {
     }
   }
 };
+
+// throw in all the extra stuff to overwrite in the third object passed here, and this will set it equal to the first empty object that will have all the merged properties so great have to do it this way since merge is mutative
+EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
+
+});
 
 EntityMixins.Destructible = {
   name: 'Destructible',
