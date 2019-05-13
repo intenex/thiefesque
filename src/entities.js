@@ -258,6 +258,8 @@ EntityMixins.Destructible = {
       if (this.hasMixin(EntityMixins.CorpseDropper)) {
         this.tryDropCorpse();
       }
+      this.raiseEvent('onDeath', attacker); // the attacking entity is passed in as an argument here
+      attacker.raiseEvent('onKill', this);
       this.kill("You have been killed to death.");
       // give attacker experience points
       if (attacker.hasMixin('ExperienceGainer')) {
