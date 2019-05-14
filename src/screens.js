@@ -516,6 +516,22 @@ export const wearScreen = new ItemListScreen({
   }
 });
 
+export const examineScreen = new ItemListScreen({
+  parentScreen: playScreen,
+  caption: 'Choose the item you wish to examine',
+  canSelect: true,
+  canSelectMultipleItems: false,
+  isAcceptable(item) { return true; }, // all items are acceptable lol
+  ok(selectedItems) {
+    const values = Object.values(selectedItems);
+    if (values.length > 0) {
+      const item = values[0];
+      this.player.sendMessage(this,player, `It's ${item.describeA(false)} (${item.details()})`);
+    }
+    return true;
+  }
+});
+
 export const gainStatScreen = new Screen('stat');
 
 gainStatScreen.parentScreen = playScreen; // should be able to just reference directly in here without setting this tbh but whatever - do try that later though
