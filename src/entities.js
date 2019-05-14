@@ -226,6 +226,8 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
   listeners: {
     onDeath(attacker) {
       // Switch to win screen when killed
+      // only works because the player entity is the only one who will kill the giant zombie
+      // and that entity has the game stored in a this.game attribute but thankfully that's fine becuase this code isn't actually final code and will be overwritten in the future so it can be hacky
       attacker.game.switchScreen(attacker.game.screens.winScreen);
     }
   },
