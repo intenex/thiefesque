@@ -46,7 +46,7 @@ ItemMixins.Equippable = {
   },
   listeners: {
     details() {
-      const results = [];
+      const results = []; // remember items can be both wieldable and wearable hence why you need two ifs here this could return two values
       if (this.wieldable) {
         results.push({key: 'attack', value: this.getAttackValue()});
       }

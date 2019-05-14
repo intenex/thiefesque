@@ -341,6 +341,11 @@ EntityMixins.Attacker = {
   init(template) { // properties are passed in as an argument to the init call, and properties correspond to the Template that's passed in as an argument to the Entity constructor function love it
     this.attackValue = template.attackValue || 1;
   },
+  listeners: {
+    details() {
+      return [{key: 'attack', value: this.getAttackValue()}];
+    }
+  },
   getAttackValue() { 
     let modifier = 0;
     // if you can equip items, take into consideration weapons and armor
