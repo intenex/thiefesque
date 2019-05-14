@@ -339,7 +339,7 @@ export class ItemListScreen {
       display.drawText(0, 1, '0 - no item');
     }
     let row = 0;
-    // this should be a foreach with a fat arrow function callback
+    // this should be a forEach with a fat arrow function callback
     for (let i = 0; i < this.items.length; i++) {
       // if there is an item, render it
       if (this.items[i]) {
