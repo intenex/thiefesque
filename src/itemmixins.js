@@ -39,6 +39,15 @@ ItemMixins.Equippable = {
     this.wieldable = template.wieldable || false;
     this.wearable = template.wearable || false;
   },
+  listeners: {
+    details() {
+      const results = [];
+      if (this.wieldable) {
+        results.push({key: 'attack', value: this.getAttackValue()});
+      }
+      if
+    }
+  },
   getAttackValue() {
     return this.attackValue;
   },

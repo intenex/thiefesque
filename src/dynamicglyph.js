@@ -86,11 +86,11 @@ export default class DynamicGlyph extends Glyph {
     const details = [];
     const detailGroups = this.raiseEvent('details');
     // iterate through each return value, grabbing the details from the arrays
-    if (detailGroups) {
+    if (detailGroups) { // basically this gets every single item or entity in question, etc., with each individual item/entity having its own array stored inside this bigger array, as a 2D array, and inside that smaller array for each item/entity there is a collection of objects with two attributes/keys: key and value, which correspond to all the info about the object, love it
       detailGroups.forEach(detail => {
-        for (const key in detail) {
-          details.push(`${key}: ${detail[key]}`);
-        }
+        detail.forEach(keypair => {
+          details.push(`${keypair.key}: ${keypair.value}`);
+        });
       });
     }
     return details.sort().join(', ');
