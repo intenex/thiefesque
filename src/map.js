@@ -27,6 +27,7 @@ export default class Map {
       this.items[z] = {};
     }
     this.scheduler = new ROT.Scheduler.Speed();
+    // refactor to use new JS async/await instead of ROT.Engine which is now deprecated
     this.engine = new ROT.Engine(this.scheduler);
   }
 
