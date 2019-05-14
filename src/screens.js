@@ -256,6 +256,11 @@ playScreen.handleEvent = function(e) {
       this.showItemsSubScreen(this.game.screens.wearScreen, this.player.getItems(),
         `You have nothing to wear.`);
       break;
+    case 'X':
+      // show the examine screen
+      this.showItemsSubScreen(this.game.screens.examineScreen, this.player.getItems(),
+        `You have nothing to examine.`);
+      break;
   }
 };
 
