@@ -45,7 +45,10 @@ ItemMixins.Equippable = {
       if (this.wieldable) {
         results.push({key: 'attack', value: this.getAttackValue()});
       }
-      if
+      if (this.wearable) {
+        results.push({key: 'defense', value: this.getDefenseValue()});
+      }
+      return results;
     }
   },
   getAttackValue() {
