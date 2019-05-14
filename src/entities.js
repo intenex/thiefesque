@@ -496,6 +496,9 @@ EntityMixins.ExperienceGainer = {
     }
   },
   listeners: {
+    details() {
+      return [{key: 'level', value: this.getLevel()}];
+    },
     onKill(victim) {
       // give attacker experience points
       let exp = victim.getMaxHP() + victim.getDefenseValue();
