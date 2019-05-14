@@ -290,6 +290,12 @@ EntityMixins.Destructible = {
     this.defenseValue = template.defenseValue || 0;
   },
   listeners: {
+    details() {
+      return [
+        {key: 'defense', value: this.getDefenseValue()},
+        {key: 'hp', value: this.getHP()}
+      ];
+    },
     onGainLevel() {
       // heal the entity
       this.setHP(this.getMaxHP());
