@@ -226,7 +226,7 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
   listeners: {
     onDeath(attacker) {
       // Switch to win screen when killed
-      attacker.game.switchScreen(this.game.screens.winScreen);
+      attacker.game.switchScreen(attacker.game.screens.winScreen);
     }
   },
   canDoTask(task) {
