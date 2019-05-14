@@ -11,6 +11,11 @@ ItemMixins.Edible = {
     this.maxConsumptions = template.consumptions || 1;
     this.remainingConsumptions = this.maxConsumptions;
   },
+  listeners: {
+    details() {
+      return [{key: 'food', value: this.foodValue}];
+    }
+  },
   eat(entity) {
     if (entity.hasMixin('FoodConsumer')) {
       if (this.hasRemainingConsumptions()) {
