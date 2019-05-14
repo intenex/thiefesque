@@ -226,7 +226,7 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
   listeners: {
     onDeath(attacker) {
       // Switch to win screen when killed
-      this.game.switchScreen(this.game.screens.winScreen);
+      attacker.game.switchScreen(this.game.screens.winScreen);
     }
   },
   canDoTask(task) {
@@ -245,7 +245,7 @@ EntityMixins.GiantZombieActor = merge({}, EntityMixins.TaskActor, {
     this.hasGrownArm = true;
     this.increaseAttackValue(5);
     // send a message notifying everyone that the zombie has grown an arm
-    this.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this,getZ(),
+    this.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this.getZ(),
       `The giant zombie has grown an extra arm!`);
   },
   spawnSlime() {
