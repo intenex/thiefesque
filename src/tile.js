@@ -31,7 +31,7 @@ export class Tile extends Glyph {
   }
 }
 
-export const nullTile = new Tile();
+export const nullTile = new Tile({description: '(unknown)'});
 export const floorTile = new Tile({
   character: '.',
   walkable: true,
