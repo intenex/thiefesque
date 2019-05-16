@@ -16,4 +16,9 @@ export default class Glyph {
   getBackground() {
     return this.background;
   }
+
+  getRepresentation() { // shows the colored representation of a glyph
+    return `%c{${this.foreground}}%b{${this.background}}${this.char}%c{white}%b{black}`;
+
+  }
 }
