@@ -49,13 +49,15 @@ export const stairsUpTile = new Tile({
   character: '<',
   foreground: 'white',
   walkable: true,
-  blocksLight: false
+  blocksLight: false,
+  description: 'A staircase leading upwards'
 });
 export const stairsDownTile = new Tile({
   character: '>',
   foreground: 'white',
   walkable: true,
-  blocksLight: false
+  blocksLight: false,
+  description: 'A staircase leading downwards'
 });
 export const waterTile = new Tile({
   character: '~',
