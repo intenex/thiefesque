@@ -35,13 +35,15 @@ export const nullTile = new Tile({description: '(unknown)'});
 export const floorTile = new Tile({
   character: '.',
   walkable: true,
-  blocksLight: false // nothing is magic everything works exactly as you define it in code so incredible and beautiful and so much abstracted away damn programming is so accessible these days it's so nuts so insanely grateful to get to do this or anything you really do have the best life in the world jesus fucking christ most of all to be able to appreciate it all
+  blocksLight: false, // nothing is magic everything works exactly as you define it in code so incredible and beautiful and so much abstracted away damn programming is so accessible these days it's so nuts so insanely grateful to get to do this or anything you really do have the best life in the world jesus fucking christ most of all to be able to appreciate it all
+  description: 'A regular floor'
 });
 export const wallTile = new Tile({
   character: '#',
   foreground: 'goldenrod',
   diggable: true,
-  blocksLight: true // might as well be explicit here no reason not to be to make things more clear
+  blocksLight: true, // might as well be explicit here no reason not to be to make things more clear
+  description: 'A regular wall'
 });
 export const stairsUpTile = new Tile({
   character: '<',
