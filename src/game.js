@@ -43,6 +43,7 @@ export default class Game {
                          eatScreen: SCREENS.eatScreen,
                          wieldScreen: SCREENS.wieldScreen,
                          wearScreen: SCREENS.wearScreen,
+                         examineScreen: SCDREENS.examineScreen,
                          gainStatScreen: SCREENS.gainStatScreen
                        };
 
