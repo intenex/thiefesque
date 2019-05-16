@@ -106,6 +106,8 @@ playScreen.renderTiles = function(display) {
   const screenHeight = this.game.getScreenHeight();
   const map = this.player.getMap();
   const offsets = this.getScreenOffsets(map, screenWidth, screenHeight);
+  const topLeftX = offsets.x;
+  const topLeftY = offsets.y;
   const currentZ = this.player.getZ();
   // keep track of all visible map cells
   const visibleCells = {};
