@@ -68,23 +68,25 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
     this.subScreen.render(display);
     return;
   }
-  const map = this.player.getMap();
-  const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
-  const screenHeight = this.game.getScreenHeight();
   
-}
-playScreen.getScreenOffsets() {
-// make sure the x-axis doesn't go out of bounds
+};
+
+playScreen.getScreenOffsets = function(map, screenWidth, screenHeight) {
+  // make sure the x-axis doesn't go out of bounds
   let topLeftX = Math.max(0, this.player.getX() - Math.floor(screenWidth/2)); // note that if the screenWidth doesn't happen to be even for some reason you'll need to floor this not to end up with some crazy non-integer number lol
   // make sure you can still fit the entire game screen
   topLeftX = Math.min(topLeftX, map.getWidth() - screenWidth); // this stops you from scrolling too far right, right makes perfect sense, basically the hard cap to the right is the width of the map minus the screen width, e.g. if the map is 100 squares and the screen width is 80 squares, then never let the topLeftX go beyond 100-80, or 20, even if they move past that, love it totally get it now so great. The check here is to see if the width of the map minus the screen width is *less* than the current x position, that's what the minimum check is for, basically ensuring that the x position never exceeds a certain maximum, so great
   let topLeftY = Math.max(0, this.player.getY() - Math.floor(screenHeight/2));
   topLeftY = Math.min(topLeftY, map.getHeight() - screenHeight);
   return {x: topLeftX, y: topLeftY};
-}
-  
-  const currentZ = this.player.getZ();
+};
 
+playScreen.renderTiles = function(display) {
+  const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
+  const screenHeight = this.game.getScreenHeight();
+  const map = this.player.getMap();
+  const offsets = this.getScreenOffsets(map, screenWidth, screenHeight);
+  const currentZ = this.player.getZ();
   // keep track of all visible map cells
   const visibleCells = {};
   // find all visible cells and add them to visibleCells
@@ -132,6 +134,8 @@ playScreen.getScreenOffsets() {
       }
     }
   }
+
+};
 
   // get all the messages in the player entity's queue and render them
   const messages = this.player.getMessages();
