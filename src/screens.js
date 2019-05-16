@@ -69,6 +69,9 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
     return;
   }
   
+  const screenWidth = this.game.getScreenWidth(); // have a single source of truth for all numbers everything else references so there's never any confusion and refactoring to have a different number is incredibly easy great code guidance now actually loving this
+  const screenHeight = this.game.getScreenHeight();
+  
   // render the tiles
   this.renderTiles(display);
 
