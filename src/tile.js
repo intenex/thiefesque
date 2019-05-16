@@ -63,11 +63,13 @@ export const waterTile = new Tile({
   character: '~',
   foreground: 'blue',
   walkable: false,
-  blocksLight: false
+  blocksLight: false,
+  description: 'Murky blue water'
 });
 export const holeTile = new Tile({
   character: 'O',
   foreground: 'white',
   walkable: true,
-  blocksLight: false
+  blocksLight: false,
+  description: 'A giant ominous hole in the floor'
 });
