@@ -11,6 +11,7 @@ export class Tile extends Glyph {
     this.walkable = properties.walkable || false;
     this.diggable = properties.diggable || false;
     this.blocksLight = (properties.blocksLight !== undefined) ? properties.blocksLight : true; // either the property is defined as true or false in which case use that property or set it to true by default // love ternaries exact same structure here dope and dope that they do triple equals here lol you really should just learn triple and double equals appropriately in each case instead of just blindly always using triple equals
+    this.description = properties.description || '';
   }
 
   isWalkable() {
@@ -23,6 +24,10 @@ export class Tile extends Glyph {
 
   isBlockingLight() {
     return this.blocksLight;
+  }
+
+  getDescription() {
+    return this.description;
   }
 }
 
