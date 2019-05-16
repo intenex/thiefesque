@@ -69,6 +69,26 @@ playScreen.render = function(display) { // amazing that most 'variables' are in 
     return;
   }
   
+  // render the tiles
+  this.renderTiles(display);
+
+  // get all the messages in the player entity's queue and render them
+  const messages = this.player.getMessages();
+  messages.forEach((message, idx) => {
+    // draw each message, incrementing the Y by the index each time
+    display.drawText(0, idx, `%c{white}%b{black}${message}`); // unclear why sprintf was ever helpful hmm vs just clear interpolation even in ES5 format
+  });
+
+  // render player stats
+  let stats = `%c{white}%b{black}`;
+  stats += `HP: ${this.player.getHP()}/${this.player.getMaxHP()} `;
+  stats += `L: ${this.player.getLevel()} `;
+  stats += `XP TO LVL: ${this.player.getNextLevelExperience() - this.player.getExperience()}`;
+  display.drawText(0, screenHeight, stats);
+
+  // render hunger state
+  const hungerState = this.player.getHungerState();
+  display.drawText(screenWidth - hungerState.length, screenHeight, hungerState); // render in the bottom right corner of the screen
 };
 
 playScreen.getScreenOffsets = function(map, screenWidth, screenHeight) {
@@ -135,25 +155,6 @@ playScreen.renderTiles = function(display) {
     }
   }
 
-};
-
-  // get all the messages in the player entity's queue and render them
-  const messages = this.player.getMessages();
-  messages.forEach((message, idx) => {
-    // draw each message, incrementing the Y by the index each time
-    display.drawText(0, idx, `%c{white}%b{black}${message}`); // unclear why sprintf was ever helpful hmm vs just clear interpolation even in ES5 format
-  });
-
-  // render player stats
-  let stats = `%c{white}%b{black}`;
-  stats += `HP: ${this.player.getHP()}/${this.player.getMaxHP()} `;
-  stats += `L: ${this.player.getLevel()} `;
-  stats += `XP TO LVL: ${this.player.getNextLevelExperience() - this.player.getExperience()}`;
-  display.drawText(0, screenHeight, stats);
-
-  // render hunger state
-  const hungerState = this.player.getHungerState();
-  display.drawText(screenWidth - hungerState.length, screenHeight, hungerState); // render in the bottom right corner of the screen
 };
 
 // for subscreens like the inventory screen and other future screens
