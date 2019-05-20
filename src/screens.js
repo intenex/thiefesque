@@ -636,6 +636,10 @@ export class TargetBasedScreen {
   render(display) {
     this.parentScreen.renderTiles.call(this.parentScreen, display);
     // draw a line from the start to the cursor
-    
+    const points = Geometry.getLine(this.startX, this.startY, this.cursorX, this.cursorY);
+    // render stars along the line
+    points.forEach(point => {
+      display.drawText(point.x, point.y, `%c{magenta}*`);
+    });
   }
 }
