@@ -312,7 +312,7 @@ loseScreen.render = function(display) {
 
 // time to admit the basic Screen class is more of a handicap than anything else
 export class ItemListScreen {
-  constructor(template) {
+  constructor(template = {}) {
     this.caption = template.caption;
     this.parentScreen = template.parentScreen; // can't believe this works lol
     this.okFunction = template.ok;
@@ -600,3 +600,9 @@ gainStatScreen.handleEvent = function(e) {
     }
   }
 };
+
+export class TargetBasedScreen {
+  constructor(template = {}) {
+    
+  }
+}
