@@ -684,6 +684,13 @@ export class TargetBasedScreen {
       case 'q':
         this.moveCursor(-1, -1);
         break;
+      case 'Escape':
+        this.parentScreen.setSubScreen(undefined);
+        break;
+      case 'Return':
+        this.executeOkFunction();
+        break;
     }
+    this.parentScreen.game.refresh();
   }
 }
