@@ -603,6 +603,9 @@ gainStatScreen.handleEvent = function(e) {
 
 export class TargetBasedScreen {
   constructor(template = {}) {
-    
+    // by default, the ok return does nothing and doesn't use a turn
+    this.isAcceptableFunction = template.okFunction || function(x, y) { return false; };
+    // the default caption just returns an empty string
+    this.captionFunction = template.captionFunction || function(x, y) { return ''; };
   }
 }
