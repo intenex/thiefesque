@@ -1,4 +1,5 @@
 import * as ROT from 'rot-js';
+import Geometry from './geometry';
 
 /* amazing screen management so great
 rough interface: enter(), exit(), render(display), handleInput(inputType, inputData) */
@@ -603,6 +604,7 @@ gainStatScreen.handleEvent = function(e) {
 
 export class TargetBasedScreen {
   constructor(template = {}) {
+    this.parentScreen = template.parentScreen;
     // by default, the ok return does nothing and doesn't use a turn
     this.isAcceptableFunction = template.okFunction || function(x, y) { return false; };
     // the default caption just returns an empty string
@@ -629,5 +631,11 @@ export class TargetBasedScreen {
         this.visibleCells[`${x},${y}`] = true;
       }
     );
+  }
+
+  render(display) {
+    this.parentScreen.renderTiles.call(this.parentScreen, display);
+    // draw a line from the start to the cursor
+    
   }
 }
