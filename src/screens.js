@@ -608,4 +608,26 @@ export class TargetBasedScreen {
     // the default caption just returns an empty string
     this.captionFunction = template.captionFunction || function(x, y) { return ''; };
   }
+
+  setup(player, startX, startY, offsetX, offsetY) {
+    this.player = player;
+    // store orig pos -> subtract offset from this so we don't have to constantly remove the offset
+    this.startX = startX - offsetX;
+    this.startY = startY - offsetY;
+    // store current cursor position
+    this.cursorX = this.startY;
+    this.cursorY = this.startY;
+    // store map offsets
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+    // cache FOV
+    this.visibleCells = {};
+    this.player.getMap().getFov(this.player.getZ()).compute(
+      this.player.getX(), this.player.getY(),
+      this.player.getSightRadius(),
+      (x, y, radius, visibility) => {
+        this.visibleCells[`${x},${y}`] = true;
+      }
+    );
+  }
 }
