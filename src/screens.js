@@ -613,7 +613,7 @@ export class TargetBasedScreen {
   setup(player, startX, startY, offsetX, offsetY) {
     this.player = player;
     // store orig pos -> subtract offset from this so we don't have to constantly remove the offset
-    this.startX = startX - offsetX;
+    this.startX = startX - offsetX; // remember what the offset is again for the future make a note later
     this.startY = startY - offsetY;
     // store current cursor position --> this will change over time to deviate from the start position and will be what will be used as the end point of the line to draw the magenta stars with, with the startX and startY as the start point of the line
     this.cursorX = this.startY;
@@ -701,5 +701,12 @@ export class TargetBasedScreen {
     this.cursorY = Math.max(0, Math.min(this.cursorY + dy, this.parentScreen.game.getScreenHeight() - 1));
   }
 
-  
+  executeOkFunction() {
+    // switch back up to the play screen
+    this.parentScreen.setSubScreen(undefined);
+    // call the OK function and end the player's turn if it returns true, good for like ranged weapon attacks and such
+    if (this.okFunction(this.cursorX + this.offsetX, this.cursorY + this.offsetY)) { // if this returns true do the rest of the code
+      this.player.getMap().getEngine().unlock();
+    }
+  }
 }
