@@ -185,7 +185,6 @@ playScreen.handleEvent = function(e) {
     return;
   }
   switch(e.key) { // omg cases will fall through until a break is found holy fuck that's amazing LOL
-    case ' ':
     case 'o': // man fall through mapping is totally the best
     case 'w':
     case 'ArrowUp':
@@ -616,7 +615,7 @@ export class TargetBasedScreen {
     // store orig pos -> subtract offset from this so we don't have to constantly remove the offset
     this.startX = startX - offsetX;
     this.startY = startY - offsetY;
-    // store current cursor position
+    // store current cursor position --> this will change over time to deviate from the start position and will be what will be used as the end point of the line to draw the magenta stars with, with the startX and startY as the start point of the line
     this.cursorX = this.startY;
     this.cursorY = this.startY;
     // store map offsets
@@ -636,7 +635,7 @@ export class TargetBasedScreen {
   render(display) {
     this.parentScreen.renderTiles.call(this.parentScreen, display);
     // draw a line from the start to the cursor
-    const points = Geometry.getLine(this.startX, this.startY, this.cursorX, this.cursorY);
+    const points = Geometry.getLine(this.startX, this.startY, this.cursorX, this.cursorY); // love getting all this
     // render stars along the line
     points.forEach(point => {
       display.drawText(point.x, point.y, `%c{magenta}*`);
@@ -644,5 +643,47 @@ export class TargetBasedScreen {
     // render caption at the bottom of the screen
     display.drawText(0, this.parentScreen.game.getScreenHeight() - 1,
       this.captionFunction(this.cursorX + this.offsetX, this.cursorY + this.offsetY));
+  }
+
+  handleEvent(e) {
+    // move the cursor
+    switch(e.key) {
+      case 'o':
+      case 'w':
+      case 'ArrowUp':
+        this.moveCursor(0, -1);
+        break;
+      case 'p':
+      case 'e':
+        this.moveCursor(1, -1);
+        break;
+      case ';':
+      case 'd':
+      case 'ArrowRight':
+        this.moveCursor(1, 0);
+        break;
+      case '/':
+      case 'c':
+        this.moveCursor(1, 1);
+        break;
+      case '.':
+      case 'x':
+      case 'ArrowDown':
+        this.moveCursor(0, 1);
+        break;
+      case ',':
+      case 'z':
+        this.moveCursor(-1, 1);
+        break;
+      case 'k':
+      case 'a':
+      case 'ArrowLeft':
+        this.moveCursor(-1, 0);
+        break;
+      case 'i':
+      case 'q':
+        this.moveCursor(-1, -1);
+        break;
+    }
   }
 }
