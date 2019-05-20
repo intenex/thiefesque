@@ -693,4 +693,13 @@ export class TargetBasedScreen {
     }
     this.parentScreen.game.refresh();
   }
+
+  moveCursor(dx, dy) {
+    // make sure we stay within bounds
+    this.cursorX = Math.max(0, Math.min(this.cursorX + dx, this.parentScreen.game.getScreenWidth())); // if the cursor goes beyond the screen, return the max screen width instead love it 
+    // must save the last line for the caption.
+    this.cursorY = Math.max(0, Math.min(this.cursorY + dy, this.parentScreen.game.getScreenHeight() - 1));
+  }
+
+  
 }
