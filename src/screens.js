@@ -641,5 +641,8 @@ export class TargetBasedScreen {
     points.forEach(point => {
       display.drawText(point.x, point.y, `%c{magenta}*`);
     });
+    // render caption at the bottom of the screen
+    display.drawText(0, this.parentScreen.game.getScreenHeight() - 1,
+      this.captionFunction(this.cursorX + this.offsetX, this.cursorY + this.offsetY));
   }
 }
