@@ -714,7 +714,23 @@ export class TargetBasedScreen {
 export const lookScreen = new TargetBasedScreen({
   parentScreen: playScreen,
   captionFunction(x, y) {
-    
+    const z = this.player.getZ();
+    const map = this.player.getMap();
+    // if the tile has been explored, give a specific caption
+    if (map.isExplored(x, y, z)) {
+      // check if you can see the tile so you know whether or not
+      // to display info about an entity or item there
+      if (this.visibleCells[`${x},${y}`]) {
+        const items = map.getItemsAt(x, y, z);
+        // if there is an entity, render the entity
+        if (map.getEntityAt(x, y, z)) {
+          
+        } else if (items) { // else if there are items show the top most one
+          const item = items[items.length - 1];
+          return `${item.getRepresentation()} - ${item.describeA(true)} (${item.details()})`;
+        }
+      }
+    }
   }
 
 });
