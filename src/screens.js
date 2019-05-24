@@ -731,6 +731,9 @@ export const lookScreen = new TargetBasedScreen({
           return `${item.getRepresentation()} - ${item.describeA(true)} (${item.details()})`;
         }
       }
+      // if no entity/item info or tile wasn't visible, return the tile info
+      const tile = map.getTile(x, y, z);
+      return `${tile.getRepresentation()} - ${tile.getDescription()}`;
     }
   }
 
