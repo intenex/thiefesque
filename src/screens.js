@@ -710,3 +710,11 @@ export class TargetBasedScreen {
     }
   }
 }
+
+export const lookScreen = new TargetBasedScreen({
+  parentScreen: playScreen,
+  captionFunction(x, y) {
+    
+  }
+
+});
