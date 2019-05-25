@@ -44,12 +44,15 @@ export default class Game {
                          wieldScreen: SCREENS.wieldScreen,
                          wearScreen: SCREENS.wearScreen,
                          examineScreen: SCREENS.examineScreen,
-                         gainStatScreen: SCREENS.gainStatScreen
+                         gainStatScreen: SCREENS.gainStatScreen,
+                         lookScreen: SCREENS.lookScreen,
+                         helpScreen: SCREENS.helpScreen
                        };
 
         this.screens.playScreen.player = this.player;
         this.screens.playScreen.game = this;
         this.screens.startScreen.game = this;
+        this.screens.helpScreen.game = this;
         this.screens.startScreen.handleEvent = this.screens.startScreen.handleEvent.bind(this.screens.startScreen); // fucking love it right pass in this as a first curried argument to the game object fucking love it and keep the this to the object itself this is better design // oh god damn it I think it's because they're fucking arrow functions lol // damn why doesn't this work hmmm
         this.screens.playScreen.handleEvent = this.screens.playScreen.handleEvent.bind(this.screens.playScreen); // omfg yeah it was because of arrow functions now this is working just fine as you expected and binding like this is an actual design pattern fuck yeah
 
