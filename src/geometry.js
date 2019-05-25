@@ -10,7 +10,7 @@ const Geometry = {
     let err = dx - dy;
     let e2;
 
-    while (startX != endX && startY != endY) {
+    while (startX != endX || startY != endY) {
       points.push({x: startX, y: startY});
       e2 = err * 2;
       if (e2 > -dx) {
