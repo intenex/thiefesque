@@ -27,7 +27,7 @@ export const startScreen = new Screen("start");
 startScreen.render = function(display) {
   // Render prompt to the screen
   display.drawText(1, 1, "%c{yellow}Welcome to Thiefesque. Feel free to dig around."); // must be some regex for them to read strings like this interesting
-  display.drawText(1, 2, "Press [Enter] to start.");
+  display.drawText(1, 2, "Press [Enter] to start. Then, press [?] to access a list of commands.");
 };
 
 // ah hmm bind this later to the actual game object try it lol that might just work
@@ -276,6 +276,15 @@ playScreen.handleEvent = function(e) {
       this.showItemsSubScreen(this.game.screens.examineScreen, this.player.getItems(),
         `You have nothing to examine.`);
       break;
+    case 'L':
+      // setup look screen
+      const offsets = this.getScreenOffsets();
+      this.game.screens.lookScreen.setup(this.player,
+        this.player.getX(), this.player.getY(),
+        offsets.x, offsets.y);
+      this.setSubScreen(this.game.screens.lookScreen);
+      break;
+    
   }
 };
 
