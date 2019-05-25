@@ -759,16 +759,20 @@ export const helpScreen = new Screen('help');
 
 helpScreen.render = function(display) {
   let text = 'thiefesque help screen';
-  const border = '-----------------------';
+  let border = '-----------------------';
   const screenWidth = this.game.getScreenWidth();
-  let y = 0;
+  let y = 1;
   display.drawText(screenWidth / 2 - text.length / 2, y++, text); // this just centers the text in the middle of the screen since the first value is the x coordinate
   display.drawText(screenWidth / 2 - border.length / 2, y++, border);
+  y++;
   display.drawText(0, y++, `Rumor has it that there is great treasure hidden in a cavern in this dungeon.`);
   display.drawText(0, y++, `Find this cavern and retrieve the treasure!`);
-  y += 3;
+  y++;
   text = 'commands';
+  border = '--------';
   display.drawText(screenWidth / 2 - text.length / 2, y++, text);
+  display.drawText(screenWidth / 2 - border.length / 2, y++, border);  
+  y++;
   display.drawText(0, y++, `[P] to pick up items`);
   display.drawText(0, y++, `[D] to drop items`);
   display.drawText(0, y++, `[E] to eat items`);
