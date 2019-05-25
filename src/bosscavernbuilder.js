@@ -52,8 +52,10 @@ export default class BossBuilder {
     const maxRadius = 3;
     for (let i = 0; i < numLakes; i++) {
       // random position within the whole rectangle of this cavern map, taking into consideration radius to ensure within bounds
-      const centerX = Math.floor(Math.random() * (width - maxRadius)); // subtract the radius of the circle from the total width of the map (not the larger circle, just the whole map), can do a little more math to ensure it's actually within the floor of the cavern but this is good for now
-      const centerY = Math.floor(Math.random() * (height - maxRadius));
+      let centerX = Math.floor(Math.random() * (width - maxRadius * 2)); // subtract the radius of the circle from the total width of the map (not the larger circle, just the whole map), can do a little more math to ensure it's actually within the floor of the cavern but this is good for now
+      let centerY = Math.floor(Math.random() * (height - maxRadius * 2));
+      centerX += maxRadius; // unclear on this and the maxRadius * 2 but it broke when you didn't have this sometimes so put it in here lol lucky to still remember this
+      centerY += maxRadius;
       // random radius
       const radius = Math.floor(Math.random() * maxRadius) + 1;
       // fill in the lake
