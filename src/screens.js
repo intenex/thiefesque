@@ -628,7 +628,7 @@ export class TargetBasedScreen {
     this.startX = startX - offsetX; // remember what the offset is again for the future make a note later
     this.startY = startY - offsetY;
     // store current cursor position --> this will change over time to deviate from the start position and will be what will be used as the end point of the line to draw the magenta stars with, with the startX and startY as the start point of the line
-    this.cursorX = this.startY;
+    this.cursorX = this.startX;
     this.cursorY = this.startY;
     // store map offsets
     this.offsetX = offsetX;
