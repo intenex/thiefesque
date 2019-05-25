@@ -778,7 +778,7 @@ helpScreen.render = function(display) {
   display.drawText(0, y++, `[X] to examine items`);
   display.drawText(0, y++, `[L] to look around you`);
   display.drawText(0, y++, `[?] to show this help screen`);
-  y += 3;
+  y ++;
   text = `--- press any key to continue ---`;
   display.drawText(screenWidth / 2 - text.length / 2, y++, text);
 };
