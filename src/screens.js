@@ -770,7 +770,6 @@ helpScreen.render = function(display) {
   y++;
   text = 'commands';
   display.drawText(screenWidth / 2 - text.length / 2, y++, text);
-  display.drawText(screenWidth / 2 - border.length / 2, y++, border);  
   display.drawText(0, y++, `[P] to pick up items`);
   display.drawText(0, y++, `[D] to drop items`);
   display.drawText(0, y++, `[E] to eat items`);
