@@ -277,14 +277,16 @@ playScreen.handleEvent = function(e) {
         `You have nothing to examine.`);
       break;
     case 'L':
-      // setup look screen
+      // setup the look screen
       const offsets = this.getScreenOffsets();
       this.game.screens.lookScreen.setup(this.player,
         this.player.getX(), this.player.getY(),
         offsets.x, offsets.y);
       this.setSubScreen(this.game.screens.lookScreen);
       break;
-    
+    case '?':
+      this.setSubScreen(this.game.screens.helpScreen);
+      break;
   }
 };
 
