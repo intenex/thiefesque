@@ -621,6 +621,7 @@ export class TargetBasedScreen {
     this.captionFunction = template.captionFunction || function(x, y) { return ''; };
   }
 
+  // SOMETHING IN THIS CODE IS OFF
   setup(player, startX, startY, offsetX, offsetY) {
     this.player = player;
     // store orig pos -> subtract offset from this so we don't have to constantly remove the offset
