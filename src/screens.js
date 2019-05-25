@@ -713,7 +713,7 @@ export class TargetBasedScreen {
 
 export const lookScreen = new TargetBasedScreen({
   parentScreen: playScreen,
-  captionFunction(x, y) {
+  captionFunction(x, y) { // this returns the text to draw on the screen love it
     const z = this.player.getZ();
     const map = this.player.getMap();
     // if the tile has been explored, give a specific caption
@@ -740,5 +740,4 @@ export const lookScreen = new TargetBasedScreen({
       return `${tile.getRepresentation()} - ${tile.getDescription()}`;
     }
   }
-
 });
