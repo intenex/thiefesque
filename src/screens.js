@@ -769,10 +769,8 @@ helpScreen.render = function(display) {
   display.drawText(0, y++, `Find this cavern and retrieve the treasure!`);
   y++;
   text = 'commands';
-  border = '--------';
   display.drawText(screenWidth / 2 - text.length / 2, y++, text);
   display.drawText(screenWidth / 2 - border.length / 2, y++, border);  
-  y++;
   display.drawText(0, y++, `[P] to pick up items`);
   display.drawText(0, y++, `[D] to drop items`);
   display.drawText(0, y++, `[E] to eat items`);
