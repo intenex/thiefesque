@@ -12,7 +12,7 @@ export default class BossBuilder {
     let yChange = 0;
     let radiusError = 0;
 
-    while (x >= y) {
+    while (x >= y) { // wtf this is equivalent to for (; n >= o; ) amazing lol
       for (let i = centerX - x; i <= centerX + x; i++) {
         tiles[i][centerY + y] = tile; // ah yes you are given a whole array and you just mutate what you're passed directly instead of returning anything nuts should make this function more pure hmm do a deep dup with merge or something, eh actually nah this is just like Object.assign() or something it mutates the first argument passed in hmm
         tiles[i][centerY - y] = tile;
