@@ -10,6 +10,7 @@ const Geometry = {
     let err = dx - dy;
     let e2;
 
+    // run this as long as either startX doesn't equal endX or startY doesn't equal endY - so as long as one coordinate it off, it'll draw stars. If both coordinates are perfectly the same, start and end positions of both X and Y are the same, it won't run this code and won't draw the line and will only push that one final point that's always pushed after the while loop love it lol
     while (startX != endX || startY != endY) {
       points.push({x: startX, y: startY});
       e2 = err * 2;
