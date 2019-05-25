@@ -745,16 +745,30 @@ export const lookScreen = new TargetBasedScreen({
 export const helpScreen = new Screen('help');
 
 helpScreen.render = function(display) {
-  const headerText = 'thiefesque help screen';
+  let text = 'thiefesque help screen';
   const border = '-----------------------';
-  const commandText = 'commands';
   const screenWidth = this.game.getScreenWidth();
   let y = 0;
-  display.drawText(screenWidth / 2 - headerText.length / 2, y++, headerText); // this just centers the text in the middle of the screen since the first value is the x coordinate
+  display.drawText(screenWidth / 2 - text.length / 2, y++, text); // this just centers the text in the middle of the screen since the first value is the x coordinate
   display.drawText(screenWidth / 2 - border.length / 2, y++, border);
   display.drawText(0, y++, `Rumor has it that there is great treasure hidden in a cavern in this dungeon.`);
   display.drawText(0, y++, `Find this cavern and retrieve the treasure!`);
   y += 3;
-  display.drawText(screenWidth / 2 - commandText.length / 2, y++, commandText);
-  display.drawText(0, y++)
+  text = 'commands';
+  display.drawText(screenWidth / 2 - text.length / 2, y++, text);
+  display.drawText(0, y++, `[P] to pick up items`);
+  display.drawText(0, y++, `[D] to drop items`);
+  display.drawText(0, y++, `[E] to eat items`);
+  display.drawText(0, y++, `[W] to wield items`);
+  display.drawText(0, y++, `[A] to wear items`);
+  display.drawText(0, y++, `[X] to examine items`);
+  display.drawText(0, y++, `[L] to look around you`);
+  display.drawText(0, y++, `[?] to show this help screen`);
+  y += 3;
+  text = `--- press any key to continue ---`;
+  display.drawText(screenWidth / 2 - text.length / 2, y++, text);
+};
+
+helpScreen.handleEvent = function(e) {
+  this.game.screens.playScreen.setSubScreen(null);
 };
