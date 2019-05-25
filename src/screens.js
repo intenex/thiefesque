@@ -734,6 +734,10 @@ export const lookScreen = new TargetBasedScreen({
       // if no entity/item info or tile wasn't visible, return the tile info
       const tile = map.getTile(x, y, z);
       return `${tile.getRepresentation()} - ${tile.getDescription()}`;
+    } else {
+      // if tile hasn't been explored, show the null tile description
+      const tile = map.getTile(-1, -1, -1); // this gets the null tile for being out of bounds
+      return `${tile.getRepresentation()} - ${tile.getDescription()}`;
     }
   }
 
