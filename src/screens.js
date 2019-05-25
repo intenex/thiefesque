@@ -604,7 +604,7 @@ gainStatScreen.handleEvent = function(e) {
 export class TargetBasedScreen {
   constructor(template = {}) {
     this.parentScreen = template.parentScreen;
-    // by default, the ok return does nothing and doesn't use a turn
+    // by default, the ok return does nothing and doesn't use a turn. Use this to implement actions like ranged weapon attacks
     this.isAcceptableFunction = template.okFunction || function(x, y) { return false; };
     // the default caption just returns an empty string
     this.captionFunction = template.captionFunction || function(x, y) { return ''; };
@@ -701,7 +701,7 @@ export class TargetBasedScreen {
     this.cursorY = Math.max(0, Math.min(this.cursorY + dy, this.parentScreen.game.getScreenHeight() - 1));
   }
 
-  executeOkFunction() {
+  executeOkFunction() { // good for taking actions like ranged weapon attacks
     // switch back up to the play screen
     this.parentScreen.setSubScreen(undefined);
     // call the OK function and end the player's turn if it returns true, good for like ranged weapon attacks and such
@@ -741,3 +741,4 @@ export const lookScreen = new TargetBasedScreen({
     }
   }
 });
+
