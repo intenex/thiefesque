@@ -23,7 +23,7 @@ export default class Game {
         this.player = new Entity(PlayerTemplate, this);
         this.maps = {
             dungeon: new Dungeon(tiles, upstairPos, downstairPos), // this still refers to the playScreen object at this point in time since it'll be called method style
-            bossCavern: new BossCavern(),
+            // bossCavern: new BossCavern(),
         };
         // add the player initially to the start map here, in this case the dungeon currently, this is solid refactoring to allow you to easily change the start map later and to not have the start map add the player itself, but to have it done here explicitly
         this.maps.dungeon.addEntityAtRandomPosition(this.player, 0);

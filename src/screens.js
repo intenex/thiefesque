@@ -278,7 +278,7 @@ playScreen.handleEvent = function(e) {
       break;
     case 'L':
       // setup the look screen
-      const offsets = this.getScreenOffsets();
+      const offsets = this.getScreenOffsets(this.player.getMap(), this.game.getScreenWidth(), this.game.getScreenHeight());
       this.game.screens.lookScreen.setup(this.player,
         this.player.getX(), this.player.getY(),
         offsets.x, offsets.y);
@@ -558,7 +558,7 @@ export const examineScreen = new ItemListScreen({
     const values = Object.values(selectedItems);
     if (values.length > 0) {
       const item = values[0];
-      this.player.sendMessage(this,player, `It's ${item.describeA(false)} (${item.details()})`);
+      this.player.sendMessage(this.player, `It's ${item.describeA(false)} (${item.details()})`);
     }
     return true;
   }
@@ -722,6 +722,7 @@ export class TargetBasedScreen {
   }
 }
 
+// === THIS IS STILL OFF NEEDS TO BE FIXED ===
 export const lookScreen = new TargetBasedScreen({
   parentScreen: playScreen,
   captionFunction(x, y) { // this returns the text to draw on the screen love it
