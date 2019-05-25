@@ -686,6 +686,7 @@ EntityMixins.Equipper = {
 
 // kept out of the EntityRepo for now so it doesn't generate an automatic player template lol...would be amazing to create clones of yourself you have to fight though
 export const PlayerTemplate = {
+  name: `human (you)`,
   character: '@',
   foreground: 'white',
   maxHP: 15,
